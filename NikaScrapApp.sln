@@ -1,0 +1,57 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.10.35013.160
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{60DC0121-D0C8-48A6-B58C-5CEF388ADFCE}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NikaScrapApp.Core", "src\WebAPI\NikaScrapApp.Core\NikaScrapApp.Core.csproj", "{F20AEA7E-B665-4A10-9651-3BA6FD33E607}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NikaScrapApp.Infrastructure", "src\WebAPI\NikaScrapApp.Infrastructure\NikaScrapApp.Infrastructure.csproj", "{F56512F8-DDFF-42B4-9EB3-3680C28E68C4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebClient", "WebClient", "{431CB7FD-679F-4EE4-9D08-47482D0B6F3C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebAPI", "WebAPI", "{395E2D50-348B-47E0-B348-29CBACE2CD1D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NikaScrapApp.Web", "src\WebClient\NikaScrapApp.Web\NikaScrapApp.Web.csproj", "{C5D99ADF-FD50-4FDA-B98F-0661B1F20B3E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NikaScrapApplication.API", "NikaScrapApplication.API\NikaScrapApplication.API.csproj", "{99CC9E12-8C85-4401-9A04-ADD1A296A13F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F20AEA7E-B665-4A10-9651-3BA6FD33E607}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F20AEA7E-B665-4A10-9651-3BA6FD33E607}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F20AEA7E-B665-4A10-9651-3BA6FD33E607}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F20AEA7E-B665-4A10-9651-3BA6FD33E607}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F56512F8-DDFF-42B4-9EB3-3680C28E68C4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F56512F8-DDFF-42B4-9EB3-3680C28E68C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F56512F8-DDFF-42B4-9EB3-3680C28E68C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F56512F8-DDFF-42B4-9EB3-3680C28E68C4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C5D99ADF-FD50-4FDA-B98F-0661B1F20B3E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C5D99ADF-FD50-4FDA-B98F-0661B1F20B3E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C5D99ADF-FD50-4FDA-B98F-0661B1F20B3E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C5D99ADF-FD50-4FDA-B98F-0661B1F20B3E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{99CC9E12-8C85-4401-9A04-ADD1A296A13F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{99CC9E12-8C85-4401-9A04-ADD1A296A13F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{99CC9E12-8C85-4401-9A04-ADD1A296A13F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{99CC9E12-8C85-4401-9A04-ADD1A296A13F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{F20AEA7E-B665-4A10-9651-3BA6FD33E607} = {395E2D50-348B-47E0-B348-29CBACE2CD1D}
+		{F56512F8-DDFF-42B4-9EB3-3680C28E68C4} = {395E2D50-348B-47E0-B348-29CBACE2CD1D}
+		{431CB7FD-679F-4EE4-9D08-47482D0B6F3C} = {60DC0121-D0C8-48A6-B58C-5CEF388ADFCE}
+		{395E2D50-348B-47E0-B348-29CBACE2CD1D} = {60DC0121-D0C8-48A6-B58C-5CEF388ADFCE}
+		{C5D99ADF-FD50-4FDA-B98F-0661B1F20B3E} = {431CB7FD-679F-4EE4-9D08-47482D0B6F3C}
+		{99CC9E12-8C85-4401-9A04-ADD1A296A13F} = {395E2D50-348B-47E0-B348-29CBACE2CD1D}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4BB6D19A-39D3-4A42-AA9E-475BC4148113}
+	EndGlobalSection
+EndGlobal

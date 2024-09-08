@@ -1,0 +1,19 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs
+/NikaScrapApp.Core/obj
+/NikaScrapApp.Infrastructure/obj
+/NikaScrapApp.API/bin/Debug/net6.0
+/NikaScrapApp.API/obj
+/src/WebAPI/NikaScrapApp.API/bin/Debug/net6.0
+/src/WebAPI/NikaScrapApp.API/obj
+/src/WebAPI/NikaScrapApp.Core/bin/Debug/net6.0
+/src/WebAPI/NikaScrapApp.Core/obj
+/src/WebAPI/NikaScrapApp.Infrastructure/bin/Debug/net6.0
+/src/WebAPI/NikaScrapApp.Infrastructure/obj
+/src/WebClient/NikaScrapApp.Web/bin/Debug/net6.0
+/src/WebClient/NikaScrapApp.Web/obj
+/NikaScrapApplication.API/bin/Debug/net6.0
+/NikaScrapApplication.API/obj
