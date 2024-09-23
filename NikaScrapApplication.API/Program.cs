@@ -1,13 +1,15 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using NikaScrapApp.Core.Interfaces;
+using NikaScrapApp.Core.Models.Request;
+using NikaScrapApp.Core.Services;
+using NikaScrapApp.Infrastructure.Repositories;
 using NikaScrapApplication.API.Middlewares;
 using NikaScrapApplication.API.Services;
 using NLog;
 using NLog.Web;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
 using System.Text;
-using NikaScrapApp.Core.Models;
-using NikaScrapApplication.API.Controllers;
 
 namespace NikaScrapApplication.API
 {
@@ -54,27 +56,40 @@ namespace NikaScrapApplication.API
                     c.SwaggerDoc("v1", new OpenApiInfo
                     {
                         Version = "v1",
-                        Title = "Employee API",
-                        Description = "Employee Management API",
+                        Title = "Digital Kabadi",
+                        Description = "Digital Kabadi API",
                         TermsOfService = new Uri("https://pragimtech.com"),
                         Contact = new OpenApiContact
                         {
-                            Name = "Venkat",
-                            Email = "kudvenkat@gmail.com",
-                            Url = new Uri("https://twitter.com/kudvenkat"),
+                            Name = "TechSimSol",
+                            Email = "TechSimSol@gmail.com",
+                            Url = new Uri("https://twitter.com/TechSimSol"),
                         },
                         License = new OpenApiLicense
                         {
-                            Name = "PragimTech Open License",
-                            Url = new Uri("https://pragimtech.com"),
+                            Name = "Digital Kabadi Open License",
+                            Url = new Uri("https://DigitalKabadi.com"), 
                         }
                     });
                 });
 
 
-                string secretKey = "MyTestCode MyTestCode MyTestCode werewrewrewrewr 234234234324324";
- 
-                builder.Services.AddTransient<AuthService>(provider => new AuthService(secretKey)); 
+                // Configure Dependency Injection.
+                //builder.Services.ConfigureDependencyInjection();
+                
+                string secretKey = builder.Configuration.GetSection("SecretKey").Value;
+
+                builder.Services.AddTransient<IAuthRepository>(provider => new AuthRepository(connectionString));
+                builder.Services.AddTransient<IMasterDataRepository>(provider => new MasterDataRepository(connectionString));
+                //builder.Services.AddScoped<IAuthenticateService, AuthenticateService>(); 
+                builder.Services.AddTransient<IAuthenticateService>(provider => new AuthenticateService(secretKey, new AuthRepository(connectionString))); 
+                builder.Services.AddScoped<IMasterDataService, MasterDataService>();
+                builder.Services.AddScoped<IUserService, UserService>();
+                builder.Services.AddTransient<IUserRepository>(provider => new UserRepository(connectionString));
+                builder.Services.AddScoped<ISchedulePickupService, SchedulePickupService>(); 
+                builder.Services.AddTransient<ISchedulePickupRepositary>(provider => new SchedulePickupRepository(connectionString));
+                 
+                //builder.Services.AddTransient<AuthService>(provider => new AuthService(secretKey)); 
                 builder.Services
                 .AddAuthentication(x => {
                     x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -97,15 +112,15 @@ namespace NikaScrapApplication.API
               var app = builder.Build();
 
             // Configure the HTTP request pipeline.
-            if (app.Environment.IsDevelopment())
-            {
+            //if (app.Environment.IsDevelopment())
+            //{
                 app.UseSwagger();
                 app.UseSwaggerUI();
-            }
+            //}
 
             app.UseHttpsRedirection();
 
-                app.MapPost("/authenticate",(UserCredential userCredential, AuthService authService)=> authService.GenrateToken(userCredential));
+                //app.MapPost("/authenticate",(UserCredential userCredential, AuthService authService)=> authService.GenrateToken(userCredential));
                 app.UseAuthentication();
                 app.UseAuthorization();
 

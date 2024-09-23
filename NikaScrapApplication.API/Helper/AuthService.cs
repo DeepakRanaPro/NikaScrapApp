@@ -1,5 +1,6 @@
 ﻿using Microsoft.IdentityModel.Tokens;
-using NikaScrapApp.Core.Models;
+using NikaScrapApp.Core.Models.Request;
+using NikaScrapApp.Core.Models.Response;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -13,9 +14,9 @@ namespace NikaScrapApplication.API.Services
         public AuthService(string secretKey) {
             _secretKey = secretKey;
         }
-        public JWTTokenDetails GenrateToken(UserCredential userCredential)
+        public JWTTokenDetailResponse GenrateToken(UserCredential userCredential)
         {
-            var jwtTokenDetail = new JWTTokenDetails() { IsSuccess = false, Message= "Invalid Credentials!", ResponseCode=401 };
+            var jwtTokenDetail = new JWTTokenDetailResponse() { IsSuccess = false, Message= "Invalid Credentials!", ResponseCode=401 };
             var userInfo = VerifyCredential(userCredential);
 
             if(userCredential==null)
@@ -35,11 +36,14 @@ namespace NikaScrapApplication.API.Services
              };
 
             var token = jwtHandler.CreateToken(tokenDescriptor);
-            return new JWTTokenDetails
+            return new JWTTokenDetailResponse
             {
-                AccessToken = jwtHandler.WriteToken(token),
-                TokenType = "bearer",
-                ExpiresIn = 2,
+                 Data = new JWTTokenDetails()
+                   {
+                       AccessToken = jwtHandler.WriteToken(token),
+                       TokenType = "bearer",
+                       ExpiresIn = 2,
+                   },
                 IsSuccess = true,
                 Message = "Success"
             };

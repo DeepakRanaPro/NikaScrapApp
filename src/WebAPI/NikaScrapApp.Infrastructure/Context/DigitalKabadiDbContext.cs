@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using NikaScrapApp.Infrastructure.Entities;
+using NikaScrapApp.Core.Models.Response;
 using System;
 using System.Collections.Generic;
 using System.Linq;
