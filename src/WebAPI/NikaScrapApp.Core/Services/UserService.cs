@@ -19,7 +19,7 @@ namespace NikaScrapApp.Core.Services
                 NikaScrapApp.Core.Models.Response.UserAddress result = _userRepository.AddAddress(addUesrAddress);
                 responseData.Data.Add(result);
 
-                if (responseData.Data.Any())
+                if (!responseData.Data.Any())
                 {
                     responseData.IsSuccess = false;
                     responseData.Message = "Fail";
