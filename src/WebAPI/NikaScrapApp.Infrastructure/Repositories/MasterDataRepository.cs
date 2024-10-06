@@ -25,6 +25,17 @@ namespace NikaScrapApp.Infrastructure.Repositories
             return result;
         }
 
+        public List<MasterData> GetLocationTypes(Request request) 
+        {
+            List<MasterData> result;
+
+            using (var con = new SqlConnection(_connectionString))
+            {
+                result = con.Query<MasterData>($"Select Id,Name from [dbo].LocationTypeDetails Where LanguageId={request.LanguageId}", commandType: CommandType.Text).ToList();
+            }
+            return result;
+        }
+
         public List<NikaScrapApp.Core.Models.Response.RateList> GetRateList(NikaScrapApp.Core.Models.Request.RateList rateListRequest)
         {
             List<NikaScrapApp.Core.Models.Response.RateList> result = new List<NikaScrapApp.Core.Models.Response.RateList>(); 
@@ -60,6 +71,17 @@ namespace NikaScrapApp.Infrastructure.Repositories
             }
 
             return result;
-        } 
+        }
+
+        public List<PincodeDetails> GetPincodeDetails(string pincode)  
+        {
+            List<PincodeDetails> result;
+
+            using (var con = new SqlConnection(_connectionString))
+            {
+                result = con.Query<PincodeDetails>($" Select PinCode,City,State from [MstPingCodeData]  Where PinCode Like '%{pincode}%' ", commandType: CommandType.Text).ToList();
+            }
+            return result;
+        }
     }
 }

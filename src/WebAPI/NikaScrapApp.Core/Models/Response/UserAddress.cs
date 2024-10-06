@@ -14,5 +14,11 @@ namespace NikaScrapApp.Core.Models.Response
         public string Landmark { get; set; } = string.Empty;
         public string FullAddress { get; set; } = string.Empty;
         public bool IsDefault { get; set; }
+
+        public string AlternateMobileNumber { get; set; } = string.Empty;
+        public int LocationTypeId { get; set; } 
+        public string State { get; set; } = string.Empty;
+        public string City { get; set; } = string.Empty;
+ 
     }
 }

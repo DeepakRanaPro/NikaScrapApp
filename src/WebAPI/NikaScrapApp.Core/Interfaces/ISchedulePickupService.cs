@@ -5,9 +5,9 @@ namespace NikaScrapApp.Core.Interfaces
 {
     public interface ISchedulePickupService
     {
-        SchedulePickupCommandResponse AddScrap(ScrapPickup scrapPickup);
-        GetScrapResponse GetHistory(int userId, int statusId, int languageId);
-        SchedulePickupCommandResponse PickupCancel(int pickupId);   
+        SchedulePickupCommandResponse AddScrap(ScrapPickup scrapPickup, int languageId);
+        GetScrapResponse GetHistory(int userId, int statusId, int languageId, int PageNumber, int RowsOfPage);
+        SchedulePickupCommandResponse PickupCancel(int pickupId, int languageId);
         SchedulePickupResponse GetInfo(int userId);
 
     }

@@ -14,13 +14,16 @@ namespace NikaScrapApp.Core.Services
             _userRepository = userRepository;
             _scrapRepository = scrapRepository;
         }
-        public SchedulePickupCommandResponse AddScrap(ScrapPickup scrapPickup)
+        public SchedulePickupCommandResponse AddScrap(ScrapPickup scrapPickup,int languageId)
         {
             SchedulePickupCommandResponse responseData = new SchedulePickupCommandResponse(); 
             try
             {
                 responseData.Data = _scrapRepository.AddScrap(scrapPickup);
-                if (!responseData.Data)
+                 
+                responseData.Data.Address = _userRepository.GetAddress(scrapPickup.UserId, languageId).Where(x=> x.Id == scrapPickup.AddressId).FirstOrDefault();
+                 
+                if (responseData.Data==null)
                 {
                     responseData.IsSuccess = false;
                     responseData.Message = "Fail";
@@ -37,13 +40,20 @@ namespace NikaScrapApp.Core.Services
         }
 
          
-        public GetScrapResponse GetHistory(int userId, int statusId, int languageId)
+        public GetScrapResponse GetHistory(int userId, int statusId, int languageId, int PageNumber, int RowsOfPage)
         {
             GetScrapResponse responseData = new GetScrapResponse();
 
             try
             {
-                responseData.Data = _scrapRepository.GetHistory(userId, statusId, languageId);
+                responseData.Data = _scrapRepository.GetHistory(userId, statusId, languageId, PageNumber,  RowsOfPage);
+
+
+                responseData.Data.ForEach(x =>
+                { 
+                    x.Address = _userRepository.GetDefaultAddress(userId); 
+                }); 
+
                 if (!responseData.Data.Any()) 
                 {
                     responseData.IsSuccess = false;
@@ -60,21 +70,22 @@ namespace NikaScrapApp.Core.Services
             return responseData;
         }
 
-        public SchedulePickupCommandResponse PickupCancel(int pickupId) 
+        public SchedulePickupCommandResponse PickupCancel(int pickupId,int languageId) 
         {
-            SchedulePickupCommandResponse responsedata = new SchedulePickupCommandResponse();
+            SchedulePickupCommandResponse responsedata = new SchedulePickupCommandResponse(); 
             try
             {
                 responsedata.Data = _scrapRepository.PickupCancel(pickupId);
-                {
-                    if (!responsedata.Data)
+                responsedata.Data.Address = _userRepository.GetAddressByPickupId(pickupId, languageId);
+                 
+                    if (responsedata.Data == null)
                     {
                         responsedata.IsSuccess = false;
                         responsedata.Message = "fail";
                         responsedata.ResponseCode = 999;
 
                     }
-                }
+                 
             }
             catch (Exception ex)
             {
@@ -93,7 +104,7 @@ namespace NikaScrapApp.Core.Services
             {
 
                 responsedata.Data.EstimateWeightlist = _scrapRepository.GetEstimatesWeight(userId);
-                responsedata.Data.TimeSlot = _scrapRepository.GetTimeSlot();
+                responsedata.Data.TimeSlot = _scrapRepository.GetTimeSlot(userId);
                 responsedata.Data.UserAddress = _userRepository.GetDefaultAddress(userId);
                  
                 {

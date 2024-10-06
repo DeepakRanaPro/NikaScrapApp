@@ -13,9 +13,9 @@ namespace NikaScrapApp.Infrastructure.Repositories
         {
             _connectionString = connectionString;
         }
-        public bool AddScrap(NikaScrapApp.Core.Models.Request.ScrapPickup scrap)
+        public NikaScrapApp.Core.Models.Request.ScrapInfo AddScrap(NikaScrapApp.Core.Models.Request.ScrapPickup scrap)
         {
-            bool result;
+            NikaScrapApp.Core.Models.Request.ScrapInfo result;
 
             using (var sqlConnection = new SqlConnection(_connectionString))
             {
@@ -25,13 +25,13 @@ namespace NikaScrapApp.Infrastructure.Repositories
                 parameters.Add("@PickUpDate", scrap.PickUpDate);
                 parameters.Add("@TimeSlotId", scrap.TimeSlotId);
                 parameters.Add("@AddressId", scrap.AddressId);
-
-                result = sqlConnection.Execute($"[dbo].[InsertScrapPickup]", param: parameters, commandType: CommandType.StoredProcedure) > 0;
+                parameters.Add("@EstimatedWeightId", scrap.EstimatedWeightId);
+                result = sqlConnection.Query<NikaScrapApp.Core.Models.Request.ScrapInfo>($"[dbo].[InsertScrapPickup]", param: parameters, commandType: CommandType.StoredProcedure).FirstOrDefault();
             }
             return result;
         }
        
-        List<ScrapInfo> ISchedulePickupRepositary.GetHistory(int userId, int statusId, int languageId)
+        List<ScrapInfo> ISchedulePickupRepositary.GetHistory(int userId, int statusId, int languageId, int PageNumber, int RowsOfPage)
         {
             List<ScrapInfo> Result;
             using (var sqlConnection = new SqlConnection(_connectionString))
@@ -41,7 +41,8 @@ namespace NikaScrapApp.Infrastructure.Repositories
                 parameters.Add("@userId", userId);
                 parameters.Add("@statusId", statusId);
                 parameters.Add("@languageId", languageId);
-
+                parameters.Add("@PageNumber", PageNumber);
+                parameters.Add("@RowsOfPage", RowsOfPage);
                 Result = sqlConnection.Query<ScrapInfo>($"[dbo].[ManageScrap]", param: parameters, commandType: CommandType.StoredProcedure).ToList();
             }
             return Result;
@@ -59,26 +60,38 @@ namespace NikaScrapApp.Infrastructure.Repositories
             }
             return result;
         }
-        public List<NikaScrapApp.Core.Models.Response.TimeSlot> GetTimeSlot()
+        public List<NikaScrapApp.Core.Models.Response.TimeSlot> GetTimeSlot(int userId)
         {
             List<NikaScrapApp.Core.Models.Response.TimeSlot> result = new List<NikaScrapApp.Core.Models.Response.TimeSlot>();
 
             using (var sqlConnection = new SqlConnection(_connectionString))
-            { 
+            {
+                string query = $"select MstTimeSlots.Id,MstTimeSlots.Name from MstTimeSlots " +
+                               $"Join [dbo].MapTimeSlotsRoleWise TimeSlotsRoleWise On TimeSlotsRoleWise.TimeSlotId=MstTimeSlots.Id  " +
+                               $"Join tbUser On tbUser.RoleId=TimeSlotsRoleWise.RoleId Where tbUser.Id={userId} ";
 
-                result = sqlConnection.Query<NikaScrapApp.Core.Models.Response.TimeSlot>($"select Id,Name from MstTimeSlots", commandType: CommandType.Text).ToList();
+                result = sqlConnection.Query<NikaScrapApp.Core.Models.Response.TimeSlot>(query, commandType: CommandType.Text).ToList();
             }
             return result;
         }
-        public bool PickupCancel(int pickupId) 
+        public NikaScrapApp.Core.Models.Request.ScrapInfo PickupCancel(int pickupId) 
         {
-            bool result;
+            NikaScrapApp.Core.Models.Request.ScrapInfo result;
             using (var sqlConnection = new SqlConnection(_connectionString))
             { 
                 var parameters = new DynamicParameters(); 
                 parameters.Add("@Id",  pickupId);
 
-                result = sqlConnection.Execute($"Update Pickups Set  StatusId=3 from TbPickups Pickups Where  Id=@Id ", param: parameters, commandType: CommandType.Text) > 0;
+                string query = $"Update Pickups Set  StatusId=3 from TbPickups Pickups Where  Id=@Id" +
+                               $" SELECT TbPickups.Id, PickupCode, PickUpDate, MstTimeSlots.Name As TimeSlot, TbUserAddress.FullAddress As FullAddress,  MstStatus.Name As Status, TbScrapWeightRoleWise.Label as EstimatedWeigh FROM TbPickups" +
+                               $" JOIN MstTimeSlots ON TbPickups.TimeSlotId = MstTimeSlots.Id " +
+                               $" JOIN TbUserAddress On TbPickups.AddressId = TbUserAddress.Id" +
+                               $" JOIN MstStatus ON TbPickups.StatusId = MstStatus.Id" +
+                               $" JOIN TbScrapWeightRoleWise ON TbScrapWeightRoleWise.Id = TbPickups.EstimatedWeightId " +
+                               $"  WHERE TbPickups.Id=@Id";
+
+
+                result = sqlConnection.Query<NikaScrapApp.Core.Models.Request.ScrapInfo>(query, param: parameters, commandType: CommandType.Text).FirstOrDefault();
                 return result;
             }
         }

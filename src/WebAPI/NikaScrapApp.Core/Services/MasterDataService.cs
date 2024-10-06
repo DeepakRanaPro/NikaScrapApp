@@ -37,6 +37,30 @@ namespace NikaScrapApp.Core.Services
             return responseData;
         }
 
+        public MasterDataResponse GetLocationTypes(Request request) 
+        {
+            MasterDataResponse responseData = new MasterDataResponse();
+
+            try
+            {
+                responseData.Data = _masterDataRepository.GetLocationTypes(request);
+
+                if (!responseData.Data.Any())
+                {
+                    responseData.IsSuccess = false;
+                    responseData.Message = "Fail";
+                    responseData.ResponseCode = 900;
+                }
+            }
+            catch (Exception ex)
+            {
+                responseData.IsSuccess = false;
+                responseData.Message = $"Exception: {ex.Message}";
+                responseData.ResponseCode = 999;
+            }
+            return responseData;
+        }
+
         public RateListResponse GetRateList(NikaScrapApp.Core.Models.Request.RateList rateListRequest)
         {
             RateListResponse responseData = new RateListResponse();
@@ -60,6 +84,29 @@ namespace NikaScrapApp.Core.Services
             }
             return responseData;
         }
- 
+
+        public PincodeDetailsResponse GetPincodeDetails(string pincode)
+        {
+            PincodeDetailsResponse responseData = new PincodeDetailsResponse();
+
+            try
+            {
+                responseData.Data = _masterDataRepository.GetPincodeDetails(pincode);
+
+                if (!responseData.Data.Any())
+                {
+                    responseData.IsSuccess = false;
+                    responseData.Message = "Fail";
+                    responseData.ResponseCode = 900;
+                }
+            }
+            catch (Exception ex)
+            {
+                responseData.IsSuccess = false;
+                responseData.Message = $"Exception: {ex.Message}";
+                responseData.ResponseCode = 999;
+            }
+            return responseData;
+        } 
     }
 }

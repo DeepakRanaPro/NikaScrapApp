@@ -9,11 +9,11 @@ namespace NikaScrapApp.Core.Interfaces
 {
     public interface ISchedulePickupRepositary
     {
-        bool AddScrap(NikaScrapApp.Core.Models.Request.ScrapPickup scrapPickup);
-        List<NikaScrapApp.Core.Models.Request.ScrapInfo> GetHistory(int userId, int statusId, int languageId); 
+        NikaScrapApp.Core.Models.Request.ScrapInfo AddScrap(NikaScrapApp.Core.Models.Request.ScrapPickup scrap);
+        List<NikaScrapApp.Core.Models.Request.ScrapInfo> GetHistory(int userId, int statusId, int languageId, int PageNumber, int RowsOfPage); 
 
         List<NikaScrapApp.Core.Models.Response.EstimateWeight> GetEstimatesWeight(int userId);
-        List<NikaScrapApp.Core.Models.Response.TimeSlot> GetTimeSlot();
-        bool PickupCancel(int pickupId); 
+        List<NikaScrapApp.Core.Models.Response.TimeSlot> GetTimeSlot(int userId);
+        NikaScrapApp.Core.Models.Request.ScrapInfo PickupCancel(int pickupId); 
     }
 }
