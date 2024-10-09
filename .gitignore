@@ -17,3 +17,7 @@
 /src/WebClient/NikaScrapApp.Web/obj
 /NikaScrapApplication.API/bin/Debug/net6.0
 /NikaScrapApplication.API/obj
+/NikaScrapApplication.API/bin/Release/net6.0
+/src/WebAPI/NikaScrapApp.Core/bin/Release/net6.0
+/src/WebAPI/NikaScrapApp.Infrastructure/bin/Release/net6.0
+/src/WebClient/NikaScrapApp.Web/bin/Release/net6.0
