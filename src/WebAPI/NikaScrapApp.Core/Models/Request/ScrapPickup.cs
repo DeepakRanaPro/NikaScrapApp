@@ -11,6 +11,7 @@ namespace NikaScrapApp.Core.Models.Request
         public int UserId { get; set; }
         public DateTime PickUpDate { get; set; }
         public int TimeSlotId { get; set; }
+        public int EstimatedWeightId { get; set; }
         public int AddressId { get; set; }
     }
 }

@@ -7,6 +7,7 @@ namespace NikaScrapApp.Infrastructure.Repositories
     {
         List<NikaScrapApp.Core.Models.Response.RateList> GetRateList(Core.Models.Request.RateList  rateListRequest);
         List<MasterData> GetRoles(Request request);
-    
+        List<MasterData> GetLocationTypes(Request request);
+        List<PincodeDetails> GetPincodeDetails(string pincode);
     }
 }

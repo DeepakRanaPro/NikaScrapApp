@@ -37,33 +37,34 @@ namespace NikaScrapApplication.API.Controllers
         }
 
         [HttpPost, Authorize(Roles = "Admin,SubAdmin,Household,Organisation,Business Owner")]
-        public IActionResult AddAddress(NikaScrapApp.Core.Models.Request.UserAddress addUesrAddress)
+        public IActionResult AddAddress(NikaScrapApp.Core.Models.Request.UserAddress addUesrAddress,[FromQuery] int languageId)
         {
             UserAddressResponse result = new UserAddressResponse();
 
-            result = _userService.AddAddress(addUesrAddress);
+            result = _userService.AddAddress(addUesrAddress, languageId);
 
             return Ok(result);
         }
         [HttpGet, Authorize(Roles = "Admin,SubAdmin,Household,Organisation,Business Owner")]
-        public IActionResult GetAddress([FromQuery] int userId)
+        public IActionResult GetAddress([FromQuery] int userId, [FromQuery] int languageId)
         {
             UserAddressResponse result = new UserAddressResponse();
-            result = _userService.GetAddress(userId);
+            result = _userService.GetAddress(userId, languageId);
 
             return Ok(result);
         }
 
 
-        [HttpDelete, Authorize(Roles = "Admin,SubAdmin,Household,Organisation,Business Owner")]
+        [HttpGet, Authorize(Roles = "Admin,SubAdmin,Household,Organisation,Business Owner")]
         public IActionResult DeleteAddress([FromQuery] int addressId)
         {
             UserAddressResponse result = new UserAddressResponse();
             result = _userService.DeleteAddress(addressId);
             return Ok(result);
         }
-        [HttpPut, Authorize(Roles = "Admin,SubAdmin,Household,Organisation,Business Owner")]
-        public IActionResult SetDefaultAddress([FromQuery] int id, int UserId)
+        //[HttpPut, Authorize(Roles = "Admin,SubAdmin,Household,Organisation,Business Owner")]
+        [HttpGet]
+        public IActionResult SetDefaultAddress([FromQuery] int id, [FromQuery] int UserId)
         {
             UserAddressResponse result = new UserAddressResponse();
             result = _userService.SetDefaultAddress(id, UserId);

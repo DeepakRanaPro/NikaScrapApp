@@ -9,10 +9,14 @@ namespace NikaScrapApp.Core.Models.Request
     public class ScrapInfo
     {
         public int Id { get; set; }
-        public int PickupCode { get; set; }
+        public string PickupCode { get; set; }
         public string PickUpDate { get; set; }
         public string TimeSlot { get; set; }
         public string Status  { get; set; }
-        public string FullAddress { get; } 
+        public string FullAddress { get; set; } 
+        public string EstimatedWeigh { get; set; }
+
+        public int UserAddressId { get; set; }
+        public NikaScrapApp.Core.Models.Response.UserAddress Address { get; set; }
     }
 }

@@ -11,15 +11,15 @@ namespace NikaScrapApp.Core.Services
         {
             _userRepository = userRepository;
         }
-        public UserAddressResponse AddAddress(NikaScrapApp.Core.Models.Request.UserAddress addUesrAddress)
+        public UserAddressResponse AddAddress(NikaScrapApp.Core.Models.Request.UserAddress addUesrAddress, int languageId)
         {
             UserAddressResponse responseData = new UserAddressResponse();
             try
             {
-                NikaScrapApp.Core.Models.Response.UserAddress result = _userRepository.AddAddress(addUesrAddress);
+                NikaScrapApp.Core.Models.Response.UserAddress result = _userRepository.AddAddress(addUesrAddress, languageId);
                 responseData.Data.Add(result);
 
-                if (responseData.Data.Any())
+                if (!responseData.Data.Any())
                 {
                     responseData.IsSuccess = false;
                     responseData.Message = "Fail";
@@ -34,12 +34,13 @@ namespace NikaScrapApp.Core.Services
             }
             return responseData;
         }
-        public UserAddressResponse GetAddress(int userId)
+        public UserAddressResponse GetAddress(int userId,int languageId)
         {
             UserAddressResponse responseData = new UserAddressResponse();
             try
             {
-                responseData.Data = _userRepository.GetAddress(userId);
+                responseData.Data = _userRepository.GetAddress(userId, languageId);
+
                 if (!responseData.Data.Any())
                 {
                     responseData.IsSuccess = false;
@@ -172,12 +173,12 @@ namespace NikaScrapApp.Core.Services
             return responseData;
         }
 
-        public UserAddressResponse GetDefaultAddress(int userId) 
+        public UserAddressResponse GetDefaultAddress(int userId, int languageId) 
         {
             UserAddressResponse responseData = new UserAddressResponse();
             try
             {
-                responseData.Data = _userRepository.GetAddress(userId);
+                responseData.Data = _userRepository.GetAddress(userId, languageId);
                 if (!responseData.Data.Any())
                 {
                     responseData.IsSuccess = false;

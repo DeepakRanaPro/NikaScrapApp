@@ -2,7 +2,6 @@
 {
     public class SchedulePickupCommandResponse : Response
     {
-        public bool Data { get; set; }
-    }
-   
+        public NikaScrapApp.Core.Models.Request.ScrapInfo Data { get; set; }
+    } 
 }

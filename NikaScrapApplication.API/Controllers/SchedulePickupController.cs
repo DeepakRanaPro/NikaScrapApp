@@ -17,8 +17,7 @@ namespace NikaScrapApplication.API.Controllers
         {
             _scrapService = scrapService;
         }
-
-
+         
         [HttpGet, Authorize(Roles = "Admin,SubAdmin,Household,Organisation,Business Owner")]
         public IActionResult Info([FromQuery] int userId)
         {
@@ -28,26 +27,26 @@ namespace NikaScrapApplication.API.Controllers
         }
 
         [HttpPost, Authorize(Roles = "Admin,SubAdmin,Household,Organisation,Business Owner")]
-        public IActionResult Create(ScrapPickup scrapPickup) 
+        public IActionResult Create(ScrapPickup scrapPickup,int languageId) 
         {
             SchedulePickupCommandResponse result = new SchedulePickupCommandResponse();
-            result = _scrapService.AddScrap(scrapPickup);
+            result = _scrapService.AddScrap(scrapPickup, languageId);
             return Ok(result);
         }
 
         [HttpGet, Authorize(Roles = "Admin,SubAdmin,Household,Organisation,Business Owner")]
-        public IActionResult History([FromQuery] int userId, int statusId, int languageId)
+        public IActionResult History([FromQuery] int userId, int statusId, int languageId,int PageNumber, int RowsOfPage)
         {
             GetScrapResponse result = new GetScrapResponse();
-            result = _scrapService.GetHistory(userId, statusId, languageId);
+            result = _scrapService.GetHistory(userId, statusId, languageId,PageNumber, RowsOfPage);
             return Ok(result);
         }
 
         [HttpGet, Authorize(Roles = "Admin,SubAdmin,Household,Organisation,Business Owner")]
-        public IActionResult Cancel([FromQuery] int pickupId)  
+        public IActionResult Cancel([FromQuery] int pickupId, [FromQuery]  int languageId)  
         {
-            SchedulePickupCommandResponse result = new SchedulePickupCommandResponse();
-            result = _scrapService.PickupCancel(pickupId);
+            SchedulePickupCommandResponse result = new SchedulePickupCommandResponse(); 
+            result = _scrapService.PickupCancel(pickupId, languageId);
             return Ok(result);
         }
     }
