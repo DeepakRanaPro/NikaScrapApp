@@ -21,3 +21,9 @@
 /src/WebAPI/NikaScrapApp.Core/bin/Release/net6.0
 /src/WebAPI/NikaScrapApp.Infrastructure/bin/Release/net6.0
 /src/WebClient/NikaScrapApp.Web/bin/Release/net6.0
+/DigitalKabadiApp.API/bin/Debug/net6.0
+/DigitalKabadiApp.API/obj
+/DigitalKabadiApp.Core/bin/Debug/net6.0
+/DigitalKabadiApp.Core/obj
+/DigitalKabadiApp.Infrastructure/bin/Debug/net6.0
+/DigitalKabadiApp.Infrastructure/obj
