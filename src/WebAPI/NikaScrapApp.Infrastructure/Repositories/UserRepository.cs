@@ -36,7 +36,8 @@ namespace NikaScrapApp.Infrastructure.Repositories
                 parameters.Add("@languageId", languageId);
                 parameters.Add("@State", addUesrAddress.State);
                 parameters.Add("@City", addUesrAddress.City);
-                string query = $" if not exists ( Select * from TbUserAddress where UserId=@UserId and IsDelete=0) " +
+                string query = $" Set @IsDefault=0  " +
+                               $" if not exists ( Select * from TbUserAddress where UserId=@UserId and IsDelete=0) " +
                                   $"Begin " +
                                            $"Set @IsDefault=1 " +
                                   " End " +
@@ -179,7 +180,20 @@ namespace NikaScrapApp.Infrastructure.Repositories
 
             return result;
         }
- 
+
+        public NikaScrapApp.Core.Models.Response.UserAddress GetAddressDetails(int Addressid) 
+        {
+            NikaScrapApp.Core.Models.Response.UserAddress result = new NikaScrapApp.Core.Models.Response.UserAddress();
+            using (var sqlConnection = new SqlConnection(_connectionString))
+            {
+                var parameters = new DynamicParameters();
+                parameters.Add("@Addressid", Addressid);
+                result = sqlConnection.Query<NikaScrapApp.Core.Models.Response.UserAddress>($"select * from TbUserAddress Where Id=@Addressid", param: parameters).FirstOrDefault();
+            }
+
+            return result;
+        }
+
     }
 }
 

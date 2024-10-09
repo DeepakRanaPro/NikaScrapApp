@@ -15,6 +15,8 @@ namespace NikaScrapApp.Core.Models.Request
         public string Status  { get; set; }
         public string FullAddress { get; set; } 
         public string EstimatedWeigh { get; set; }
+
+        public int UserAddressId { get; set; }
         public NikaScrapApp.Core.Models.Response.UserAddress Address { get; set; }
     }
 }

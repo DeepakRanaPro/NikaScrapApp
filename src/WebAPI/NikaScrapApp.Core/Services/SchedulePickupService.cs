@@ -51,7 +51,7 @@ namespace NikaScrapApp.Core.Services
 
                 responseData.Data.ForEach(x =>
                 { 
-                    x.Address = _userRepository.GetDefaultAddress(userId); 
+                    x.Address = _userRepository.GetAddressDetails(x.UserAddressId); 
                 }); 
 
                 if (!responseData.Data.Any()) 

@@ -55,7 +55,7 @@ namespace NikaScrapApplication.API.Controllers
         }
 
 
-        [HttpDelete, Authorize(Roles = "Admin,SubAdmin,Household,Organisation,Business Owner")]
+        [HttpGet, Authorize(Roles = "Admin,SubAdmin,Household,Organisation,Business Owner")]
         public IActionResult DeleteAddress([FromQuery] int addressId)
         {
             UserAddressResponse result = new UserAddressResponse();
@@ -63,7 +63,7 @@ namespace NikaScrapApplication.API.Controllers
             return Ok(result);
         }
         //[HttpPut, Authorize(Roles = "Admin,SubAdmin,Household,Organisation,Business Owner")]
-        [HttpPut]
+        [HttpGet]
         public IActionResult SetDefaultAddress([FromQuery] int id, [FromQuery] int UserId)
         {
             UserAddressResponse result = new UserAddressResponse();

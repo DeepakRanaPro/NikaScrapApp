@@ -14,6 +14,7 @@ namespace NikaScrapApp.Core.Interfaces
 
         bool SetRole(NikaScrapApp.Core.Models.Request.SetUserRoleRequest setUserRoleRequest);
 
+        NikaScrapApp.Core.Models.Response.UserAddress GetAddressDetails(int Addressid);
         NikaScrapApp.Core.Models.Response.UserAddress GetDefaultAddress(int userId);
         NikaScrapApp.Core.Models.Response.UserAddress GetAddressByPickupId(int PickupId, int languageId);
     }
