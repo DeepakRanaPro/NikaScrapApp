@@ -3,11 +3,9 @@ using Microsoft.Extensions.FileProviders;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using NikaScrapApp.Core.Interfaces;
-using NikaScrapApp.Core.Models.Request;
 using NikaScrapApp.Core.Services;
 using NikaScrapApp.Infrastructure.Repositories;
 using NikaScrapApplication.API.Middlewares;
-using NikaScrapApplication.API.Services;
 using NLog;
 using NLog.Web;
 using System.Text;
@@ -57,8 +55,8 @@ namespace NikaScrapApplication.API
                     c.SwaggerDoc("v1", new OpenApiInfo
                     {
                         Version = "v1",
-                        Title = "Digital Kabadi",
-                        Description = "Digital Kabadi API",
+                        Title = "Digital Kabadi Client",
+                        Description = "Digital Kabadi Client API",
                         TermsOfService = new Uri("https://pragimtech.com"),
                         Contact = new OpenApiContact
                         {

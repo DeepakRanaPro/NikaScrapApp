@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -28,6 +28,11 @@
   <ItemGroup>
     <ProjectReference Include="..\DigitalKabadiApp.Core\DigitalKabadiApp.Core.csproj" />
     <ProjectReference Include="..\DigitalKabadiApp.Infrastructure\DigitalKabadiApp.Infrastructure.csproj" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <Folder Include="HealthCheck\" />
+    <Folder Include="ProductImages\" />
   </ItemGroup>
 
 </Project>
