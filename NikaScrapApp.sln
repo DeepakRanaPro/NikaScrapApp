@@ -5,9 +5,9 @@ VisualStudioVersion = 17.10.35013.160
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{60DC0121-D0C8-48A6-B58C-5CEF388ADFCE}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NikaScrapApp.Core", "src\WebAPI\NikaScrapApp.Core\NikaScrapApp.Core.csproj", "{F20AEA7E-B665-4A10-9651-3BA6FD33E607}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NikaScrapApp.Core", "src\WebAPI\Client\NikaScrapApp.Core\NikaScrapApp.Core.csproj", "{F20AEA7E-B665-4A10-9651-3BA6FD33E607}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NikaScrapApp.Infrastructure", "src\WebAPI\NikaScrapApp.Infrastructure\NikaScrapApp.Infrastructure.csproj", "{F56512F8-DDFF-42B4-9EB3-3680C28E68C4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NikaScrapApp.Infrastructure", "src\WebAPI\Client\NikaScrapApp.Infrastructure\NikaScrapApp.Infrastructure.csproj", "{F56512F8-DDFF-42B4-9EB3-3680C28E68C4}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebClient", "WebClient", "{431CB7FD-679F-4EE4-9D08-47482D0B6F3C}"
 EndProject
@@ -15,15 +15,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebAPI", "WebAPI", "{395E2D
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NikaScrapApp.Web", "src\WebClient\NikaScrapApp.Web\NikaScrapApp.Web.csproj", "{C5D99ADF-FD50-4FDA-B98F-0661B1F20B3E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NikaScrapApplication.API", "NikaScrapApplication.API\NikaScrapApplication.API.csproj", "{99CC9E12-8C85-4401-9A04-ADD1A296A13F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NikaScrapApplication.API", "src\WebAPI\Client\NikaScrapApplication.API\NikaScrapApplication.API.csproj", "{99CC9E12-8C85-4401-9A04-ADD1A296A13F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Admin", "Admin", "{44A1E766-655B-469C-A297-9F69E7F95FEA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DigitalKabadiApp.Core", "DigitalKabadiApp.Core\DigitalKabadiApp.Core.csproj", "{8142A6B5-DDB9-476B-9B27-C3518363AD9D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DigitalKabadiApp.Core", "src\WebAPI\Admin\DigitalKabadiApp.Core\DigitalKabadiApp.Core.csproj", "{8142A6B5-DDB9-476B-9B27-C3518363AD9D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DigitalKabadiApp.Infrastructure", "DigitalKabadiApp.Infrastructure\DigitalKabadiApp.Infrastructure.csproj", "{7A50D559-390C-414E-BC40-8D4EFE2375FC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DigitalKabadiApp.Infrastructure", "src\WebAPI\Admin\DigitalKabadiApp.Infrastructure\DigitalKabadiApp.Infrastructure.csproj", "{7A50D559-390C-414E-BC40-8D4EFE2375FC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DigitalKabadiApp.API", "DigitalKabadiApp.API\DigitalKabadiApp.API.csproj", "{87B471CC-5E16-4202-B012-37E8D5332FC9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DigitalKabadiApp.API", "src\WebAPI\Admin\DigitalKabadiApp.API\DigitalKabadiApp.API.csproj", "{87B471CC-5E16-4202-B012-37E8D5332FC9}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Client", "Client", "{FAA4BC64-040E-4ECC-9220-A6CED237B489}"
 EndProject
