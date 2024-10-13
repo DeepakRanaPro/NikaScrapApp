@@ -25,14 +25,16 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
   </ItemGroup>
   
-  <ItemGroup>
-    <ProjectReference Include="..\DigitalKabadiApp.Core\DigitalKabadiApp.Core.csproj" />
-    <ProjectReference Include="..\DigitalKabadiApp.Infrastructure\DigitalKabadiApp.Infrastructure.csproj" />
-  </ItemGroup>
-  
+ 
   <ItemGroup>
     <Folder Include="HealthCheck\" />
     <Folder Include="ProductImages\" />
+  </ItemGroup>
+  
+ 
+  <ItemGroup>
+    <ProjectReference Include="..\DigitalKabadiApp.Core\DigitalKabadiApp.Core.csproj" />
+    <ProjectReference Include="..\DigitalKabadiApp.Infrastructure\DigitalKabadiApp.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,7 +1,8 @@
 ﻿using System.Net.Http.Headers;
 using System;
-using System.Net.Http;
-  
+using System.Net.Http; 
+using System.Text.Json;
+
 
 namespace NikaScrapApp.Web.Utility
 {
@@ -18,33 +19,79 @@ namespace NikaScrapApp.Web.Utility
 
         public async Task<T> GetAsync<T>(string endpoint)
         {
-            HttpResponseMessage response = await _httpClient.GetAsync(endpoint);
-            response.EnsureSuccessStatusCode();
-            string responseBody = await response.Content.ReadAsStringAsync();
-            return System.Text.Json.JsonSerializer.Deserialize<T>(responseBody);
+            HttpResponseMessage httpResponseMessage = await _httpClient.GetAsync(endpoint);
+            httpResponseMessage.EnsureSuccessStatusCode();
+            string responseBody = await httpResponseMessage.Content.ReadAsStringAsync();
+           
+            var response = System.Text.Json.JsonSerializer.Deserialize<T>(responseBody, new JsonSerializerOptions
+            {
+                PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+                PropertyNameCaseInsensitive = true
+            });
+
+            if (response == null)
+            {
+                throw new InvalidOperationException("Deserialization returned null.");
+            }
+             
+            return response!;
         }
 
         public async Task<T> PostAsync<T>(string endpoint, HttpContent content)
         {
-            HttpResponseMessage response = await _httpClient.PostAsync(endpoint, content);
-            response.EnsureSuccessStatusCode();
-            string responseBody = await response.Content.ReadAsStringAsync();
-            return System.Text.Json.JsonSerializer.Deserialize<T>(responseBody);
+            HttpResponseMessage httpResponseMessage = await _httpClient.PostAsync(endpoint, content);
+            httpResponseMessage.EnsureSuccessStatusCode();
+            string responseBody = await httpResponseMessage.Content.ReadAsStringAsync();
+
+            var response = System.Text.Json.JsonSerializer.Deserialize<T>(responseBody, new JsonSerializerOptions
+            {
+                PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+                PropertyNameCaseInsensitive = true
+            });
+
+            if (response == null)
+            {
+                throw new InvalidOperationException("Deserialization returned null.");
+            }
+
+            return response!;
         } 
         public async Task<T> PutAsync<T>(string endpoint, HttpContent content)
         {
-            HttpResponseMessage response = await _httpClient.PutAsync(endpoint, content);
-            response.EnsureSuccessStatusCode();
-            string responseBody = await response.Content.ReadAsStringAsync();
-            return System.Text.Json.JsonSerializer.Deserialize<T>(responseBody);
+            HttpResponseMessage httpResponseMessage = await _httpClient.PutAsync(endpoint, content);
+            httpResponseMessage.EnsureSuccessStatusCode();
+            string responseBody = await httpResponseMessage.Content.ReadAsStringAsync();
+            var response = System.Text.Json.JsonSerializer.Deserialize<T>(responseBody, new JsonSerializerOptions
+            {
+                PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+                PropertyNameCaseInsensitive = true
+            });
+
+            if (response == null)
+            {
+                throw new InvalidOperationException("Deserialization returned null.");
+            }
+
+            return response!;
         }
 
         public async Task<T> DeleteAsync<T>(string endpoint)
         {
-            HttpResponseMessage response = await _httpClient.DeleteAsync(endpoint);
-            response.EnsureSuccessStatusCode();
-            string responseBody = await response.Content.ReadAsStringAsync();
-            return System.Text.Json.JsonSerializer.Deserialize<T>(responseBody);
+            HttpResponseMessage httpResponseMessage = await _httpClient.DeleteAsync(endpoint);
+            httpResponseMessage.EnsureSuccessStatusCode();
+            string responseBody = await httpResponseMessage.Content.ReadAsStringAsync();
+            var response = System.Text.Json.JsonSerializer.Deserialize<T>(responseBody, new JsonSerializerOptions
+            {
+                PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+                PropertyNameCaseInsensitive = true
+            });
+
+            if (response == null)
+            {
+                throw new InvalidOperationException("Deserialization returned null.");
+            }
+
+            return response!;
         }
     }
 
@@ -62,8 +109,8 @@ namespace NikaScrapApp.Web.Utility
             var newUser = new User { Name = "Alice", Email = "alice@example.com" };
             var content = new StringContent(System.Text.Json.JsonSerializer.Serialize(newUser), System.Text.Encoding.UTF8, "application/json");
             var createdUser = await httpClientManager.PostAsync<User>("users", content);
-           
-            Console.WriteLine($"Created Id: {createdUser.Id}, Name: {createdUser.Name}, Email: {createdUser.Email}"
+
+            Console.WriteLine($"Created Id: {createdUser.Id}, Name: {createdUser.Name}, Email: {createdUser.Email}");
         }
     }
 
@@ -71,6 +118,6 @@ namespace NikaScrapApp.Web.Utility
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public string Email { get; set}
+        public string Email { get; set; }
     }
 }

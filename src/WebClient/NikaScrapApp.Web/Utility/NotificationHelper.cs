@@ -1,11 +1,19 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
 
 namespace NikaScrapApp.Web.Utility
 {
     public class Notification
     {
+        public Notification(string type, string message)
+        {
+            this.Type = type.ToLower() == "error" ? "danger" : type.ToLower();
+            this.Message = message;
+            this.DisplayType = type.ToLower() == "danger" ? "Error" : type.ToLower() == "success" ? "Success" : type.ToLower() == "warning" ? "Warning" : type.ToLower() == "error" ? "Error" : type.ToLower();
+        }
         public string Message { get; set; }
-        public string Type { get; set; } // e.g., "success", "error", "warning", "info"
+        public string Type { get; set; } // e.g., "success", "danger", "warning", "info"
+        public string DisplayType { get; set; } 
 
     }
 
@@ -13,16 +21,26 @@ namespace NikaScrapApp.Web.Utility
     {
         public static void SetNotification(Controller controller, string message, string type)
         {
-            controller.TempData["Notification"] = new Notification { Message = message, Type = type };
+            var notification = new Notification(type, message);
+            controller.TempData["Notification"] = System.Text.Json.JsonSerializer.Serialize(notification);
         }
 
-        public static Notification GetNotification(Controller controller)
+        public static Notification GetNotification(ITempDataDictionary tempData)
         {
-            if (controller.TempData["Notification"] != null)
+            if (tempData.TryGetValue("Notification", out var obj) && obj is string notificationJson)
             {
-                return (Notification)controller.TempData["Notification"];
+                return System.Text.Json.JsonSerializer.Deserialize<Notification>(notificationJson);
             }
             return null;
         }
+
+            //public static Notification GetNotification(Controller controller)
+            //{
+            //    if (controller.TempData["Notification"] != null)
+            //    {
+            //        return (Notification)controller.TempData["Notification"];
+            //    }
+            //    return null;
+            //}
+        }
     }
-}

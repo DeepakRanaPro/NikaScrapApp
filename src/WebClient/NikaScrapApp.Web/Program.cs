@@ -1,3 +1,6 @@
+using Microsoft.Extensions.Configuration;
+using NikaScrapApp.Web.Models;
+
 namespace NikaScrapApp.Web
 {
     public class Program
@@ -6,7 +9,10 @@ namespace NikaScrapApp.Web
         {
             var builder = WebApplication.CreateBuilder(args);
 
+
             // Add services to the container.
+            builder.Services.Configure<AppSettings>(builder.Configuration.GetSection("AppSettings"));
+            
             builder.Services.AddControllersWithViews();
 
             var app = builder.Build();
@@ -32,5 +38,7 @@ namespace NikaScrapApp.Web
 
             app.Run();
         }
+
+      
     }
 }

@@ -1,0 +1,47 @@
+﻿@using NikaScrapApp.Web.Utility
+@model NikaScrapApp.Web.Models.View.Category
+
+@{
+    ViewData["Title"] = "Create";
+}
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
+
+<h1>Create</h1>
+@{
+    var notification = NotificationHelper.GetNotification(TempData);
+    if (notification != null)
+    {
+        <div class="alert alert-@notification.Type alert-dismissible fade show" role="alert">
+            <strong>@notification.DisplayType!</strong>  @notification.Message
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+}
+<h4>Category</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create" asp-controller="Category">
+         
+            <div class="form-group">
+                <label asp-for="NameInEnglish" class="control-label"></label>
+                <input asp-for="NameInEnglish" class="form-control" />
+                <span asp-validation-for="NameInEnglish" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NameIsHindi" class="control-label"></label>
+                <input asp-for="NameIsHindi" class="form-control" />
+                <span asp-validation-for="NameIsHindi" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" asp-action="Create" asp-controller="Category" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+ 
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

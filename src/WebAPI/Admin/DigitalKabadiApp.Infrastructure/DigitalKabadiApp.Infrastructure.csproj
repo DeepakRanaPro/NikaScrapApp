@@ -22,5 +22,7 @@
   <ItemGroup>
     <ProjectReference Include="..\DigitalKabadiApp.Core\DigitalKabadiApp.Core.csproj" />
   </ItemGroup>
+  
+ 
 
 </Project>

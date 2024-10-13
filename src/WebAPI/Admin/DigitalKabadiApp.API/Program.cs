@@ -69,6 +69,8 @@ namespace DigitalKabadiApp.API
 
                 builder.Services.AddTransient<IAuthRepository>(provider => new AuthRepository(connectionString));
                 builder.Services.AddScoped<IAuthService, AuthService>();
+                builder.Services.AddTransient<ICategoryRepository>(provider => new CategoryRepository(connectionString));
+                builder.Services.AddScoped<ICategoryService, CategoryService>();
 
                 var app = builder.Build();
 

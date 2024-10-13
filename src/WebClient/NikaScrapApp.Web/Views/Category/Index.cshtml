@@ -1,0 +1,59 @@
+﻿@using NikaScrapApp.Web.Utility
+@model IEnumerable<NikaScrapApp.Web.Models.Request.Category>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+@{
+    var notification = NotificationHelper.GetNotification(TempData);
+    
+    if (notification != null)
+    { 
+        <div class="alert alert-@notification.Type alert-dismissible fade show" role="alert">
+            <strong>@notification.DisplayType!</strong>  @notification.Message
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+}
+
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+          
+            <th>
+                @Html.Display("Name In English")
+            </th>
+            <th>
+                @Html.Display("Name In Hindi")
+            </th>
+            <th>
+                @Html.Display("Actions")
+            </th> 
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+       
+            <td>
+                @Html.DisplayFor(modelItem => item.NameInEnglish)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NameIsHindi)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id=item.Id }) | 
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
