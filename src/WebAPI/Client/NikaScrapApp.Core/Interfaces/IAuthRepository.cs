@@ -7,7 +7,7 @@ namespace NikaScrapApp.Core.Interfaces
     public interface IAuthRepository
     {
         UserCredential VerifyCredential(UserCredential userCredential);
-        bool Login(Login login);
+        string Login(Login login);
         Users? VerifyOTP(OTP otpDTO);
     }
 }

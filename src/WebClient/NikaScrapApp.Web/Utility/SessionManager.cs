@@ -1,37 +1,43 @@
-﻿namespace NikaScrapApp.Web.Utility
+﻿using Microsoft.AspNetCore.Http;
+using System.Security.Claims;
+
+namespace NikaScrapApp.Web.Utility
 {
     public static class SessionManager
     {
-        private static Dictionary<string, object> _sessionStorage = new Dictionary<string, object>();
-        public static string UserName { get; set; } = "UserName";
-        public static string RoleName { get; set; } = "RoleName"; 
-        public static string RoleId { get; set; } = "RoleId"; 
-        public static string UserId { get; set; } = "UserId"; 
-        public static string ProfilePicture { get; set; } = "ProfilePicture"; 
-        public static void Set(string key, object value)
+        private static IHttpContextAccessor _httpContextAccessor;
+
+        public static void Configure(IHttpContextAccessor httpContextAccessor)
         {
-            _sessionStorage[key] = value;
+            _httpContextAccessor = httpContextAccessor;
         }
 
-        public static T Get<T>(string key)
-        {
-            if (_sessionStorage.TryGetValue(key, out var value))
-            {
-                return (T)value;
-            }
+        private static Dictionary<string, object> _sessionStorage = new Dictionary<string, object>();
 
-            return default(T);
+        public const string UserId = "UserId";
+        public const string UserName = "UserName";
+        public const string RoleName = "RoleName";
+        public const string RoleId = "RoleId";
+        public const string ProfilePicture = "ProfilePicture"; 
+       
+        public static void Set(string key, string value)
+        {
+            _httpContextAccessor.HttpContext.Session.SetString(key, value);
+        }
+
+        public static string Get(string key)
+        {
+            return _httpContextAccessor.HttpContext.Session.GetString(key);
         }
 
         public static void Remove(string key)
         {
-            _sessionStorage.Remove(key);
+            _httpContextAccessor.HttpContext.Session.Remove(key);
         }
 
         public static void Clear()
         {
-            _sessionStorage.Clear();
-        }
-
+            _httpContextAccessor.HttpContext.Session.Clear();
+        } 
     }
 }

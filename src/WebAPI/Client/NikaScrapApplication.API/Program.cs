@@ -87,7 +87,9 @@ namespace NikaScrapApplication.API
                 builder.Services.AddTransient<IUserRepository>(provider => new UserRepository(connectionString));
                 builder.Services.AddScoped<ISchedulePickupService, SchedulePickupService>(); 
                 builder.Services.AddTransient<ISchedulePickupRepositary>(provider => new SchedulePickupRepository(connectionString));
-                 
+                builder.Services.AddTransient<ISmsRepository>(provider => new SmsRepository(connectionString));
+                builder.Services.AddScoped<ISmsService, SmsService>();
+               
                 //builder.Services.AddTransient<AuthService>(provider => new AuthService(secretKey)); 
                 builder.Services
                 .AddAuthentication(x => {

@@ -73,15 +73,15 @@ namespace NikaScrapApp.Core.Services
             return claims;
         }
 
-        public ResponseData Login(Login login)
+        public ResponseResult Login(Login login)
         {
-            ResponseData responseData = new ResponseData();
+            ResponseResult responseData = new ResponseResult();
 
             try
             {
                 responseData.Data = _authRepository.Login(login);
 
-                if (!responseData.Data)
+                if (string.IsNullOrEmpty(responseData.Data))
                 {
                     responseData.IsSuccess = false;
                     responseData.Message = "Fail";

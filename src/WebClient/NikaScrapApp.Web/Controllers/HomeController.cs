@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using NikaScrapApp.Web.Models;
+using NikaScrapApp.Web.Utility;
+using NikaScrapApp.Web.Utility.CustomFilters;
 using System.Diagnostics;
 
 namespace NikaScrapApp.Web.Controllers
@@ -13,8 +15,13 @@ namespace NikaScrapApp.Web.Controllers
             _logger = logger;
         }
 
+        [CustomAuthorizationFilterAttribute]
         public IActionResult Index()
         {
+            _logger.LogError($"Custome Exception: Deepak2 ");
+            string userName = SessionManager.Get(SessionManager.UserName);
+           string userId = SessionManager.Get(SessionManager.UserId); 
+
             return View();
         }
 

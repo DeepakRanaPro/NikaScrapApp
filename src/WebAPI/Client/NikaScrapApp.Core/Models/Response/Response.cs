@@ -12,4 +12,9 @@ namespace NikaScrapApp.Core.Models.Response
     {
         public bool Data { get; set; }
     }
+
+    public class ResponseResult : Response 
+    {
+        public string Data { get; set; }
+    }
 }

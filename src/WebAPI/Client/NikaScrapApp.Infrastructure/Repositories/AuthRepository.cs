@@ -25,15 +25,15 @@ namespace NikaScrapApp.Infrastructure.Repositories
             }
             return result;
         }
-        public bool Login(Login login)
+        public string Login(Login login)
         {
-            bool result = false;
+            string result = null;
 
             using (var con = new SqlConnection(_connectionString))
             {
                 var parameters = new DynamicParameters();
                 parameters.Add("MobileNumber", login.MobileNo);
-                result = con.Execute("[dbo].[ProcAuthUser]", parameters, commandType: CommandType.StoredProcedure) > 0;
+                result = con.Query<string>("[dbo].[ProcAuthUser]", parameters, commandType: CommandType.StoredProcedure).FirstOrDefault();
             }
             return result;
         }

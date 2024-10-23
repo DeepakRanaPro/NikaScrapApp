@@ -8,7 +8,7 @@ namespace NikaScrapApp.Core.Interfaces
     {
         JWTTokenDetailResponse GenrateToken(UserCredential userCredential);
         ClaimsIdentity GenrateClaims(UserCredential userCredential);
-        ResponseData Login(Login login);
+        ResponseResult Login(Login login);
         UserResponse VerifyOTP(OTP otpDTO);
     }
 }

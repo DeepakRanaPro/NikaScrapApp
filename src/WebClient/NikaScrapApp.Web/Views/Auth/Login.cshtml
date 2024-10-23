@@ -1,0 +1,47 @@
+﻿@model NikaScrapApp.Web.Models.Request.Login
+@using NikaScrapApp.Web.Utility
+@{
+    ViewData["Title"] = "Login";
+}
+
+@{
+    var notification = NotificationHelper.GetNotification(TempData);
+
+    if (notification != null)
+    {
+        <div class="alert alert-@notification.Type alert-dismissible fade show" role="alert">
+            <strong>@notification.DisplayType!</strong>  @notification.Message
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+}
+<h4>Login</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Login">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="EmailId" class="control-label"></label>
+                <input asp-for="EmailId" class="form-control" />
+                <span asp-validation-for="EmailId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Password" class="control-label"></label>
+                <input asp-for="Password" class="form-control" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

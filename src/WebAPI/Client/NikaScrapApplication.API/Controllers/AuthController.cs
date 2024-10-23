@@ -4,6 +4,7 @@ using Microsoft.Extensions.Configuration;
 using NikaScrapApp.Core.Interfaces;
 using NikaScrapApp.Core.Models.Request;
 using NikaScrapApp.Core.Models.Response;
+using NikaScrapApplication.API.Helper;
 using NikaScrapApplication.API.Services;
 
 namespace NikaScrapApplication.API.Controllers
@@ -14,14 +15,23 @@ namespace NikaScrapApplication.API.Controllers
     {
         private readonly IConfiguration _configuration;
         //private readonly AuthService authService;
-        private readonly IAuthenticateService _authenticateService; 
+        private readonly IAuthenticateService _authenticateService;
+        private readonly ISmsService _smsService;  
         private readonly string _secretKey;
-        public AuthController(IConfiguration configuration, IAuthenticateService authenticateService)
+        private readonly string _smsApiUrl; 
+        private string _smsApiParams; 
+        private string _OtpTemplate;
+        private SmsTemplates _smsTemplate;
+        public AuthController(IConfiguration configuration, IAuthenticateService authenticateService, ISmsService smsService)
         {
             _configuration = configuration;
-            _secretKey = _configuration.GetSection("SecretKey").Value; 
-            //authService = new AuthService(_secretKey);
+            _smsService = smsService;
+            _secretKey = _configuration.GetSection("SecretKey").Value;
+            _smsApiUrl = _configuration.GetSection("SMSApiUrl").Value;
+            _smsApiParams = _configuration.GetSection("SMSApiParams").Value;
+            _OtpTemplate = _configuration.GetSection("OtpTemplate").Value;
             _authenticateService = authenticateService;
+            _smsTemplate = SmsTemplateHelper.GetSmsTemplates().Where(x => x.Type == "OTP").FirstOrDefault();
         }
 
         [HttpPost,AllowAnonymous]
@@ -33,12 +43,24 @@ namespace NikaScrapApplication.API.Controllers
 
         [HttpPost]
         public IActionResult Login(Login loginRequest)
-        {
-            ResponseData responseData = new ResponseData();
+        { 
+            ResponseResult response = new ResponseResult(); 
+            response = _authenticateService.Login(loginRequest);
 
-            responseData = _authenticateService.Login(loginRequest);
+            if (response.IsSuccess)
+            { 
+                if (!loginRequest.MobileNo.Contains("8950962769"))
+                {
 
-            return Ok(responseData);
+                    loginRequest.MobileNo = loginRequest.MobileNo.Length == 10 ? $"91{loginRequest.MobileNo}" : loginRequest.MobileNo;
+                    _smsApiParams = _smsApiParams.Replace("{mobiles}", loginRequest.MobileNo).Replace("{message}", _smsTemplate.SmsTemplate.Replace("{#var#}", response.Data)).Replace("{TemplateCode}", _smsTemplate.TemplateCode);
+                    var httpClientManager = new HttpClientManager(_smsApiUrl);
+                    var smsApiResponse = httpClientManager.GetAsync<SmsApi>(_smsApiParams).Result;
+                    _smsService.SaveSmsApiResponse(smsApiResponse);
+                }
+            }
+
+            return Ok(response);
         }
 
         [HttpPost]
