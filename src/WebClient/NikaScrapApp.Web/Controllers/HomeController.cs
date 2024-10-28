@@ -6,6 +6,7 @@ using System.Diagnostics;
 
 namespace NikaScrapApp.Web.Controllers
 {
+    [CustomAuthorizationFilterAttribute]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -18,7 +19,7 @@ namespace NikaScrapApp.Web.Controllers
         [CustomAuthorizationFilterAttribute]
         public IActionResult Index()
         {
-            _logger.LogError($"Custome Exception: Deepak2 ");
+            _logger.LogError($"Custom Exception: Deepak2 ");
             string userName = SessionManager.Get(SessionManager.UserName);
            string userId = SessionManager.Get(SessionManager.UserId); 
 

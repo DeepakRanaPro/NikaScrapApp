@@ -1,5 +1,9 @@
 ﻿namespace NikaScrapApp.Web.Models.Response
 {
+    public class PickupRecordsResponse : Response
+    {
+        public List<PickupRecords> Data { get; set; }
+    }
     public class PickupRecords 
     {
         public string Id { get; set; }
@@ -17,3 +21,4 @@
         public string Remarks { get; set; } = string.Empty;
     }
 }
+//EstimatedWeigh,TimeSlot, FullAddress

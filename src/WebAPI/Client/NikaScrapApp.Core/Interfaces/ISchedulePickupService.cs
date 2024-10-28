@@ -9,6 +9,6 @@ namespace NikaScrapApp.Core.Interfaces
         GetScrapResponse GetHistory(int userId, int statusId, int languageId, int PageNumber, int RowsOfPage);
         SchedulePickupCommandResponse PickupCancel(int pickupId, int languageId);
         SchedulePickupResponse GetInfo(int userId);
-
+        ResponseResult GetMobileNo(int UserId);
     }
 }

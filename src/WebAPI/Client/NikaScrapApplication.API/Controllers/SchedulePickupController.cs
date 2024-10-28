@@ -1,10 +1,12 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using NikaScrapApp.Core.Interfaces;
 using NikaScrapApp.Core.Models.Request;
 using NikaScrapApp.Core.Models.Response;
 using NikaScrapApp.Core.Services;
+using NikaScrapApplication.API.Helper;
 
 namespace NikaScrapApplication.API.Controllers
 {
@@ -13,9 +15,20 @@ namespace NikaScrapApplication.API.Controllers
     public class SchedulePickupController : ControllerBase
     {
         private readonly ISchedulePickupService _scrapService;
-        public SchedulePickupController(ISchedulePickupService scrapService)
+        private SmsTemplates _smsTemplate;
+        private readonly ISmsService _smsService;
+        private readonly string _smsApiUrl;
+        private string _smsApiParams;
+        private string _PlaceOrderTemplate;
+        private readonly IConfiguration _configuration;
+        public SchedulePickupController(IConfiguration configuration, ISchedulePickupService scrapService, ISmsService smsService)
         {
+            _configuration = configuration;
+            _smsService = smsService;
             _scrapService = scrapService;
+            _smsTemplate = SmsTemplateHelper.GetSmsTemplates().Where(x => x.Type == "PlaceOrder").FirstOrDefault();
+            _smsApiUrl = _configuration.GetSection("SMSApiUrl").Value;
+            _smsApiParams = _configuration.GetSection("SMSApiParams").Value; 
         }
          
         [HttpGet, Authorize(Roles = "Admin,SubAdmin,Household,Organisation,Business Owner")]
@@ -31,6 +44,16 @@ namespace NikaScrapApplication.API.Controllers
         {
             SchedulePickupCommandResponse result = new SchedulePickupCommandResponse();
             result = _scrapService.AddScrap(scrapPickup, languageId);
+
+            if(result.IsSuccess)
+            { 
+                string mobileNo= _scrapService.GetMobileNo(scrapPickup.UserId).Data;
+                _smsApiParams = _smsApiParams.Replace("{mobiles}", mobileNo).Replace("{message}", _smsTemplate.SmsTemplate).Replace("{TemplateCode}", _smsTemplate.TemplateCode);
+                var httpClientManager = new HttpClientManager(_smsApiUrl);
+                var smsApiResponse = httpClientManager.GetAsync<SmsApi>(_smsApiParams).Result;
+                _smsService.SaveSmsApiResponse(smsApiResponse);
+            }
+
             return Ok(result);
         }
 

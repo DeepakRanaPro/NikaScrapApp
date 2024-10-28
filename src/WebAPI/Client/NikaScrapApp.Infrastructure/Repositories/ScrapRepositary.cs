@@ -95,5 +95,15 @@ namespace NikaScrapApp.Infrastructure.Repositories
                 return result;
             }
         }
+
+        public string? GetMobileNo(int UserId) 
+        {
+            string? result = string.Empty;
+            using (var sqlConnection = new SqlConnection(_connectionString))
+            { 
+                result = sqlConnection.Query<string>($" Select MobileNumber from TbUser Where id={UserId}", commandType: CommandType.Text).FirstOrDefault();
+            }
+            return result;
+        }
     }
 }

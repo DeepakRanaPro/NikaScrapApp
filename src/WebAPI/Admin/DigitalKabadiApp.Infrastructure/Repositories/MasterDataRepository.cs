@@ -23,5 +23,16 @@ namespace DigitalKabadiApp.Infrastructure.Repositories
             }
             return result;
         }
+
+        public List<PincodeDetails> GetPincodeDetails(string pincode)
+        {
+            List<PincodeDetails> result;
+
+            using (var con = new SqlConnection(_connectionString))
+            {
+                result = con.Query<PincodeDetails>($" Select PinCode,City,State from [MstPingCodeData]  Where PinCode Like '%{pincode}%' ", commandType: CommandType.Text).ToList();
+            }
+            return result;
+        }
     }
 }

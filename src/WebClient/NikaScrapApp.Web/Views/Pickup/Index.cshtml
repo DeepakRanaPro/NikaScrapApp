@@ -1,0 +1,299 @@
+﻿@using NikaScrapApp.Web.Utility
+@model NikaScrapApp.Web.Models.View.PickupReport 
+
+@{
+    ViewData["Title"] = "Index";
+}
+<style>
+    .form-field-size{
+        padding: .3rem .4rem!important;
+    }
+</style>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                <h4 class="mb-sm-0">Pickup</h4>
+                @{
+                    var notification = NotificationHelper.GetNotification(TempData);
+
+                    if (notification != null)
+                    {
+                        <div class="col-12 alert alert-@notification.Type alert-dismissible fade show" role="alert">
+                            <strong>@notification.DisplayType!</strong>  @notification.Message
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    }
+                }
+                <div class="page-title-right">
+                    <ol class="breadcrumb m-0">
+                        <li class="breadcrumb-item"><a href="javascript: void(0);">Home</a></li>
+                        <li class="breadcrumb-item active">Pickup</li>
+                    </ol>
+                </div>
+
+            </div>
+        </div>
+    </div>
+     <form asp-action="Index" method="post">
+    
+    <div class="row" style="margin-bottom:20px;">
+        <div class="col">
+            <label for="formGroupExampleInput" class="form-label">Status</label>
+            <select asp-for="StatusId" asp-items="Model.StatusList" class="form-control form-field-size" id="StatusId"></select>
+        </div>
+            <div class="col">
+                <label for="formGroupExampleInput" class="form-label">PickupCode</label>
+                <input type="text" class="form-control form-field-size" asp-for="PickupCode" id="PickupCode" placeholder="Enter Code">
+            </div>
+            <div class="col">
+                <label for="formGroupExampleInput" class="form-label">Date From</label>
+                <input type="date"  class="form-control form-field-size" asp-for="FromDate" id="FromDate" placeholder="Enter Date">
+            </div>
+            <div class="col">
+                <label for="formGroupExampleInput" class="form-label">Date To</label>
+                <input type="date" class="form-control form-field-size" asp-for="ToDate" id="ToDate" placeholder="Enter Date">
+            </div>
+            <div class="col">
+                <label for="formGroupExampleInput" class="form-label">Location</label>
+                <select asp-for="LocationTypeId" asp-items="Model.LocationTypeList" class="form-control form-field-size" id="LocationTypeId"></select>
+            </div>
+            <div class="col">
+                <label for="formGroupExampleInput" class="form-label">State</label>
+                <select asp-for="State" asp-items="Model.StateList" class="form-control form-field-size" id="State"></select>
+            </div>
+            <div class="col">
+                <label for="formGroupExampleInput" class="form-label">City</label>
+                <select asp-for="City" asp-items="Model.CityList" class="form-control form-field-size" id="City"></select>
+            </div>
+            <div class="col">
+                <label for="formGroupExampleInput" class="form-label">Users</label>
+                <select asp-for="UserId" asp-items="Model.UserList" class="form-control form-field-size" id="UserId"></select>
+            </div>
+            <div class="col-1" style="margin-top:30px;"> <button type="submit" class="btn btn-primary" style="padding:4px;">
+                    <span class="bi bi-search me-2"></span>
+            </button> </div>
+        </div>
+       
+    </form>
+
+
+    
+</div>
+<div class="container-fluid">
+    <div class="card">
+        <div class="card-body">
+        <table id="example" class="display" >
+            <thead>
+                <tr>
+                    <th>
+                        Name
+                    </th>
+                    <th>
+                        Mobile
+                    </th>
+                    <th>
+                        Pickup Code
+                    </th>
+                        <th>
+                            Status
+                        </th>
+                    <th>
+                        Date
+                    </th>
+                    <th>
+                        Weight
+                    </th>
+                    <th>
+                        Location
+                    </th>
+                    <th>
+                        State/City
+                    </th>
+                    <th>
+                        FullAddress
+                    </th>
+                   
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody style="font-size:14px;">
+                @foreach (var item in Model.PickupRecords)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.MobileNumber)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PickupCode)
+                        </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Status)
+                            </td>
+                        <td>
+                            @Convert.ToDateTime(item.PickUpDate).ToString("dd/MM/yyyy")<br />
+                            <span class="badge text-body-emphasis  bg-dark-subtle">@item.TimeSlot</span>
+                        </td>
+                        <td>
+                            <span class="badge bg-success"> @Html.DisplayFor(modelItem => item.EstimatedWeigh)</span>
+                        </td>
+                        <td>
+                            <span class="badge bg-danger"> @Html.DisplayFor(modelItem => item.LocationType)</span>
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.State) / @Html.DisplayFor(modelItem => item.City)
+
+                        </td>
+                        <td width="300">
+                            @Html.DisplayFor(modelItem => item.FullAddress)
+                        </td>
+                       
+                        <td>
+
+                            <div class="dropdown d-inline-block">
+                                <button class="btn btn-soft-secondary btn-sm dropdown" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="ri-more-fill align-middle"></i>
+                                </button>
+                                <ul class="dropdown-menu dropdown-menu-end">
+                                        <li><span pickupId="@item.Id" class="dropdown-item AssignScrapPickerBtn" ActionType="Assign"><i class="ri-eye-fill align-bottom me-2 text-muted"></i> Assign WastePicker </span></li>
+                                        <li><span pickupId="@item.Id"  class="dropdown-item UpdatePickupStatusBtn"><i class="ri-eye-fill align-bottom me-2 text-muted"></i> Update Status</span></li>
+                                   @*      <li><span class="dropdown-item edit-item-btn ModapPopUpEdit"><i class="ri-pencil-fill align-bottom me-2 text-muted"></i> Edit</span></li> *@
+                                @*     <li>
+                                        <a class="dropdown-item remove-item-btn" href="@Url.Action("Delete","Delete")">
+                                            <i class="ri-delete-bin-fill align-bottom me-2 text-muted"></i> Delete
+                                        </a>
+                                    </li> *@
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    </div>
+</div>
+
+ 
+<!-- The Modal AssignScrapPicker -->
+<div class="modal" id="AssignPickerModalPopup">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Assign WastePicker</h4>
+                <button type="button" class="close CloseAssignPickerModalPopup" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal Body -->
+            <div class="modal-body">
+                 <form asp-action="AssignScrapPicker" method="post">
+                    <div class="row">
+                        <div class="col-12">
+                            <label for="formGroupExampleInput" class="form-label">Scrap Pickers</label>
+                            <select asp-for="assignUserInfo.UserId" asp-items="Model.assignUserInfo.UserList" class="form-control" id="assignUserInfo.UserId"></select>
+                            <span asp-validation-for="assignUserInfo.UserId" class="text-danger"></span>
+                        </div>
+                        <div class="col-12">
+                            <label for="formGroupExampleInput" class="form-label">Remarks</label>
+                            <textarea class="form-control" asp-for="assignUserInfo.Remarks" id="assignUserInfo.Remarks" placeholder="Enter Remarks"></textarea>
+                            <span asp-validation-for="assignUserInfo.Remarks" class="text-danger"></span>
+                        </div>
+
+                        <input type="hidden" asp-for="assignUserInfo.PickupId" id="assignUserInfoPickupId">
+                        <div class="col-12" style="margin-top:20px;">
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>
+                    </div>
+                   
+                </form>
+            </div>
+
+            <!-- Modal Footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger CloseAssignPickerModalPopup" data-dismiss="modal">Close</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- The Modal PickupStatusUpdate -->
+<div class="modal" id="PickupStatusUpdateModalPopup">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Update Pickup Status</h4>
+                <button type="button" class="close ClosePickupStatusUpdateModalPopup" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal Body -->
+            <div class="modal-body">
+                <form asp-action="UpdatePickupStatus" method="post">
+                    <div class="row">
+                        <div class="col-12">
+                            <label for="formGroupExampleInput" class="form-label">Status</label>
+                            <select asp-for="pickupStatusDetails.StatusId" asp-items="Model.pickupStatusDetails.StatusList" class="form-control" id="assignUserInfo.UserId"></select>
+                            <span asp-validation-for="pickupStatusDetails.StatusId" class="text-danger"></span>
+                        </div>
+                        <div class="col-12">
+                            <label for="formGroupExampleInput" class="form-label">Remarks</label>
+                            <textarea class="form-control" asp-for="pickupStatusDetails.Remarks" id="pickupStatusDetails.Remarks" placeholder="Enter Remarks"> </textarea>
+                            <span asp-validation-for="pickupStatusDetails.Remarks" class="text-danger"></span>
+                        </div>
+
+                        <input type="hidden" asp-for="pickupStatusDetails.PickupId" id="pickupStatusDetailsPickupId">
+
+                        <div class="col-12" style="margin-top:20px;">
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>
+                    </div> 
+                </form>
+            </div>
+
+            <!-- Modal Footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger ClosePickupStatusUpdateModalPopup" data-dismiss="modal">Close</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $(".CloseAssignPickerModalPopup").click(function () {
+            $("#AssignPickerModalPopup").modal('hide');
+        });
+        $(".AssignScrapPickerBtn").click(function () {
+            $("#assignUserInfoPickupId").val($(this).attr("pickupId"));
+            $("#AssignPickerModalPopup").modal('show');
+        });
+
+        $(".ClosePickupStatusUpdateModalPopup").click(function () {
+            $("#PickupStatusUpdateModalPopup").modal('hide');
+        });
+        $(".UpdatePickupStatusBtn").click(function () {
+            $("#pickupStatusDetailsPickupId").val($(this).attr("pickupId"));
+            $("#PickupStatusUpdateModalPopup").modal('show');
+        });
+        
+        // // Optional: Handle form submission
+        // $("#updateForm").submit(function (event) {
+        //     event.preventDefault();
+        //     // Perform your update logic here
+        //     alert("Form submitted!");
+        //     $("#AssignPickerModalPopup").modal('hide'); // Close the modal
+        // });
+
+
+    
+    });
+</script>

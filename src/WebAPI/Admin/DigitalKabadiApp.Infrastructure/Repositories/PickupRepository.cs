@@ -34,5 +34,35 @@ namespace DigitalKabadiApp.Infrastructure.Repositories
             }
             return result;
         }
+
+        public bool UpdatePickupStatus(PickupStatus pickupStatus) 
+        {
+           bool result = false;
+            using (var sqlconnection = new SqlConnection(_connectionString))
+            {
+                var parameters = new DynamicParameters();
+                parameters.Add("@PickupId", pickupStatus.PickupId);
+                parameters.Add("@StatusId", pickupStatus.StatusId);
+                parameters.Add("@Remarks", pickupStatus.Remarks);
+                parameters.Add("@ActionBy", pickupStatus.ActionBy);
+                result = sqlconnection.Execute($" Update [dbo].TbPickups Set StatusId=@StatusId, Remarks= @Remarks, UpdatedBy = @ActionBy Where Id=@PickupId", param: parameters, commandType: CommandType.Text) > 0;
+            }
+            return result;
+        }
+
+        public bool AssignPickup(PickupAssign pickupAssign)  
+        {
+            bool result = false;
+            using (var sqlconnection = new SqlConnection(_connectionString))
+            {
+                var parameters = new DynamicParameters();
+                parameters.Add("@PickupId", pickupAssign.PickupId);
+                parameters.Add("@UserId", pickupAssign.UserId);
+                parameters.Add("@Remarks", pickupAssign.Remarks);
+                parameters.Add("@ActionBy", pickupAssign.ActionBy);
+                result = sqlconnection.Execute($" Update [dbo].TbPickups Set WastePickerId=@UserId ,StatusId=6,  Remarks= @Remarks, UpdatedBy = @ActionBy Where Id=@PickupId", param: parameters, commandType: CommandType.Text) > 0;
+            }
+            return result;
+        }
     }
 }

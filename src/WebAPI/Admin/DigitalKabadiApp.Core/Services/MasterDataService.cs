@@ -35,5 +35,29 @@ namespace DigitalKabadiApp.Core.Services
             }
             return responseData;
         }
+
+        public PincodeDetailsResponse GetPincodeDetails(string pincode)
+        {
+            PincodeDetailsResponse responseData = new PincodeDetailsResponse();
+
+            try
+            {
+                responseData.Data = _masterDataRepository.GetPincodeDetails(pincode);
+
+                if (!responseData.Data.Any())
+                {
+                    responseData.IsSuccess = false;
+                    responseData.Message = "Fail";
+                    responseData.ResponseCode = 900;
+                }
+            }
+            catch (Exception ex)
+            {
+                responseData.IsSuccess = false;
+                responseData.Message = $"Exception: {ex.Message}";
+                responseData.ResponseCode = 999;
+            }
+            return responseData;
+        }
     }
 }

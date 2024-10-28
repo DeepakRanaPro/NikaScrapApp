@@ -5,5 +5,6 @@ namespace DigitalKabadiApp.Core.Interfaces.Service
     public interface IMasterDataService
     {
         MasterDataResponse GetMasterData();
+        PincodeDetailsResponse GetPincodeDetails(string pincode);
     }
 }

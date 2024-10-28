@@ -1,0 +1,35 @@
+﻿@model NikaScrapApp.Web.Models.View.PickupReport
+@{
+    Layout = null;
+}
+
+<div class="modal-header">
+    <h4 class="modal-title">Update Scrap Picker</h4>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+</div>
+
+<!-- Modal Body -->
+<div class="modal-body">
+  <form asp-action="AssignScrapPicker" method="post">
+        <div class="row">
+            <div class="col-12">
+                <label for="formGroupExampleInput" class="form-label">Scrap Pickers</label>
+                <select asp-for="assignUserInfo.UserId" asp-items="Model.assignUserInfo.UserList" class="form-control" id="assignUserInfo.UserId"></select>
+                <span asp-validation-for="assignUserInfo.UserId" class="text-danger"></span>
+            </div>
+            <div class="col-12">
+                <label for="formGroupExampleInput" class="form-label">Remarks</label>
+                <textarea class="form-control" asp-for="assignUserInfo.Remarks" id="assignUserInfo.Remarks" placeholder="Enter Remarks"></textarea>
+                <span asp-validation-for="assignUserInfo.Remarks" class="text-danger"></span>
+            </div>
+
+            <input type="hidden" asp-for="assignUserInfo.PickupId" id="assignUserInfoPickupId">
+            <div class="col-12" style="margin-top:20px;">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </div>
+        <!-- Add more form fields as needed -->
+       
+    </form>
+</div>
+

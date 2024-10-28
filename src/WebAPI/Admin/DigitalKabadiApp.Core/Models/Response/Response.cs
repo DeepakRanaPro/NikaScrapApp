@@ -17,4 +17,9 @@ namespace DigitalKabadiApp.Core.Models.Response
     {
         public bool Data { get; set; }
     }
+
+    public class ResponseDetail : Response
+    {
+        public string Data { get; set; } = string.Empty;
+    }
 }

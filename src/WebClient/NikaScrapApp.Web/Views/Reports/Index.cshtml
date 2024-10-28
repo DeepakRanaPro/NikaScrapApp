@@ -1,0 +1,171 @@
+﻿@model NikaScrapApp.Web.Models.View.PickupReport
+
+@{
+    ViewData["Title"] = "Index";
+}
+<style>
+    .form-field-size {
+        padding: .3rem .4rem !important;
+    }
+</style>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                <h4 class="mb-sm-0">Pickup Report</h4>
+
+                <div class="page-title-right">
+                    <ol class="breadcrumb m-0">
+                        <li class="breadcrumb-item"><a href="javascript: void(0);">Home</a></li>
+                        <li class="breadcrumb-item active">Pickup Report</li>
+                    </ol>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <form asp-action="Pickup" method="post">
+
+        <div class="row" style="margin-bottom:20px;">
+            <div class="col">
+                <label for="formGroupExampleInput" class="form-label">Status</label>
+                <select asp-for="StatusId" asp-items="Model.StatusList" class="form-control form-field-size" id="StatusId"></select>
+            </div>
+            <div class="col">
+                <label for="formGroupExampleInput" class="form-label">PickupCode</label>
+                <input type="text" class="form-control form-field-size" asp-for="PickupCode" id="PickupCode" placeholder="Enter Code">
+            </div>
+            <div class="col">
+                <label for="formGroupExampleInput" class="form-label">Date From</label>
+                <input type="date" class="form-control form-field-size" asp-for="FromDate" id="FromDate" placeholder="Enter Date">
+            </div>
+            <div class="col">
+                <label for="formGroupExampleInput" class="form-label">Date To</label>
+                <input type="date" class="form-control form-field-size" asp-for="ToDate" id="ToDate" placeholder="Enter Date">
+            </div>
+            <div class="col">
+                <label for="formGroupExampleInput" class="form-label">Location</label>
+                <select asp-for="LocationTypeId" asp-items="Model.LocationTypeList" class="form-control form-field-size" id="LocationTypeId"></select>
+            </div>
+            <div class="col">
+                <label for="formGroupExampleInput" class="form-label">State</label>
+                <select asp-for="State" asp-items="Model.StateList" class="form-control form-field-size" id="State"></select>
+            </div>
+            <div class="col">
+                <label for="formGroupExampleInput" class="form-label">City</label>
+                <select asp-for="City" asp-items="Model.CityList" class="form-control form-field-size" id="City"></select>
+            </div>
+            <div class="col">
+                <label for="formGroupExampleInput" class="form-label">Users</label>
+                <select asp-for="UserId" asp-items="Model.UserList" class="form-control form-field-size" id="UserId"></select>
+            </div>
+            <div class="col-1" style="margin-top:30px;">
+                <button type="submit" class="btn btn-primary" style="padding:4px;">
+                    <span class="bi bi-search me-2"></span>
+                </button>
+            </div>
+        </div>
+
+    </form>
+
+
+
+</div>
+<div class="container-fluid">
+    <div class="card">
+        <div class="card-body">
+            <table id="example" class="display">
+                <thead>
+                    <tr>
+                        <th>
+                            User 
+                        </th>
+                        <th>
+                            Mobile
+                        </th>
+                        <th>
+                            PickupCode
+                        </th>
+                        <th>
+                            Status
+                        </th>
+                        <th>
+                            Date
+                        </th>
+                        <th>
+                            Weight
+                        </th>
+                        <th>
+                            Location
+                        </th>
+                        <th>
+                            State/City
+                        </th>
+                        <th>
+                            FullAddress
+                        </th> 
+                    </tr>
+                </thead>
+                <tbody style="font-size:14px;">
+                    @foreach (var item in Model.PickupRecords)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.MobileNumber)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.PickupCode)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Status)
+                            </td>
+                            <td>
+                                @Convert.ToDateTime(item.PickUpDate).ToString("dd/MM/yyyy")<br />
+                                <span class="badge text-body-emphasis  bg-dark-subtle">@item.TimeSlot</span>
+                            </td>
+                            <td>
+                                <span class="badge bg-success"> @Html.DisplayFor(modelItem => item.EstimatedWeigh)</span>
+                            </td>
+                            <td>
+                                <span class="badge bg-danger"> @Html.DisplayFor(modelItem => item.LocationType)</span>
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.State) / @Html.DisplayFor(modelItem => item.City)
+
+                            </td>
+                            <td width="300">
+                                @Html.DisplayFor(modelItem => item.FullAddress)
+                            </td>
+ 
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+ 
+<script>
+    $(document).ready(function () {
+        $(".CloseAssignPickerModalPopup").click(function () {
+            $("#AssignPickerModalPopup").modal('hide');
+        });
+        $(".AssignScrapPickerBtn").click(function () {
+            $("#assignUserInfoPickupId").val($(this).attr("pickupId"));
+            $("#AssignPickerModalPopup").modal('show');
+        });
+
+        $(".ClosePickupStatusUpdateModalPopup").click(function () {
+            $("#PickupStatusUpdateModalPopup").modal('hide');
+        });
+        $(".UpdatePickupStatusBtn").click(function () {
+            $("#pickupStatusDetailsPickupId").val($(this).attr("pickupId"));
+            $("#PickupStatusUpdateModalPopup").modal('show');
+        });
+         
+    });
+</script>

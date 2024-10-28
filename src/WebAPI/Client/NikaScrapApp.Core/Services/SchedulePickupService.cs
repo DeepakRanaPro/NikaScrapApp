@@ -125,6 +125,31 @@ namespace NikaScrapApp.Core.Services
             }
             return responsedata;
         }
- 
+
+        ResponseResult ISchedulePickupService.GetMobileNo(int UserId)
+        {
+            ResponseResult responsedata = new ResponseResult();
+            try
+            { 
+                responsedata.Data = _scrapRepository.GetMobileNo(UserId); 
+
+                {
+                    if (string.IsNullOrEmpty(responsedata.Data))
+                    {
+                        responsedata.IsSuccess = false;
+                        responsedata.Message = "fail";
+                        responsedata.ResponseCode = 999;
+
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                responsedata.IsSuccess = false;
+                responsedata.Message = $"exception:{ex.Message}";
+                responsedata.ResponseCode = 999;
+            }
+            return responsedata;
+        } 
     }
 }

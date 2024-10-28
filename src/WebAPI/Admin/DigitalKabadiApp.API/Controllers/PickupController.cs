@@ -22,5 +22,21 @@ namespace DigitalKabadiApp.API.Controllers
             result = _pickupServices.PickupRecords(pickupReport);
             return Ok(result);
         }
+
+        [HttpPost]
+        public ActionResult UpdateStatus([FromBody] PickupStatus pickupStatus)  
+        {
+            ResponseData result = new ResponseData();
+            result = _pickupServices.UpdatePickupStatus(pickupStatus);
+            return Ok(result);
+        }
+
+        [HttpPost]
+        public ActionResult Assign([FromBody] PickupAssign pickupAssign)  
+        {
+            ResponseData result = new ResponseData();
+            result = _pickupServices.AssignPickup(pickupAssign);
+            return Ok(result);
+        }
     }
 }

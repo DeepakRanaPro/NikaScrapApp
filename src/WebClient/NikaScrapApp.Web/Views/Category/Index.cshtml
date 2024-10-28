@@ -20,22 +20,34 @@
 }
 
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                <h4 class="mb-sm-0">Pickup</h4>
 
-<table class="table">
+                <div class="page-title-right">
+                    <ol class="breadcrumb m-0">
+                        <li class="breadcrumb-item"><a href="javascript: void(0);">Home</a></li>
+                        <li class="breadcrumb-item active">Pickup</li>
+                    </ol>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-body">
+            <table class="display" id="example">
     <thead>
         <tr>
           
             <th>
-                @Html.Display("Name In English")
+               Name In English
             </th>
-            <th>
-                @Html.Display("Name In Hindi")
+            <th>Name In Hindi
             </th>
-            <th>
-                @Html.Display("Actions")
+            <th>Actions
             </th> 
         </tr>
     </thead>
@@ -50,10 +62,13 @@
                 @Html.DisplayFor(modelItem => item.NameIsHindi)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id=item.Id }) | 
-                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                                <a class="link-success fs-15" href="@Url.Action("Edit","Edit")"><i class="ri-edit-2-line"></i> </a>
+                                <a class="link-danger fs-15" href="@Url.Action("Edit","Edit")"><i class="ri-delete-bin-line"></i> </a>  
             </td>
         </tr>
 }
     </tbody>
 </table>
+</div>
+</div>
+</div>

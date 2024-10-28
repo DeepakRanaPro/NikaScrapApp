@@ -2,9 +2,11 @@
 using Microsoft.Extensions.Options;
 using NikaScrapApp.Web.Models;
 using NikaScrapApp.Web.Utility;
+using NikaScrapApp.Web.Utility.CustomFilters;
 
 namespace NikaScrapApp.Web.Controllers
 {
+    [CustomAuthorizationFilterAttribute]
     public class CategoryController : Controller
     { 
         private readonly AppSettings _appSettings;

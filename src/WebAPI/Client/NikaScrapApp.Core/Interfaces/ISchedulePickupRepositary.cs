@@ -14,6 +14,7 @@ namespace NikaScrapApp.Core.Interfaces
 
         List<NikaScrapApp.Core.Models.Response.EstimateWeight> GetEstimatesWeight(int userId);
         List<NikaScrapApp.Core.Models.Response.TimeSlot> GetTimeSlot(int userId);
-        NikaScrapApp.Core.Models.Request.ScrapInfo PickupCancel(int pickupId); 
+        NikaScrapApp.Core.Models.Request.ScrapInfo PickupCancel(int pickupId);
+        string? GetMobileNo(int UserId);
     }
 }
