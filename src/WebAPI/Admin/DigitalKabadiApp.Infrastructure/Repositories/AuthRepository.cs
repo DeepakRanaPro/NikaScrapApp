@@ -16,9 +16,9 @@ namespace DigitalKabadiApp.Infrastructure.Repositories
             _connectionString = connectionString;
         }
 
-        public User? Login(Login login)
+        public UsersDetail? Login(Login login)
         {
-            User? result = null;  
+            UsersDetail? result = null;  
 
             using (var con = new SqlConnection(_connectionString))
             {
@@ -31,7 +31,7 @@ namespace DigitalKabadiApp.Infrastructure.Repositories
                 parameters.Add("EmailId", login.EmailId);
                 parameters.Add("Password", login.Password);
 
-                result = con.Query<User>( query, parameters, commandType: CommandType.Text).FirstOrDefault();
+                result = con.Query<UsersDetail>( query, parameters, commandType: CommandType.Text).FirstOrDefault();
             }
             return result;
         }

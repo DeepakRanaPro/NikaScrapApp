@@ -10,6 +10,6 @@ namespace DigitalKabadiApp.Core.Interfaces.Repository
 {
     public interface IAuthRepository
     {
-        User Login(Login login); 
+        UsersDetail Login(Login login); 
     }
 }

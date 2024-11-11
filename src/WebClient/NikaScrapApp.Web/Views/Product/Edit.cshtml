@@ -1,0 +1,82 @@
+﻿@using NikaScrapApp.Web.Utility
+@model NikaScrapApp.Web.Models.Request.Product
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                <h4 class="mb-sm-0">Product</h4>
+                @{
+                    var notification = NotificationHelper.GetNotification(TempData);
+
+                    if (notification != null)
+                    {
+                        <div class="col-12 alert alert-@notification.Type alert-dismissible fade show" role="alert">
+                            <strong>@notification.DisplayType!</strong>  @notification.Message
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    }
+                }
+                <div class="page-title-right">
+                    <ol class="breadcrumb m-0">
+                        <li class="breadcrumb-item"><a href="javascript: void(0);">Home</a></li>
+                        <li class="breadcrumb-item active">Product</li>
+                    </ol>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <form asp-action="Edit" method="post">
+        <input type="hidden" asp-for="ProductId" class="form-control" />
+        <input type="hidden" asp-for="ProductPriceId" class="form-control" />
+        <div class="row" style="margin-bottom:20px;">
+            <div class="col">
+                <label for="formGroupExampleInput" class="form-label">Role</label>
+                <input type="text" class="form-control form-field-size" asp-for="RoleName" id="RoleName" readonly="readonly" >
+            </div>
+            <div class="col">
+                <label for="formGroupExampleInput" class="form-label">Category</label>
+                <select asp-for="CategoryId" asp-items="Model.CategoryList" class="form-control form-field-size" id="CategoryId"></select>
+                <span asp-validation-for="CategoryId" class="text-danger"></span>
+            </div>
+            <div class="col">
+                <label for="formGroupExampleInput" class="form-label">Unit</label>
+                <select asp-for="UnitId" asp-items="Model.UnitList" class="form-control form-field-size" id="UnitId"></select>
+                <span asp-validation-for="UnitId" class="text-danger"></span>
+            </div>
+            <div class="col">
+                <label for="formGroupExampleInput" class="form-label">Name</label>
+                <input type="text" class="form-control form-field-size" asp-for="Name" id="Name" placeholder="Enter Name">
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="col">
+                <label for="formGroupExampleInput" class="form-label">Name (In Hindi)</label>
+                <input type="text" class="form-control form-field-size" asp-for="NameInHindi" id="NameInHindi" placeholder="Enter Name In Hindi">
+                <span asp-validation-for="NameInHindi" class="text-danger"></span>
+            </div>
+            <div class="col">
+                <label for="formGroupExampleInput" class="form-label">Price</label>
+                <input type="text" class="form-control form-field-size" asp-for="Price" id="Price" placeholder="Enter Price">
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+            <div class="col">
+                <label for="formGroupExampleInput" class="form-label">Description</label>
+                <input type="text" class="form-control form-field-size" asp-for="Description" id="Description" placeholder="Enter Description">
+            </div>
+            
+            <div class="col-1" style="margin-top:30px;">
+                <button type="submit" class="btn btn-primary" style="padding:4px;">
+         
+                </button>
+            </div>
+        </div>
+
+    </form>
+
+
+
+</div>

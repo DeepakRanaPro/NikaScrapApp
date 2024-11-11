@@ -75,7 +75,9 @@ namespace DigitalKabadiApp.API
                 builder.Services.AddScoped<IPickupService, PickupService>();
                 builder.Services.AddTransient<IMasterDataRepository>(provider => new MasterDataRepository(connectionString));
                 builder.Services.AddScoped<IMasterDataService, MasterDataService>();
-                 
+
+                builder.Services.AddTransient<IProductRepository>(provider => new ProductRepository(connectionString));
+                builder.Services.AddScoped<IProductService, ProductService>();
                 var app = builder.Build();
 
                 // Configure the HTTP request pipeline.

@@ -9,9 +9,9 @@ namespace DigitalKabadiApp.Core.Models.Response
 {
     public class LoginResponse : Response  
     {
-        public User? Data { get; set; }
+        public UsersDetail? Data { get; set; }
     }
-    public class User 
+    public class UsersDetail 
     {
         [Key]
         public int Id { get; set; }

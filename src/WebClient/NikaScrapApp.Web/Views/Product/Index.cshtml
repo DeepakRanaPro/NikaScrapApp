@@ -1,0 +1,124 @@
+﻿@using NikaScrapApp.Web.Utility
+@model IEnumerable<NikaScrapApp.Web.Models.View.Product>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<style>
+    .form-field-size {
+        padding: .3rem .4rem !important;
+    }
+</style>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                <h4 class="mb-sm-0">Products</h4>
+
+                <div class="page-title-right">
+                    <ol class="breadcrumb m-0">
+                        <li class="breadcrumb-item"><a href="javascript: void(0);">Home</a></li>
+                        <li class="breadcrumb-item active">Products Report</li>
+                    </ol>
+                </div>
+     
+            </div>
+        </div>
+        @{
+            var notification = NotificationHelper.GetNotification(TempData);
+
+            if (notification != null)
+            {
+                <div class="alert alert-@notification.Type alert-dismissible fade show" role="alert">
+                    <strong>@notification.DisplayType!</strong>  @notification.Message
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            }
+        }
+    </div>
+  
+</div>
+ 
+
+<div class="container-fluid">
+    <div class="card">
+        <div class="card-body">
+            <table id="example" class="display">
+                <thead>
+                    <tr>
+                        <th>
+                            Role
+                        </th>
+                        <th>
+                            CategoryName
+                        </th>
+                        <th>
+                            Product Name
+                        </th>
+                        <th>
+                            Product Name (In Hindi)
+                        </th>
+                        <th>
+                            Price/Unit
+                        </th> 
+                        <th>
+                            AppIcon
+                        </th>
+                        <th>
+                            Stock
+                        </th>
+                      
+                        <th>
+                            Description
+                        </th>
+                        <th>
+                            Actions
+                        </th>
+                    </tr>
+                </thead>
+                <tbody style="font-size:14px;">
+                    			 
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.RoleName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CategoryName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.NameInHindi)
+                            </td>
+                      
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Price) / @Html.DisplayFor(modelItem => item.UnitName)
+                            </td>
+                        
+                            <td>
+                                <img alt="" src="@item.AppIcon" style="width: 60px;" />
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Stock)
+                            </td>
+                   
+                            <td width="300">
+                                @Html.DisplayFor(modelItem => item.Description)
+                            </td>
+                            <td  >
+                                <a class="link-danger fs-15" href="@Url.Action("Delete","Product", new { id = item.ProductId })"><i class="ri-delete-bin-line"></i> </a>
+                                <a class="link-danger fs-15" href="@Url.Action("Edit","Product", new { id = item.ProductId })">  Edit </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+ 
+

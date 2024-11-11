@@ -4,6 +4,10 @@ using NikaScrapApp.Web.Utility;
 using NLog.Web;
 using NLog;
 using NikaScrapApp.Web.Utility.CustomFilters;
+using DigitalKabadiApp.Core.Interfaces.Repository;
+using DigitalKabadiApp.Infrastructure.Repositories;
+using DigitalKabadiApp.Core.Interfaces.Service;
+using DigitalKabadiApp.Core.Services;
 namespace NikaScrapApp.Web
 {
     public class Program
@@ -25,10 +29,10 @@ namespace NikaScrapApp.Web
                 builder.Host.UseNLog();
 
                 // Add services to the container.
-                builder.Services.AddControllersWithViews(options =>
-                {
-                    options.Filters.Add<GlobalExceptionFilter>();
-                });
+                //builder.Services.AddControllersWithViews(options =>
+                //{
+                //    options.Filters.Add<GlobalExceptionFilter>();
+                //});
 
 
                 // Add services to the container.
@@ -47,10 +51,20 @@ namespace NikaScrapApp.Web
                 });
                 builder.Services.AddHttpContextAccessor();
 
+                string connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+
+                builder.Services.AddTransient<IAuthRepository>(provider => new AuthRepository(connectionString));
+                builder.Services.AddScoped<IAuthService, AuthService>();
+                builder.Services.AddTransient<ICategoryRepository>(provider => new CategoryRepository(connectionString));
+                builder.Services.AddScoped<ICategoryService, CategoryService>();
+                builder.Services.AddTransient<IPickupRepository>(provider => new PickupRepository(connectionString));
+                builder.Services.AddScoped<IPickupService, PickupService>();
+                builder.Services.AddTransient<IMasterDataRepository>(provider => new MasterDataRepository(connectionString));
+                builder.Services.AddScoped<IMasterDataService, MasterDataService>();
 
                 var app = builder.Build();
 
-                app.UseExceptionHandler("/Home/Error");
+                //app.UseExceptionHandler("/Home/Error");
                 app.UseHsts();
 
                 // Use session middleware
@@ -60,7 +74,7 @@ namespace NikaScrapApp.Web
                 // Configure the HTTP request pipeline.
                 if (!app.Environment.IsDevelopment())
                 {
-                    app.UseExceptionHandler("/Home/Error");
+                    //app.UseExceptionHandler("/Home/Error");
                     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                     app.UseHsts();
                 }

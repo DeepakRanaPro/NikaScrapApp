@@ -19,11 +19,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NikaScrapApplication.API", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Admin", "Admin", "{44A1E766-655B-469C-A297-9F69E7F95FEA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DigitalKabadiApp.Core", "src\WebAPI\Admin\DigitalKabadiApp.Core\DigitalKabadiApp.Core.csproj", "{8142A6B5-DDB9-476B-9B27-C3518363AD9D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DigitalKabadiApp.Core", "src\WebAPI\Admin\DigitalKabadiApp.Core\DigitalKabadiApp.Core.csproj", "{8142A6B5-DDB9-476B-9B27-C3518363AD9D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DigitalKabadiApp.Infrastructure", "src\WebAPI\Admin\DigitalKabadiApp.Infrastructure\DigitalKabadiApp.Infrastructure.csproj", "{7A50D559-390C-414E-BC40-8D4EFE2375FC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DigitalKabadiApp.Infrastructure", "src\WebAPI\Admin\DigitalKabadiApp.Infrastructure\DigitalKabadiApp.Infrastructure.csproj", "{7A50D559-390C-414E-BC40-8D4EFE2375FC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DigitalKabadiApp.API", "src\WebAPI\Admin\DigitalKabadiApp.API\DigitalKabadiApp.API.csproj", "{87B471CC-5E16-4202-B012-37E8D5332FC9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DigitalKabadiApp.API", "src\WebAPI\Admin\DigitalKabadiApp.API\DigitalKabadiApp.API.csproj", "{87B471CC-5E16-4202-B012-37E8D5332FC9}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Client", "Client", "{FAA4BC64-040E-4ECC-9220-A6CED237B489}"
 EndProject
@@ -43,12 +43,12 @@ Global
 		{F56512F8-DDFF-42B4-9EB3-3680C28E68C4}.Release|Any CPU.Build.0 = Release|Any CPU
 		{C5D99ADF-FD50-4FDA-B98F-0661B1F20B3E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{C5D99ADF-FD50-4FDA-B98F-0661B1F20B3E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C5D99ADF-FD50-4FDA-B98F-0661B1F20B3E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C5D99ADF-FD50-4FDA-B98F-0661B1F20B3E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C5D99ADF-FD50-4FDA-B98F-0661B1F20B3E}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{C5D99ADF-FD50-4FDA-B98F-0661B1F20B3E}.Release|Any CPU.Build.0 = Debug|Any CPU
 		{99CC9E12-8C85-4401-9A04-ADD1A296A13F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{99CC9E12-8C85-4401-9A04-ADD1A296A13F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{99CC9E12-8C85-4401-9A04-ADD1A296A13F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{99CC9E12-8C85-4401-9A04-ADD1A296A13F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{99CC9E12-8C85-4401-9A04-ADD1A296A13F}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{99CC9E12-8C85-4401-9A04-ADD1A296A13F}.Release|Any CPU.Build.0 = Debug|Any CPU
 		{8142A6B5-DDB9-476B-9B27-C3518363AD9D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{8142A6B5-DDB9-476B-9B27-C3518363AD9D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8142A6B5-DDB9-476B-9B27-C3518363AD9D}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -59,8 +59,8 @@ Global
 		{7A50D559-390C-414E-BC40-8D4EFE2375FC}.Release|Any CPU.Build.0 = Release|Any CPU
 		{87B471CC-5E16-4202-B012-37E8D5332FC9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{87B471CC-5E16-4202-B012-37E8D5332FC9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{87B471CC-5E16-4202-B012-37E8D5332FC9}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{87B471CC-5E16-4202-B012-37E8D5332FC9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{87B471CC-5E16-4202-B012-37E8D5332FC9}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{87B471CC-5E16-4202-B012-37E8D5332FC9}.Release|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using DigitalKabadiApp.Core.Interfaces.Service;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using NikaScrapApp.Web.Models;
 using NikaScrapApp.Web.Models.Request;
@@ -12,44 +13,63 @@ namespace NikaScrapApp.Web.Controllers
     public class ReportsController : Controller
     {
         private readonly AppSettings _appSettings;
-        private readonly HttpClientManager _httpClientManager;
+        private readonly IPickupService _pickupServices;
+        private readonly IMasterDataService _masterDataService;
 
-        public ReportsController(IOptions<AppSettings> appSettings) 
+        public ReportsController(IOptions<AppSettings> appSettings, IPickupService pickupService, IMasterDataService masterDataService) 
         {
-            _appSettings = appSettings.Value;
-            _httpClientManager = new HttpClientManager(_appSettings.BaseUrl);
+            _appSettings = appSettings.Value; 
+            _pickupServices = pickupService;
+            _masterDataService = masterDataService;
         }
 
         [HttpGet]
         public async Task<IActionResult> Pickup() 
-        {
+        { 
             Models.View.PickupReport pickupReportModel = new Models.View.PickupReport();
-            var masterData = await _httpClientManager.GetAsync<Models.Response.MasterDataResponse>("MasterData/Get");
+            var masterData = _masterDataService.GetMasterData(); 
+            var pickupRecordsResponse = _pickupServices.PickupRecords(new DigitalKabadiApp.Core.Models.Request.PickupReport());
 
             //PickupReport pickupRequest = new PickupReport() { StatusId=1, FromDate = DateTime.Now.ToString("MM/dd/yyyy"), ToDate = DateTime.Now.ToString("MM/dd/yyyy") }; 
             PickupReport pickupRequest = new PickupReport() { StatusId = 1, FromDate = DateTime.Now.ToString("MM/dd/yyyy"), ToDate = DateTime.Now.ToString("MM/dd/yyyy") };
             var content = new StringContent(System.Text.Json.JsonSerializer.Serialize(pickupRequest), System.Text.Encoding.UTF8, "application/json");
-            var pickupRecordsResponse = await _httpClientManager.PostAsync<Models.Response.PickupRecordsResponse>("Pickup/Report", content);
-            pickupReportModel.PickupRecords = pickupRecordsResponse.Data.ToList();
+            //var pickupRecordsResponse = await _httpClientManager.PostAsync<Models.Response.PickupRecordsResponse>("Pickup/Report", content);
+            pickupReportModel.PickupRecords = pickupRecordsResponse.Data.Select(x => new NikaScrapApp.Web.Models.Response.PickupRecords()
+            {
+                City = x.City,
+                EstimatedWeigh = x.EstimatedWeigh,
+                FullAddress = x.FullAddress,
+                Id = x.Id,
+                LocationType = x.LocationType,
+                MobileNumber = x.MobileNumber,
+                Name = x.Name,
+                PickupCode = x.PickupCode,
+                PickUpDate = x.PickUpDate,
+                Remarks = x.Remarks,
+                State = x.State,
+                Status = x.Status,
+                TimeSlot = x.TimeSlot
+            }).ToList();
             pickupReportModel.FromDate = pickupRequest.FromDate;
             pickupReportModel.ToDate = pickupRequest.ToDate;
-            pickupReportModel.UserList = DropdownExtensions.InitializeDropdownWithDefaultValue(masterData.Data, "Users");
-            pickupReportModel.assignUserInfo.UserList = DropdownExtensions.InitializeDropdown(masterData.Data, "Users");
-            pickupReportModel.pickupStatusDetails.StatusList = DropdownExtensions.InitializeDropdown(masterData.Data, "Status").Where(x => x.Value != "1").ToList();
-            pickupReportModel.StatusList = DropdownExtensions.InitializeDropdownWithDefaultValue(masterData.Data, "Status");
-            pickupReportModel.LocationTypeList = DropdownExtensions.InitializeDropdownWithDefaultValue(masterData.Data, "LocationType");
-            pickupReportModel.StateList = DropdownExtensions.InitializeDropdownWithDefaultValue(masterData.Data, "State");
-            pickupReportModel.CityList = DropdownExtensions.InitializeDropdownWithDefaultValue(masterData.Data, "City");
+            pickupReportModel.UserList = DropdownExtensions.InitializeDropdownWithDefaultValue(masterData.Data.Select(x => new NikaScrapApp.Web.Models.Response.MasterData() { Id = x.Id, Name = x.Name, Type = x.Type }).ToList(), "Users");
+            pickupReportModel.assignUserInfo.UserList = DropdownExtensions.InitializeDropdown(masterData.Data.Select(x => new NikaScrapApp.Web.Models.Response.MasterData() { Id = x.Id, Name = x.Name, Type = x.Type }).ToList(), "WastePicker");
+            pickupReportModel.pickupStatusDetails.StatusList = DropdownExtensions.InitializeDropdown(masterData.Data.Select(x => new NikaScrapApp.Web.Models.Response.MasterData() { Id = x.Id, Name = x.Name, Type = x.Type }).ToList(), "Status").Where(x => x.Value != "1").ToList();
+            pickupReportModel.StatusList = DropdownExtensions.InitializeDropdownWithDefaultValue(masterData.Data.Select(x => new NikaScrapApp.Web.Models.Response.MasterData() { Id = x.Id, Name = x.Name, Type = x.Type }).ToList(), "Status");
+            pickupReportModel.LocationTypeList = DropdownExtensions.InitializeDropdownWithDefaultValue(masterData.Data.Select(x => new NikaScrapApp.Web.Models.Response.MasterData() { Id = x.Id, Name = x.Name, Type = x.Type }).ToList(), "LocationType");
+            pickupReportModel.StateList = DropdownExtensions.InitializeDropdownWithDefaultValue(masterData.Data.Select(x => new NikaScrapApp.Web.Models.Response.MasterData() { Id = x.Id, Name = x.Name, Type = x.Type }).ToList(), "State");
+            pickupReportModel.CityList = DropdownExtensions.InitializeDropdownWithDefaultValue(masterData.Data.Select(x => new NikaScrapApp.Web.Models.Response.MasterData() { Id = x.Id, Name = x.Name, Type = x.Type }).ToList(), "City");
+
 
             return View("Index",pickupReportModel);
         }
 
         [HttpPost]
         public async Task<IActionResult> Pickup(Models.View.PickupReport pickupReportModel)
-        {
-            var masterData = await _httpClientManager.GetAsync<Models.Response.MasterDataResponse>("MasterData/Get");
-            //PickupReport pickupRequest = new PickupReport() { StatusId=1, FromDate = DateTime.Now.ToString("MM/dd/yyyy"), ToDate = DateTime.Now.ToString("MM/dd/yyyy") }; 
-            PickupReport pickupRequest = new PickupReport()
+        { 
+            var masterData = _masterDataService.GetMasterData();
+
+            var pickupRequest = new DigitalKabadiApp.Core.Models.Request.PickupReport()
             {
                 StatusId = pickupReportModel.StatusId,
                 UserId = pickupReportModel.UserId,
@@ -60,18 +80,35 @@ namespace NikaScrapApp.Web.Controllers
                 FromDate = string.IsNullOrEmpty(pickupReportModel.FromDate) ? "1900-01-01" : pickupReportModel.FromDate.Trim(),
                 ToDate = string.IsNullOrEmpty(pickupReportModel.ToDate) ? "1900-01-01" : pickupReportModel.ToDate.Trim(),
             };
-            var content = new StringContent(System.Text.Json.JsonSerializer.Serialize(pickupRequest), System.Text.Encoding.UTF8, "application/json");
-            var pickupRecordsResponse = await _httpClientManager.PostAsync<Models.Response.PickupRecordsResponse>("Pickup/Report", content);
-            pickupReportModel.PickupRecords = pickupRecordsResponse.Data.ToList();
+
+            var pickupRecordsResponse = _pickupServices.PickupRecords(pickupRequest);
+
+            pickupReportModel.PickupRecords = pickupRecordsResponse.Data.Select(x => new NikaScrapApp.Web.Models.Response.PickupRecords()
+            {
+                City = x.City,
+                EstimatedWeigh = x.EstimatedWeigh,
+                FullAddress = x.FullAddress,
+                Id = x.Id,
+                LocationType = x.LocationType,
+                MobileNumber = x.MobileNumber,
+                Name = x.Name,
+                PickupCode = x.PickupCode,
+                PickUpDate = x.PickUpDate,
+                Remarks = x.Remarks,
+                State = x.State,
+                Status = x.Status,
+                TimeSlot = x.TimeSlot
+            }).ToList();
             pickupReportModel.FromDate = pickupRequest.FromDate;
             pickupReportModel.ToDate = pickupRequest.ToDate;
-            pickupReportModel.UserList = DropdownExtensions.InitializeDropdownWithDefaultValue(masterData.Data, "Users");
-            pickupReportModel.assignUserInfo.UserList = DropdownExtensions.InitializeDropdown(masterData.Data, "Users");
-            pickupReportModel.pickupStatusDetails.StatusList = DropdownExtensions.InitializeDropdown(masterData.Data, "Status").Where(x => x.Value != "1").ToList();
-            pickupReportModel.StatusList = DropdownExtensions.InitializeDropdownWithDefaultValue(masterData.Data, "Status");
-            pickupReportModel.LocationTypeList = DropdownExtensions.InitializeDropdownWithDefaultValue(masterData.Data, "LocationType");
-            pickupReportModel.StateList = DropdownExtensions.InitializeDropdownWithDefaultValue(masterData.Data, "State");
-            pickupReportModel.CityList = DropdownExtensions.InitializeDropdownWithDefaultValue(masterData.Data, "City");
+            pickupReportModel.UserList = DropdownExtensions.InitializeDropdownWithDefaultValue(masterData.Data.Select(x => new NikaScrapApp.Web.Models.Response.MasterData() { Id = x.Id, Name = x.Name, Type = x.Type }).ToList(), "Users");
+            pickupReportModel.assignUserInfo.UserList = DropdownExtensions.InitializeDropdown(masterData.Data.Select(x => new NikaScrapApp.Web.Models.Response.MasterData() { Id = x.Id, Name = x.Name, Type = x.Type }).ToList(), "WastePicker");
+            pickupReportModel.pickupStatusDetails.StatusList = DropdownExtensions.InitializeDropdown(masterData.Data.Select(x => new NikaScrapApp.Web.Models.Response.MasterData() { Id = x.Id, Name = x.Name, Type = x.Type }).ToList(), "Status").Where(x => x.Value != "1").ToList();
+            pickupReportModel.StatusList = DropdownExtensions.InitializeDropdownWithDefaultValue(masterData.Data.Select(x => new NikaScrapApp.Web.Models.Response.MasterData() { Id = x.Id, Name = x.Name, Type = x.Type }).ToList(), "Status");
+            pickupReportModel.LocationTypeList = DropdownExtensions.InitializeDropdownWithDefaultValue(masterData.Data.Select(x => new NikaScrapApp.Web.Models.Response.MasterData() { Id = x.Id, Name = x.Name, Type = x.Type }).ToList(), "LocationType");
+            pickupReportModel.StateList = DropdownExtensions.InitializeDropdownWithDefaultValue(masterData.Data.Select(x => new NikaScrapApp.Web.Models.Response.MasterData() { Id = x.Id, Name = x.Name, Type = x.Type }).ToList(), "State");
+            pickupReportModel.CityList = DropdownExtensions.InitializeDropdownWithDefaultValue(masterData.Data.Select(x => new NikaScrapApp.Web.Models.Response.MasterData() { Id = x.Id, Name = x.Name, Type = x.Type }).ToList(), "City");
+
 
             return View("Index", pickupReportModel);
         }

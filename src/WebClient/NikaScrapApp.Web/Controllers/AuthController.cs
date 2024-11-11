@@ -1,8 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using DigitalKabadiApp.Core.Interfaces.Service;
+using DigitalKabadiApp.Core.Models.Response;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using NikaScrapApp.Web.Models;
 using NikaScrapApp.Web.Models.Request;
 using NikaScrapApp.Web.Utility;
+using NuGet.Protocol.Plugins;
 using System.Security.Claims;
 
 namespace NikaScrapApp.Web.Controllers
@@ -10,11 +13,11 @@ namespace NikaScrapApp.Web.Controllers
     public class AuthController : Controller
     {
         private readonly AppSettings _appSettings;
-        private readonly HttpClientManager _httpClientManager;
-        public AuthController(IOptions<AppSettings> appSettings) 
+        private readonly IAuthService _authenticateService;
+        public AuthController(IOptions<AppSettings> appSettings, IAuthService authenticateService) 
         {
             _appSettings = appSettings.Value;
-            _httpClientManager = new HttpClientManager(_appSettings.BaseUrl);
+            _authenticateService = authenticateService;
         }
 
         [HttpGet]
@@ -24,10 +27,11 @@ namespace NikaScrapApp.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Login(Login login) 
-        {
-            var content = new StringContent(System.Text.Json.JsonSerializer.Serialize(login), System.Text.Encoding.UTF8, "application/json");
-            var loginResponse = await _httpClientManager.PostAsync<Models.Response.LoginResponse>("Auth/Login", content); 
+        public async Task<IActionResult> Login(Login loginRequest) 
+        { 
+            LoginResponse loginResponse = new LoginResponse();
+
+            loginResponse = _authenticateService.Login(new DigitalKabadiApp.Core.Models.Request.Login() { EmailId= loginRequest.EmailId,Password= loginRequest.Password });
 
             if (loginResponse.IsSuccess)
             {
