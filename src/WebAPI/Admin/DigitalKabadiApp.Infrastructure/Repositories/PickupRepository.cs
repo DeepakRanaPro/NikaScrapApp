@@ -2,7 +2,6 @@
 using DigitalKabadiApp.Core.Interfaces.Repository;
 using DigitalKabadiApp.Core.Models.Request;
 using DigitalKabadiApp.Core.Models.Response;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using System.Data;
 
@@ -61,6 +60,26 @@ namespace DigitalKabadiApp.Infrastructure.Repositories
                 parameters.Add("@Remarks", pickupAssign.Remarks);
                 parameters.Add("@ActionBy", pickupAssign.ActionBy);
                 result = sqlconnection.Execute($" Update [dbo].TbPickups Set WastePickerId=@UserId ,StatusId=6,  Remarks= @Remarks, UpdatedBy = @ActionBy Where Id=@PickupId", param: parameters, commandType: CommandType.Text) > 0;
+            }
+            return result;
+        }
+
+        public string? GetMobileNo(int UserId)
+        {
+            string? result = string.Empty;
+            using (var sqlConnection = new SqlConnection(_connectionString))
+            {
+                result = sqlConnection.Query<string>($" Select MobileNumber from TbUser Where id={UserId}", commandType: CommandType.Text).FirstOrDefault();
+            }
+            return result;
+        }
+
+        public string? GetPickupCode(int pickupId)
+        {
+            string? result = string.Empty;
+            using (var sqlConnection = new SqlConnection(_connectionString))
+            {
+                result = sqlConnection.Query<string>($" Select PickupCode from TbPickups Where id={pickupId}", commandType: CommandType.Text).FirstOrDefault();
             }
             return result;
         }

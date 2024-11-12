@@ -1,11 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
 using NikaScrapApp.Core.Interfaces;
 using NikaScrapApp.Core.Models.Request;
 using NikaScrapApp.Core.Models.Response;
-using NikaScrapApp.Core.Services;
 using NikaScrapApplication.API.Helper;
 
 namespace NikaScrapApplication.API.Controllers

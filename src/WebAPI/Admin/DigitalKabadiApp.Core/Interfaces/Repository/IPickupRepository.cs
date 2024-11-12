@@ -8,5 +8,7 @@ namespace DigitalKabadiApp.Core.Interfaces.Repository
         List<PickupRecords> GetPickupRecords(PickupReport pickupReport);
         bool UpdatePickupStatus(PickupStatus pickupStatus);
         bool AssignPickup(PickupAssign pickupAssign);
+        string? GetMobileNo(int UserId);
+        string? GetPickupCode(int pickupId);
     }
 }

@@ -81,5 +81,57 @@ namespace DigitalKabadiApp.Core.Services
             }
             return responseData;
         }
+ 
+        ResponseDetail IPickupService.GetMobileNo(int UserId)
+        {
+            ResponseDetail responsedata = new ResponseDetail();
+            try
+            {
+                responsedata.Data = _pickupRepository.GetMobileNo(UserId);
+
+                {
+                    if (string.IsNullOrEmpty(responsedata.Data))
+                    {
+                        responsedata.IsSuccess = false;
+                        responsedata.Message = "fail";
+                        responsedata.ResponseCode = 999;
+
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                responsedata.IsSuccess = false;
+                responsedata.Message = $"exception:{ex.Message}";
+                responsedata.ResponseCode = 999;
+            }
+            return responsedata;
+        }
+
+        ResponseDetail IPickupService.GetPickupCode(int pickupId)
+        {
+            ResponseDetail responsedata = new ResponseDetail();
+            try
+            {
+                responsedata.Data = _pickupRepository.GetPickupCode(pickupId);
+
+                {
+                    if (string.IsNullOrEmpty(responsedata.Data))
+                    {
+                        responsedata.IsSuccess = false;
+                        responsedata.Message = "fail";
+                        responsedata.ResponseCode = 999;
+
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                responsedata.IsSuccess = false;
+                responsedata.Message = $"exception:{ex.Message}";
+                responsedata.ResponseCode = 999;
+            }
+            return responsedata;
+        }
     }
 }

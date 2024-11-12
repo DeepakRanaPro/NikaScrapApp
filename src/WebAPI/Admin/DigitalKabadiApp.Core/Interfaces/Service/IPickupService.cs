@@ -8,5 +8,7 @@ namespace DigitalKabadiApp.Core.Interfaces.Service
         PickupRecordsResponse PickupRecords(PickupReport pickupReport);
         ResponseData UpdatePickupStatus(PickupStatus pickupStatus);
         ResponseData AssignPickup(PickupAssign pickupAssign);
+        ResponseDetail GetMobileNo(int UserId);
+        ResponseDetail GetPickupCode(int pickupId);
     }
 }
