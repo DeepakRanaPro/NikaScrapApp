@@ -4,6 +4,7 @@ using DigitalKabadiApp.Core.Services;
 using DigitalKabadiApp.Infrastructure.Repositories;
 using NikaScrapApp.Web.Models;
 using NikaScrapApp.Web.Utility;
+using NikaScrapApp.Web.Utility.CustomFilters;
 using NLog;
 using NLog.Web;
 namespace NikaScrapApp.Web
@@ -27,10 +28,10 @@ namespace NikaScrapApp.Web
                 builder.Host.UseNLog();
 
                 // Add services to the container.
-                //builder.Services.AddControllersWithViews(options =>
-                //{
-                //    options.Filters.Add<GlobalExceptionFilter>();
-                //});
+                builder.Services.AddControllersWithViews(options =>
+                {
+                    options.Filters.Add<GlobalExceptionFilter>();
+                });
 
 
                 // Add services to the container.
@@ -62,9 +63,12 @@ namespace NikaScrapApp.Web
                 builder.Services.AddTransient<IfeedbackRepositary>(provider => new FeedbackRepositary(connectionString));
                 builder.Services.AddScoped<IfeedbackService, FeedbackService>();
 
+                builder.Services.AddTransient<IProductRepository>(provider => new ProductRepository(connectionString));
+                builder.Services.AddScoped<IProductService, ProductService>();
+
                 var app = builder.Build();
 
-                //app.UseExceptionHandler("/Home/Error");
+                app.UseExceptionHandler("/Home/Error");
                 app.UseHsts();
 
                 // Use session middleware

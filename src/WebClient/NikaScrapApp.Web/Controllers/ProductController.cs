@@ -1,6 +1,8 @@
 ﻿using DigitalKabadiApp.Core.Interfaces.Service;
+using DocumentFormat.OpenXml.Office2010.Excel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
+using Newtonsoft.Json;
 using NikaScrapApp.Web.Models;
 using NikaScrapApp.Web.Utility;
 using NikaScrapApp.Web.Utility.CustomFilters;
@@ -14,18 +16,19 @@ namespace NikaScrapApp.Web.Controllers
         private readonly AppSettings _appSettings;
         private readonly HttpClientManager _httpClientManager;
         private readonly IMasterDataService _masterDataService;
-        public ProductController(IOptions<AppSettings> appSettings, IMasterDataService masterDataService)
+        private readonly IProductService _productServics;
+        public ProductController(IOptions<AppSettings> appSettings, IProductService productServics, IMasterDataService masterDataService)
         {
             _appSettings = appSettings.Value;
             _httpClientManager = new HttpClientManager(_appSettings.BaseUrl);
             _masterDataService = masterDataService;
+            _productServics = productServics;
         }
 
         [HttpGet]
         public async Task<IActionResult> Index()
-        {
-
-            var productResponse = await _httpClientManager.GetAsync<Models.Response.ProductResponse>("Product/Get?id=0");
+        { 
+            var productResponse = _productServics.GetProduct(0);
             return View(productResponse.Data.Select(x => new NikaScrapApp.Web.Models.View.Product()
             {
                 ProductId = x.ProductId,
@@ -46,7 +49,7 @@ namespace NikaScrapApp.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> Delete(int id)
         {
-            var responseData = await _httpClientManager.DeleteAsync<Models.Response.ResponseData>($"Product/DeleteProduct?id={id}");
+            var responseData = _productServics.DeleteProduct(id);
 
             if (responseData.IsSuccess)
                 NotificationHelper.SetNotification(this, "Product has been deleted", "success");
@@ -61,7 +64,7 @@ namespace NikaScrapApp.Web.Controllers
         {
             var masterData = _masterDataService.GetMasterData();
             Models.Request.Product model = new Models.Request.Product();
-            var productResponse = await _httpClientManager.GetAsync<Models.Response.ProductResponse>($"Product/Get?id={id}");
+            var productResponse = _productServics.GetProduct(id);
             var product = productResponse.Data.FirstOrDefault();
 
 
@@ -86,8 +89,17 @@ namespace NikaScrapApp.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(Models.Request.Product product) 
         {
-            var content = new StringContent(System.Text.Json.JsonSerializer.Serialize(product), System.Text.Encoding.UTF8, "application/json");
-            var productResponse = await _httpClientManager.PostAsync<Models.Response.ResponseData>("Product/ModifyProduct", content);
+            DigitalKabadiApp.Core.Models.Request.Product requestData = new() {
+            ActionBy = product.ActionBy,
+            CategoryId = product.CategoryId,
+            ProductId = product.ProductId,
+            Name = product.Name,
+            NameInHindi = product.NameInHindi,
+            Price = product.Price,
+            ProductPriceId = product.ProductPriceId,
+            UnitId = product.UnitId,
+            };
+            var productResponse = _productServics.ModifyProduct(requestData);
 
             if (productResponse.IsSuccess)
             {
