@@ -22,10 +22,13 @@ namespace NikaScrapApp.Web.Models.Request
         public int UnitId { get; set; }
         public List<SelectListItem> UnitList { get; set; } = new List<SelectListItem>(); 
         public int ActionBy { get; set; }
+
+        [Required(ErrorMessage = "Description is Required!")]
         public string Description { get; set; } = string.Empty;
         public int ProductPriceId { get; set; }
 
         [Required(ErrorMessage = "Price is Required!")]
+        [Range(0, double.MaxValue, ErrorMessage = "Please enter a valid price.")]
         public string Price { get; set; }
     }
 }

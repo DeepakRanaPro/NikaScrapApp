@@ -77,8 +77,8 @@ namespace NikaScrapApp.Web.Controllers
                 CategoryId = product.CategoryId,
             };
 
-            model.CategoryList = DropdownExtensions.InitializeDropdownWithDefaultValue(masterData.Data.Select(x => new NikaScrapApp.Web.Models.Response.MasterData() { Id = x.Id, Name = x.Name, Type = x.Type }).ToList(), "Category");
-            model.UnitList = DropdownExtensions.InitializeDropdownWithDefaultValue(masterData.Data.Select(x => new NikaScrapApp.Web.Models.Response.MasterData() { Id = x.Id, Name = x.Name, Type = x.Type }).ToList(), "Unit");
+            model.CategoryList = DropdownExtensions.InitializeDropdownWithOutDefaultValue(masterData.Data.Select(x => new NikaScrapApp.Web.Models.Response.MasterData() { Id = x.Id, Name = x.Name, Type = x.Type }).ToList(), "Category");
+            model.UnitList = DropdownExtensions.InitializeDropdownWithOutDefaultValue(masterData.Data.Select(x => new NikaScrapApp.Web.Models.Response.MasterData() { Id = x.Id, Name = x.Name, Type = x.Type }).ToList(), "Unit");
 
             return View(model);
         }

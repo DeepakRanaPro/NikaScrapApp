@@ -110,7 +110,7 @@
                                 @Html.DisplayFor(modelItem => item.Description)
                             </td>
                             <td  >
-                                <a class="link-danger fs-15" href="@Url.Action("Delete","Product", new { id = item.ProductId })"><i class="ri-delete-bin-line"></i> </a>
+                                <a class="link-danger fs-15" style="margin-right: 32px;" href="@Url.Action("Delete","Product", new { id = item.ProductId })"><i class="ri-delete-bin-line"></i> </a>
                                 <a class="link-danger fs-15" href="@Url.Action("Edit","Product", new { id = item.ProductId })">  Edit </a>
                             </td>
                         </tr>
