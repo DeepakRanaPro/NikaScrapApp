@@ -1,12 +1,7 @@
 ﻿using Dapper;
 using DigitalKabadiApp.Core.Models.Request;
 using Microsoft.Data.SqlClient;
-using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DigitalKabadiApp.Infrastructure.Repositories
 {
@@ -17,14 +12,19 @@ namespace DigitalKabadiApp.Infrastructure.Repositories
         {
             _connectionString = connectionString;
         }
-        public List<UserDetail> GetUser(int id)
+        public List<UserDetail> GetUser(int id )
         {
             List<UserDetail> result = new List<UserDetail>();
             using (var sqlconnection = new SqlConnection(_connectionString))
             {
+                string query =  $"select TbUser.Id , TbUser.Name ,MobileNumber ,EmailId,  Password,  TbUserAddress.UserId ,State,City ,MstRole.Id from TbUser" +
+                               $"join TbUserAddress on TbUser.Id = TbUserAddress.Id" +
+                               $"join MstRole on TbUser.RoleId = MstRole.Id  where (@Id = 0 or TbUser.id = @Id) and (@RoleId = 0 or TbUser.RoleId = @RoleId) and (@State = 0 or TbUserAddress.state = @State) and (@City=0 or TbUserAddress.City = @City)";
+                              
                 var parameters = new DynamicParameters();
-                parameters.Add("UserID", id);
-                result = sqlconnection.Query<UserDetail>($"  select TbUser.Id , TbUser.Name ,MobileNumber ,EmailId,  Password,  TbUserAddress.UserId ,State,City ,MstRole.Id from TbUserjoin TbUserAddress on TbUser.Id = TbUserAddress.Idjoin MstRole on TbUser.RoleId = MstRole.Id ", param: parameters, commandType: CommandType.Text).ToList();
+                parameters.Add("@Id", id);
+               
+                result = sqlconnection.Query<UserDetail>($"query ", param: parameters, commandType: CommandType.Text).ToList();
             }
             return result;
         }

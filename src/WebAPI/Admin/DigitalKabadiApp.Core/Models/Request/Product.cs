@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace DigitalKabadiApp.Core.Models.Request
+﻿namespace DigitalKabadiApp.Core.Models.Request
 {
     public class Product
     {

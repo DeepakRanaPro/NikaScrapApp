@@ -21,6 +21,8 @@ namespace NikaScrapApp.Web.Models.View
         public List<SelectListItem> CityList { get; set; } 
         public string FromDate { get; set; } = "1900-01-01";
         public string ToDate { get; set; } = "1900-01-01";
+        public string CreatedFromDate { get; set; } = "1900-01-01";
+        public string CreatedToDate { get; set; } = "1900-01-01";
         public string MyPickupCode { get; set; } = string.Empty;
         public List<PickupRecords> PickupRecords{ get; set; }  
 

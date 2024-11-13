@@ -10,5 +10,8 @@
         public string City { get; set; } = "0";
         public string FromDate { get; set; } = "1900-01-01";
         public string ToDate { get; set; } = "1900-01-01";
+
+        public string CreatedFromDate { get; set; } = "1900-01-01";
+        public string CreatedToDate { get; set; } = "1900-01-01";
     }
 }

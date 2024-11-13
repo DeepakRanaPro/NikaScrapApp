@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace DigitalKabadiApp.Core.Models.Response
+﻿namespace DigitalKabadiApp.Core.Models.Response
 {
-    public class UserDetail : Response
+    public class UserResponse : Response
+    {
+        public List<UserDetail> Data { get; set; }
+    }
+    public class UserDetail 
     {
         public int id { get; set; }
         public string name { get; set; }

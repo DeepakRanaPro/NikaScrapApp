@@ -9,6 +9,7 @@
         public string Id { get; set; }
         public string PickupCode { get; set; } = string.Empty;
         public string PickUpDate { get; set; } = string.Empty;
+        public string CreatedOn { get; set; } = string.Empty; 
         public string TimeSlot { get; set; } = string.Empty;
         public string FullAddress { get; set; } = string.Empty;
         public string Status { get; set; } = string.Empty;
@@ -20,5 +21,4 @@
         public string MobileNumber { get; set; } = string.Empty;
         public string Remarks { get; set; } = string.Empty;
     }
-}
-//EstimatedWeigh,TimeSlot, FullAddress
+} 

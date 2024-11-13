@@ -37,12 +37,20 @@
                 <input type="text" class="form-control form-field-size" asp-for="PickupCode" id="PickupCode" placeholder="Enter Code">
             </div>
             <div class="col">
-                <label for="formGroupExampleInput" class="form-label">Date From</label>
+                <label for="formGroupExampleInput" class="form-label"> From (Pickup Date)</label>
                 <input type="date" class="form-control form-field-size" asp-for="FromDate" id="FromDate" placeholder="Enter Date">
             </div>
             <div class="col">
-                <label for="formGroupExampleInput" class="form-label">Date To</label>
+                <label for="formGroupExampleInput" class="form-label"> To (Pickup Date)</label>
                 <input type="date" class="form-control form-field-size" asp-for="ToDate" id="ToDate" placeholder="Enter Date">
+            </div>
+            <div class="col">
+                <label for="formGroupExampleInput" class="form-label"> From (Created Date)</label>
+                <input type="date" class="form-control form-field-size" asp-for="CreatedFromDate" id="CreatedFromDate" placeholder="Enter Date">
+            </div>
+            <div class="col">
+                <label for="formGroupExampleInput" class="form-label">To (Created Date)</label>
+                <input type="date" class="form-control form-field-size" asp-for="CreatedToDate" id="CreatedToDate" placeholder="Enter Date">
             </div>
             <div class="col">
                 <label for="formGroupExampleInput" class="form-label">Location</label>
@@ -91,7 +99,10 @@
                             Status
                         </th>
                         <th>
-                            Date
+                            Pickup Date 
+                        </th>
+                        <th>
+                            Created Date
                         </th>
                         <th>
                             Weight
@@ -126,6 +137,9 @@
                             <td>
                                 @Convert.ToDateTime(item.PickUpDate).ToString("dd/MM/yyyy")<br />
                                 <span class="badge text-body-emphasis  bg-dark-subtle">@item.TimeSlot</span>
+                            </td>
+                            <td>
+                                @Convert.ToDateTime(item.CreatedOn).ToString("dd/MM/yyyy")
                             </td>
                             <td>
                                 <span class="badge bg-success"> @Html.DisplayFor(modelItem => item.EstimatedWeigh)</span>

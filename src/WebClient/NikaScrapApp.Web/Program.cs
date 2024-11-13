@@ -1,13 +1,11 @@
-using Microsoft.Extensions.Configuration;
-using NikaScrapApp.Web.Models;
-using NikaScrapApp.Web.Utility;
-using NLog.Web;
-using NLog;
-using NikaScrapApp.Web.Utility.CustomFilters;
 using DigitalKabadiApp.Core.Interfaces.Repository;
-using DigitalKabadiApp.Infrastructure.Repositories;
 using DigitalKabadiApp.Core.Interfaces.Service;
 using DigitalKabadiApp.Core.Services;
+using DigitalKabadiApp.Infrastructure.Repositories;
+using NikaScrapApp.Web.Models;
+using NikaScrapApp.Web.Utility;
+using NLog;
+using NLog.Web;
 namespace NikaScrapApp.Web
 {
     public class Program
@@ -61,6 +59,8 @@ namespace NikaScrapApp.Web
                 builder.Services.AddScoped<IPickupService, PickupService>();
                 builder.Services.AddTransient<IMasterDataRepository>(provider => new MasterDataRepository(connectionString));
                 builder.Services.AddScoped<IMasterDataService, MasterDataService>();
+                builder.Services.AddTransient<IfeedbackRepositary>(provider => new FeedbackRepositary(connectionString));
+                builder.Services.AddScoped<IfeedbackService, FeedbackService>();
 
                 var app = builder.Build();
 

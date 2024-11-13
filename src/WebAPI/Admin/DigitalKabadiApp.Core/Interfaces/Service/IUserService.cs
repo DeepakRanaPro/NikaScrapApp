@@ -4,6 +4,6 @@ namespace DigitalKabadiApp.Core.Interfaces.Service
 {
     public interface IUserService
     {
-        UserDetail GetProduct(int id);
+        UserResponse GetUser(int id);
     }
 }

@@ -29,6 +29,8 @@ namespace DigitalKabadiApp.Infrastructure.Repositories
                 parameters.Add("@LocationTypeId", pickupReport.LocationTypeId);
                 parameters.Add("@FromDate", pickupReport.FromDate);
                 parameters.Add("@ToDate", pickupReport.ToDate);
+                parameters.Add("@CreatedFromDate", pickupReport.CreatedFromDate);
+                parameters.Add("@CreatedToDate", pickupReport.CreatedToDate);
                 result = sqlconnection.Query<PickupRecords>($"[dbo].[PickupReport]", param: parameters, commandType: CommandType.StoredProcedure).ToList();
             }
             return result;
