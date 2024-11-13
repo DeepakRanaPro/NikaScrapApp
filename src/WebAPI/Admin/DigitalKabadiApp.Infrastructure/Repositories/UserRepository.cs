@@ -24,7 +24,7 @@ namespace DigitalKabadiApp.Infrastructure.Repositories
                 var parameters = new DynamicParameters();
                 parameters.Add("@Id", id);
                
-                result = sqlconnection.Query<UserDetail>($"query ", param: parameters, commandType: CommandType.Text).ToList();
+                result = sqlconnection.Query<UserDetail>(query, param: parameters, commandType: CommandType.Text).ToList();
             }
             return result;
         }

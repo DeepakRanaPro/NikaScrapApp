@@ -14,9 +14,13 @@ namespace DigitalKabadiApp.Core.Models.Request
         public string ImagePath { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
         public string CreatedOn { get; set; } = string.Empty;
+        public string RatingFrom { get; set; }
+        public string RatingTo { get; set; }
+        public string CreatedFrom { get; set; }
+        public string CreatedTo { get; set; }
+        public int UserId { get; set; }
     }
-
-
+     
     public class Feedbacks
     {
         public string RatingFrom { get; set; }

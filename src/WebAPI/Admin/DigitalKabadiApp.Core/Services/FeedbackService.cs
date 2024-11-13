@@ -1,5 +1,6 @@
 ﻿using DigitalKabadiApp.Core.Interfaces.Repository;
 using DigitalKabadiApp.Core.Interfaces.Service;
+using DigitalKabadiApp.Core.Models.Request;
 using DigitalKabadiApp.Core.Models.Response;
 using System;
 using System.Collections.Generic;
@@ -8,28 +9,29 @@ using System.Text;
 using System.Threading.Tasks;
 
 
+
 namespace DigitalKabadiApp.Core.Services
 {
-    public  class FeedbackService :IfeedbackService
+    public  class FeedbackService :iFeedbackService
 
     {
         
-        private readonly IfeedbackRepositary _FeedbackRepositary;
-        public FeedbackService(IfeedbackRepositary FeedbackRepositary)
+        private readonly iFeedbackRepositary _FeedbackRepositary;
+        public FeedbackService(iFeedbackRepositary FeedbackRepositary)
         {
             _FeedbackRepositary = FeedbackRepositary;
         }
-        public FeedbackResponse GetFeedback(Feedback feedback)
+        public FeedbackResponse GetFeedback(Models.Request.Feedback feedback)
         {
             FeedbackResponse responseData = new FeedbackResponse();
 
             try
             {
-                responseData.Data =_FeedbackRepositary.GetFeedback(feedback);
+               _FeedbackRepositary.GetFeedback( feedback);
                 if (!responseData.Data.Any())
                 {
-                    responseData.IsSuccess = false;
-                    responseData.Message = "Fail";
+                    responseData.IsSuccess = true;
+                    responseData.Message = "No record exists!";
                     responseData.ResponseCode = 999;
                 }
             }
@@ -41,14 +43,14 @@ namespace DigitalKabadiApp.Core.Services
             }
             return responseData;
         }
-        public FeedbackResponse InsertFeedback(Feedback feedback)
+        public FeedbackResponse InsertFeedback(Core.Models.Request.Feedback feedback)
         {
             FeedbackResponse responseData = new FeedbackResponse();
 
             try
             {
-                responseData.Data = _FeedbackRepositary.GetFeedback(feedback);
-                if (!responseData.Data.Any())
+                bool result = _FeedbackRepositary.Insertfeedback(feedback);
+                if (!result)
                 {
                     responseData.IsSuccess = false;
                     responseData.Message = "Fail";

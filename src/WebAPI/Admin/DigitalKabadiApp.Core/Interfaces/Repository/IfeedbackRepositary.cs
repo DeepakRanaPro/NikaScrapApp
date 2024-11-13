@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace DigitalKabadiApp.Core.Interfaces.Repository
 {
-    public interface IfeedbackRepositary
+    public interface iFeedbackRepositary
     {
-        List<Models.Response.Feedback> GetFeedback(Models.Response.Feedback feedback);
-        bool Insertfeedback(Core.Models.Response.Feedback feedback);
+        List<Core.Models.Response.Feedback> GetFeedback(Core.Models.Request.Feedback feedback);
+        bool Insertfeedback(Core.Models.Request.Feedback feedback);
     }
 }

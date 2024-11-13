@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace DigitalKabadiApp.Core.Interfaces.Service
 {
-    public interface IfeedbackService
+    public interface iFeedbackService
     {
-         FeedbackResponse GetFeedback( Feedback feedback);
-        FeedbackResponse InsertFeedback(Feedback feedback);
+        FeedbackResponse GetFeedback(Models.Request.Feedback feedback);
+        FeedbackResponse InsertFeedback(Core.Models.Request.Feedback feedback);
     }
 }

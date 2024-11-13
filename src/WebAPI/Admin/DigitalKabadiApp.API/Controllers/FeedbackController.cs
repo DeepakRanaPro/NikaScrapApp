@@ -5,26 +5,28 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace DigitalKabadiApp.API.Controllers
 {
-    public class FeedbackController : Controller
+    [Route("api/[controller]/[Action]")]
+    [ApiController]
+    public class FeedbackController : ControllerBase
     {
-        private readonly IfeedbackService _FeedbackService;
-        public FeedbackController(IfeedbackService FeedbackService)
+        private readonly iFeedbackService _FeedbackService;
+        public FeedbackController(iFeedbackService FeedbackService)
         {
             _FeedbackService = FeedbackService;
         }
 
-        [HttpGet]
-        public ActionResult Get(Feedback feedback)
+        [HttpPost]
+        public ActionResult Get(DigitalKabadiApp.Core.Models.Request.Feedback feedback)
         {
             FeedbackResponse result = new FeedbackResponse();
             result = _FeedbackService.GetFeedback(feedback);
             return Ok(result);
         }
         [HttpPost]
-        public ActionResult Insert(Feedback feedback)
+        public ActionResult Insert(Core.Models.Request.Feedback feedback)
         {
             FeedbackResponse result = new FeedbackResponse();
-            result = _FeedbackService.GetFeedback(feedback);
+            result = _FeedbackService.InsertFeedback(feedback);
             return Ok(result);
         }
     }

@@ -79,6 +79,9 @@ namespace DigitalKabadiApp.API
                 builder.Services.AddTransient<IProductRepository>(provider => new ProductRepository(connectionString));
                 builder.Services.AddScoped<IProductService, ProductService>();
 
+                builder.Services.AddTransient<iFeedbackRepositary>(provider => new FeedbackRepositary(connectionString));
+                builder.Services.AddScoped<iFeedbackService, FeedbackService>();
+
                 builder.Services.AddTransient<ISmsRepository>(provider => new SmsRepository(connectionString));
                 builder.Services.AddScoped<ISmsService, SmsService>();
                  
