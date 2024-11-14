@@ -84,7 +84,11 @@ namespace DigitalKabadiApp.API
 
                 builder.Services.AddTransient<ISmsRepository>(provider => new SmsRepository(connectionString));
                 builder.Services.AddScoped<ISmsService, SmsService>();
-                 
+
+                builder.Services.AddTransient<IExchangeProductRepository>(provider => new ExchangeProductRepository(connectionString));
+                builder.Services.AddScoped<IExchangeProductService, ExchangeProductService>();
+
+
                 var app = builder.Build();
 
                 // Configure the HTTP request pipeline.
