@@ -39,6 +39,13 @@ namespace DigitalKabadiApp.API.Controllers
             exchangeProductResponse = _exchangeProductService.GetRecord(id);
             return Ok(exchangeProductResponse);
         }
+        [HttpPut]
+        public ActionResult Edit(Core.Models.Request.ExchangeProduct exchangeProduct)
+        {
+            ResponseData result = new ResponseData();
+            result = _exchangeProductService.Edit(exchangeProduct);
+            return Ok(result);
+        }
 
 
     }

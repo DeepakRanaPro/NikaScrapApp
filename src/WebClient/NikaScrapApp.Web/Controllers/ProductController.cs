@@ -41,7 +41,8 @@ namespace NikaScrapApp.Web.Controllers
                 ProductPriceId = x.ProductPriceId,
                 RoleName = x.RoleName,
                 Stock = x.Stock,
-                UnitName = x.UnitName
+                UnitName = x.UnitName,
+                ProductPriceRoleWiseId= x.ProductPriceRoleWiseId,
             }
             ));
         }
@@ -78,6 +79,7 @@ namespace NikaScrapApp.Web.Controllers
                 Price = product.Price,
                 RoleName = product.RoleName,
                 CategoryId = product.CategoryId,
+                ProductPriceRoleWiseId = product.ProductPriceRoleWiseId,
             };
 
             model.CategoryList = DropdownExtensions.InitializeDropdownWithOutDefaultValue(masterData.Data.Select(x => new NikaScrapApp.Web.Models.Response.MasterData() { Id = x.Id, Name = x.Name, Type = x.Type }).ToList(), "Category");
@@ -98,6 +100,7 @@ namespace NikaScrapApp.Web.Controllers
             Price = product.Price,
             ProductPriceId = product.ProductPriceId,
             UnitId = product.UnitId,
+                ProductPriceRoleWiseId= product.ProductPriceRoleWiseId
             };
             var productResponse = _productServics.ModifyProduct(requestData);
 

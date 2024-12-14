@@ -3,6 +3,8 @@
     public class Product
     {
         public int ProductPriceId { get; set; } 
+
+        public int ProductPriceRoleWiseId { get; set; } 
         public string Price { get; set; } 
         public int ProductId { get; set; }
         public string Name { get; set; }

@@ -62,6 +62,10 @@ namespace NikaScrapApp.Web
                 builder.Services.AddScoped<IMasterDataService, MasterDataService>();
                 builder.Services.AddTransient<iFeedbackRepositary>(provider => new FeedbackRepositary(connectionString));
                 builder.Services.AddScoped<iFeedbackService, FeedbackService>();
+                builder.Services.AddTransient<IContactUsRepositary>(provider => new ContactUsRepositary(connectionString));
+                builder.Services.AddScoped<IContactUsService, ContactUsService>();
+                builder.Services.AddTransient<IPickupBoyRepository>(provider => new PickupBoyRepository(connectionString));
+                builder.Services.AddScoped<IPickUpBoyService, PickUpBoyService>();
 
                 builder.Services.AddTransient<IProductRepository>(provider => new ProductRepository(connectionString));
                 builder.Services.AddScoped<IProductService, ProductService>();

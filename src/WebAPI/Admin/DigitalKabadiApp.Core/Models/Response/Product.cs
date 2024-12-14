@@ -13,6 +13,7 @@ namespace DigitalKabadiApp.Core.Models.Response
     public class Product
     { 
         public int ProductId { get; set; }
+        public int ProductPriceRoleWiseId { get; set; }
         public string Name { get; set; } = string.Empty;
         public string NameInHindi { get; set; } = string.Empty;
         public string CategoryName { get; set; } = string.Empty;

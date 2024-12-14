@@ -20,7 +20,7 @@ namespace DigitalKabadiApp.Infrastructure.Repositories
             {
                 var parameters = new DynamicParameters();
                 parameters.Add("@ProductId", id);
-                result = sqlconnection.Query<DigitalKabadiApp.Core.Models.Response.Product>($" Select MstRole.Name as RoleName,Price,TbProductPriceRoleWise.ID as ProductPriceId,MstProduct.Id as ProductId,MstProduct.Name,MstProductLanguage.Name as NameInHindi,MstCategory.Name as CategoryName,MstUnit.Name as UnitName,AppIcon,Stock,Description,UnitId,CategoryId from MstProduct Join MstCategory on MstCategory.Id=Categoryid Join MstUnit on MstUnit.Id=UnitId Join MstProductLanguage on MstProductLanguage.ProductId=MstProduct.Id and MstProductLanguage.LanguageId=2 Join TbProductPriceRoleWise on  MstProduct.Id=TbProductPriceRoleWise.ProductId Join MstRole on MstRole.Id=TbProductPriceRoleWise.RoleId Where  MstProduct.IsDeleted=0 and (@ProductId=0 or MstProduct.Id=@ProductId) ", param: parameters, commandType: CommandType.Text).ToList();
+                result = sqlconnection.Query<DigitalKabadiApp.Core.Models.Response.Product>($" Select TbProductPriceRoleWise.ID as ProductPriceRoleWiseId,MstRole.Name as RoleName,Price,TbProductPriceRoleWise.ID as ProductPriceId,MstProduct.Id as ProductId,MstProduct.Name,MstProductLanguage.Name as NameInHindi,MstCategory.Name as CategoryName,MstUnit.Name as UnitName,AppIcon,Stock,Description,UnitId,CategoryId from MstProduct Join MstCategory on MstCategory.Id=Categoryid Join MstUnit on MstUnit.Id=UnitId Join MstProductLanguage on MstProductLanguage.ProductId=MstProduct.Id and MstProductLanguage.LanguageId=2 Join TbProductPriceRoleWise on  MstProduct.Id=TbProductPriceRoleWise.ProductId Join MstRole on MstRole.Id=TbProductPriceRoleWise.RoleId Where  MstProduct.IsDeleted=0 and (@ProductId=0 or TbProductPriceRoleWise.ID=@ProductId) ", param: parameters, commandType: CommandType.Text).ToList();
             }
             return result;
         }
@@ -46,7 +46,7 @@ namespace DigitalKabadiApp.Infrastructure.Repositories
             {
                 var parameters = new DynamicParameters();
                 parameters.Add("@ProductId", product.ProductId);
-                parameters.Add("@ProductPriceId", product.ProductPriceId);
+                parameters.Add("@ProductPriceId", product.ProductPriceRoleWiseId);
                 parameters.Add("@Price", product.Price);
                 parameters.Add("@Name", product.Name);
                 parameters.Add("@CategoryId", product.CategoryId);

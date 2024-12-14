@@ -63,5 +63,22 @@ namespace DigitalKabadiApp.Infrastructure.Repositories
             }
             return result;
         }
+        public bool Edit(Core.Models.Request.ExchangeProduct exchangeProduct)
+        {
+            bool result = false;
+            using (var sqlconnection = new SqlConnection(_connectionString))
+            {
+                var parameters = new DynamicParameters();
+                parameters.Add("@Name", exchangeProduct.Name);
+                parameters.Add("@UnitId", exchangeProduct.UnitId);
+                parameters.Add("@Price", exchangeProduct.Price);
+                parameters.Add("@ImagePath", exchangeProduct.ImagePath);
+                parameters.Add("@Description", exchangeProduct.Description);
+                parameters.Add("@Id", exchangeProduct.Id);
+
+                result = sqlconnection.Execute($"UPDATE ExchangeProduct SET Name = @Name,UnitId = @UnitId,Price = @Price,ImagePath = @ImagePath,Description = @Description  where Id = @Id ", param: parameters, commandType: CommandType.Text) > 0;
+            }
+            return result;
+        }
     }
 }

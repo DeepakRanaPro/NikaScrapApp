@@ -8,6 +8,8 @@ namespace NikaScrapApp.Web.Models.Request
         public string RoleName { get; set; }
         public int ProductId { get; set; }
 
+        public int ProductPriceRoleWiseId { get; set; }
+         
         [Required(ErrorMessage = "Name is Required!")]
         public string Name { get; set; }
 

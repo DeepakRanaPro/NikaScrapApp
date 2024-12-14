@@ -86,6 +86,28 @@ namespace DigitalKabadiApp.Core.Services
             }
             return responseData;
         }
+        public ResponseData Edit(Core.Models.Request.ExchangeProduct exchangeProduct)
+        {
+            ResponseData responseData = new ResponseData();
+
+            try
+            {
+                responseData.Data = _exchangeProductRepository.Edit(exchangeProduct);
+                if (!responseData.Data)
+                {
+                    responseData.IsSuccess = false;
+                    responseData.Message = "Fail";
+                    responseData.ResponseCode = 999;
+                }
+            }
+            catch (Exception ex)
+            {
+                responseData.IsSuccess = false;
+                responseData.Message = $"Exception:{ex.Message}";
+                responseData.ResponseCode = 999;
+            }
+            return responseData;
+        }
 
     }
 }

@@ -8,5 +8,6 @@ namespace DigitalKabadiApp.Core.Interfaces.Service
         ResponseData InsertRecord(Core.Models.Request.ExchangeProduct exchangeProduct);
         ExchangeProductResponse GetRecords();
         ExchangeProductResponse GetRecord(int id);
+        ResponseData Edit(Core.Models.Request.ExchangeProduct exchangeProduct);
     }
 }
