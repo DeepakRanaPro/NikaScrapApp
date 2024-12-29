@@ -50,6 +50,21 @@ namespace NikaScrapApp.Web.Utility.Extensions
             return dropdownList;
         }
 
+        public static List<SelectListItem> InitializeDropdown(List<MasterData> dataSource, string type ,string dropdownType)
+        {
+            var dropdownList = new List<SelectListItem>
+        {
+            new SelectListItem { Text = $"Select {dropdownType}", Value = string.Empty}
+        };
+
+            dropdownList.AddRange(dataSource
+                .Where(x => x.Type == type) 
+                .Select(item => new SelectListItem { Text = item.Name, Value = item.Id.ToString() })
+            );
+
+            return dropdownList;
+        }
+
         public static List<SelectListItem> InitializeDropdownWithOutDefaultValue(List<MasterData> dataSource, string dropdownType)
         {
             var dropdownList = new List<SelectListItem>();

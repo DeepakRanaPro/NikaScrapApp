@@ -27,7 +27,7 @@ namespace NikaScrapApp.Infrastructure.Repositories
                 parameters.Add("@PickupBoyRemarks", scrapPickupByWastePicker.PickupBoyRemarks);
                 parameters.Add("@PickupId", scrapPickupByWastePicker.PickupId);
 
-                result = sqlConnection.Execute($" Update Pickups Set StatusId=4,TotalAmount=@TotalAmount,ExchangeProductsAmount=@ExchangeProductsAmount,PaymentModeId=@PaymentModeId, PaymentAmount=@PaymentAmount,TransactionCode=@TransactionCode, PickupBoyRemarks=@PickupBoyRemarks From TbPickups Pickups Where Id=@PickupId ", param: parameters, commandType: CommandType.Text) > 0;
+                result = sqlConnection.Execute($" Update Pickups Set StatusId=4,TotalAmount=@TotalAmount,ExchangeProductsAmount=@ExchangeProductsAmount,PaymentModeId=@PaymentModeId, PaymentAmount=@PaymentAmount,TransactionCode=@TransactionCode, PickupBoyRemarks=@PickupBoyRemarks From TbPickups  Where Id=@PickupId ", param: parameters, commandType: CommandType.Text) > 0;
 
                 return result;
             }

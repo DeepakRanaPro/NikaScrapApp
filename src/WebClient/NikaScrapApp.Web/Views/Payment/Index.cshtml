@@ -1,0 +1,172 @@
+﻿@model NikaScrapApp.Web.Models.View.PickupBoyPaymentAccount 
+
+@{
+    ViewData["Title"] = "Index";
+
+    int RowNumber = 0;
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                <h4 class="mb-sm-0">PickupBoy Payment Details</h4>
+
+                <div class="page-title-right">
+                    <ol class="breadcrumb m-0">
+                        <li class="breadcrumb-item"><a href="javascript: void(0);">Home</a></li>
+                        <li class="breadcrumb-item active">PickupBoy Payment Details</li>
+                    </ol>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <form asp-action="PickupBoyPaymentAccountSearch" method="post">
+        <div class="row" style="margin-bottom:20px;">
+        <div class="col-4">
+                <label for="formGroupExampleInput" class="form-label">Pickup Boy</label>
+                <select asp-for="PickupBoyId" asp-items="Model.PickupBoyList" class="form-control form-field-size" id="PickupBoyId"></select>
+        </div>
+            <div class="col-1" style="margin-top:30px;">
+                <button type="submit" class="btn btn-primary" style="padding:4px;">
+                    <span class="bi bi-search me-2"></span>
+                </button>
+            </div>
+            <div class="col-7" style="margin-top:30px;">
+                </div>
+     </div>
+       
+  </form>
+
+    <div class="container-fluid">
+        <div class="card">
+            <div class="card-body">
+                <table id="example" class="display">
+                    <thead>
+                        <tr>
+                            <th>
+                                S.No
+                            </th>
+                            <th>
+                                Name
+                            </th>
+                            <th>
+                                Current Balance
+                            </th>
+                           
+                            <th>
+                                 
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody style="font-size:14px;">
+                         @foreach (var item in Model.AccountDetails)
+                        {
+                            RowNumber = RowNumber + 1;
+                            <tr>
+                                <td>
+                                    @RowNumber
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ScrapPickerName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.CurrentBalance)
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-primary PayBtn" PickupBoyId="@item.ScrapPickerId" CurrentBalance="@item.CurrentBalance">
+                                      Pay
+                                    </button>
+
+                                    @* <button type="button" class="btn btn-danger" asp-action="" asp-controller="" asp-route="" >
+                                        Payment History
+                                    </button> *@
+                                </td> 
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- The Modal Payment -->
+<div class="modal" id="PaymentModalPopup">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title" style="margin-top: 18px;">Payment</h4>
+                <button type="button" class="close ClosePaymentModalPopup" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal Body -->
+            <div class="modal-body">
+                <form asp-action="Pay" method="post">
+                    <div class="row">
+                        <div class="col-8">
+                            <label for="formGroupExampleInput" class="form-label">Scrap Pickers</label>
+                            <select asp-for="ScrapPickerPayment.PickupBoyId" asp-items="Model.ScrapPickerPayment.PickupBoyList" class="form-control PaymentPickupBoyId" id="ScrapPickerPayment.PickupBoyId"></select>
+                            <span asp-validation-for="ScrapPickerPayment.PickupBoyId" class="text-danger"></span>
+                        </div>
+                        <div class="col-4">
+                            <label for="formGroupExampleInput" class="form-label">Current Balance</label>
+                            <input type="text" class="form-control form-field-size CurrentBalance" asp-for="ScrapPickerPayment.CurrentBalance" id="ScrapPickerPayment.CurrentBalance" readonly="readonly">
+        
+                        </div>
+                        <div class="col-8" style="margin-top: 16px;">
+                            <label for="formGroupExampleInput" class="form-label">Payment Mode</label>
+                            <select asp-for="ScrapPickerPayment.PaymentModeId" asp-items="Model.ScrapPickerPayment.PaymentModeList" class="form-control" id="ScrapPickerPayment.PaymentModeId"></select>
+                            <span asp-validation-for="ScrapPickerPayment.PaymentModeId" class="text-danger"></span>
+                        </div>
+                        <div class="col-4" style="margin-top: 16px;">
+                            <label for="formGroupExampleInput" class="form-label">Amount</label>
+                            <input type="text" class="form-control form-field-size" asp-for="ScrapPickerPayment.PaymentAmount" id="ScrapPickerPayment.PaymentAmount" placeholder="Enter Amount">
+        
+                        </div>
+                        <div class="col-12" style="margin-top: 16px;">
+                            <label for="formGroupExampleInput" class="form-label">Transaction No(Reference No)</label>
+                            <input type="text" class="form-control form-field-size" asp-for="ScrapPickerPayment.TransactionCode" id="ScrapPickerPayment.TransactionCode" placeholder="Enter Transaction No(Reference No)">
+
+                        </div>
+                        <div class="col-12" style="margin-top: 16px;">
+                            <label for="formGroupExampleInput" class="form-label">Remarks</label>
+                            <textarea class="form-control" asp-for="ScrapPickerPayment.Remarks" id="ScrapPickerPayment.Remarks" placeholder="Enter Remarks"></textarea>
+                           
+                        </div>
+                         
+                        <div class="col-6" style="margin-top:20px;">
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>
+                        <div class="col-6" style="margin-top:20px;">
+                            <button type="button" class="btn btn-danger ClosePaymentModalPopup" data-dismiss="modal">Close</button>
+                        </div>
+                    </div> 
+                </form>
+            </div>
+
+         
+
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+
+        $(".ClosePaymentModalPopup").click(function () {
+            $("#PaymentModalPopup").modal('hide');
+        });
+
+        $(".PayBtn").click(function () {
+            $('.PaymentPickupBoyId').val($(this).attr("PickupBoyId"));
+            $('.CurrentBalance').val($(this).attr("CurrentBalance"));
+            // $("#assignUserInfoPickupId").val($(this).attr("PickupBoyId"));
+            $("#PaymentModalPopup").modal('show');
+        }); 
+    });
+</script>

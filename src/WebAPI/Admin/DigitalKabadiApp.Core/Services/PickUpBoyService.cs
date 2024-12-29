@@ -79,6 +79,51 @@ namespace DigitalKabadiApp.Core.Services
             }
             return responseData;
         }
+        public Core.Models.Response.ScrapPickerPaymentResponce PaymentTransactions(Core.Models.Request.ScrapPickerPaymentTransactions scrapPickerPaymentTransactions)
+        {
+            ScrapPickerPaymentResponce responseData = new ScrapPickerPaymentResponce();
 
+            try
+            {
+                bool result = _pickupRepository.PaymentTransactions(scrapPickerPaymentTransactions);
+                if (!result)
+                {
+                    responseData.IsSuccess = true;
+                    responseData.Message = "No record exists!";
+                    responseData.ResponseCode = 999;
+                }
+            }
+            catch (Exception ex)
+            {
+                responseData.IsSuccess = false;
+                responseData.Message = $"Exception:{ex.Message}";
+                responseData.ResponseCode = 999;
+            }
+            return responseData;
+        } 
+         
+        public DigitalKabadiApp.Core.Models.Response.ResponseData ExchangeProduct(NikaScrapApp.Core.Models.Request.ScrapPickerExchangeProducts scrapPickerExchangeProducts) 
+        {
+            DigitalKabadiApp.Core.Models.Response.ResponseData responsedata = new();
+
+            try
+            {
+                bool result = _pickupRepository.ExchangeProduct(scrapPickerExchangeProducts);
+                if (!result)
+                {
+                    responsedata.IsSuccess = true;
+                    responsedata.Message = "no record exists!";
+                    responsedata.ResponseCode = 999;
+                }
+            }
+            catch (Exception ex)
+            {
+                responsedata.IsSuccess = false;
+                responsedata.Message = $"exception:{ex.Message}";
+                responsedata.ResponseCode = 999;
+            }
+            return responsedata;
+        } 
     }
+
 }

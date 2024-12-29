@@ -92,6 +92,8 @@ namespace DigitalKabadiApp.API
                 builder.Services.AddScoped<IExchangeProductService, ExchangeProductService>();
                 builder.Services.AddTransient<IPickupBoyRepository>(provider => new PickupBoyRepository(connectionString));
                 builder.Services.AddScoped<IPickUpBoyService, PickUpBoyService>();
+                builder.Services.AddTransient<IScrapPickerPaymentRepository>(provider => new ScrapPickerPaymentRepository(connectionString));
+                builder.Services.AddScoped<IScrapPickerPaymentService, ScrapPickerPaymentService>();
 
                 var app = builder.Build();
 

@@ -1,3 +1,5 @@
+using DigitalKabadiApp.Core.Interfaces.Repository;
+using DigitalKabadiApp.Infrastructure.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.IdentityModel.Tokens;
@@ -89,7 +91,10 @@ namespace NikaScrapApplication.API
                 builder.Services.AddTransient<ISchedulePickupRepositary>(provider => new SchedulePickupRepository(connectionString));
                 builder.Services.AddTransient<ISmsRepository>(provider => new SmsRepository(connectionString));
                 builder.Services.AddScoped<ISmsService, SmsService>();
-               
+
+                builder.Services.AddTransient<IWarehouseInchargeRepository>(provider => new WarehouseInchargeRepository(connectionString));
+                builder.Services.AddScoped<IWarehouseInchargeServic, WarehouseInchargeServic>();
+
                 //builder.Services.AddTransient<AuthService>(provider => new AuthService(secretKey)); 
                 builder.Services
                 .AddAuthentication(x => {

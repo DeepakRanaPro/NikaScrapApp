@@ -1,6 +1,4 @@
-﻿using DigitalKabadiApp.Core.Interfaces.Repository;
-using DigitalKabadiApp.Core.Interfaces.Service;
-using DigitalKabadiApp.Core.Models.Request;
+﻿using DigitalKabadiApp.Core.Interfaces.Service;
 using DigitalKabadiApp.Core.Models.Response;
 using DigitalKabadiApp.Infrastructure.Repositories;
 

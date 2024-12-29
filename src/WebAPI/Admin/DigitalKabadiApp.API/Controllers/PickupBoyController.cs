@@ -36,5 +36,19 @@ namespace DigitalKabadiApp.API.Controllers
             result = _pickUpBoy.post(products);
             return Ok(result);
         }
+        [HttpPost]
+        public ActionResult PaymentTransactions(Core.Models.Request.ScrapPickerPaymentTransactions scrapPickerPaymentTransactions)
+        {
+            ScrapPickerPaymentResponce result = new ScrapPickerPaymentResponce();
+            result = _pickUpBoy.PaymentTransactions(scrapPickerPaymentTransactions);
+            return Ok(result);
+        }
+        [HttpPost]
+        public ActionResult ExchangeProduct(NikaScrapApp.Core.Models.Request.ScrapPickerExchangeProducts scrapPickerExchangeProducts)
+        {
+            ResponseData result = new ResponseData();
+            result = _pickUpBoy.ExchangeProduct(scrapPickerExchangeProducts);
+            return Ok(result);
+        }
     }
 }
