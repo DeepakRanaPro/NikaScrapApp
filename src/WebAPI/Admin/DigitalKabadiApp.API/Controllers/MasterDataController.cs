@@ -24,7 +24,7 @@ namespace DigitalKabadiApp.API.Controllers
             return Ok(result);
         }
 
-        [HttpGet, Authorize(Roles = "Admin,SubAdmin,Household,Organisation,Business Owner")]
+        [HttpGet]
         public IActionResult GetPincodeDetails(string pincode)
         {
             PincodeDetailsResponse responseData = new PincodeDetailsResponse();

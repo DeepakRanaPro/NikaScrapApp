@@ -28,7 +28,7 @@ namespace NikaScrapApplication.API.Controllers
             _smsApiParams = _configuration.GetSection("SMSApiParams").Value; 
         }
          
-        [HttpGet, Authorize(Roles = "Admin,SubAdmin,Household,Organisation,Business Owner")]
+        [HttpGet]
         public IActionResult Info([FromQuery] int userId)
         {
             SchedulePickupResponse result = new SchedulePickupResponse();
@@ -36,7 +36,7 @@ namespace NikaScrapApplication.API.Controllers
             return Ok(result);
         }
 
-        [HttpPost, Authorize(Roles = "Admin,SubAdmin,Household,Organisation,Business Owner")]
+        [HttpPost]
         public IActionResult Create(ScrapPickup scrapPickup,int languageId) 
         {
             SchedulePickupCommandResponse result = new SchedulePickupCommandResponse();
@@ -54,7 +54,7 @@ namespace NikaScrapApplication.API.Controllers
             return Ok(result);
         }
 
-        [HttpGet, Authorize(Roles = "Admin,SubAdmin,Household,Organisation,Business Owner")]
+        [HttpGet]
         public IActionResult History([FromQuery] int userId, int statusId, int languageId,int PageNumber, int RowsOfPage)
         {
             GetScrapResponse result = new GetScrapResponse();
@@ -62,7 +62,7 @@ namespace NikaScrapApplication.API.Controllers
             return Ok(result);
         }
 
-        [HttpGet, Authorize(Roles = "Admin,SubAdmin,Household,Organisation,Business Owner")]
+        [HttpGet]
         public IActionResult Cancel([FromQuery] int pickupId, [FromQuery]  int languageId)  
         {
             SchedulePickupCommandResponse result = new SchedulePickupCommandResponse(); 

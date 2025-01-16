@@ -19,7 +19,8 @@ namespace NikaScrapApplication.API.Controllers
             _masterDataService = masterDataService;
         }
 
-        [HttpPost, Authorize(Roles = "Admin,SubAdmin,Household,Organisation,Business Owner")]
+        //[HttpPost, Authorize(Roles = "Admin,SubAdmin,Household,Organisation,Business Owner")]
+        [HttpPost]
         public IActionResult GetRoles(Request request) 
         {
             MasterDataResponse responseData = new MasterDataResponse();
@@ -30,7 +31,8 @@ namespace NikaScrapApplication.API.Controllers
            
         }
 
-        [HttpPost, Authorize(Roles = "Admin,SubAdmin,Household,Organisation,Business Owner")]
+        //[HttpPost, Authorize(Roles = "Admin,SubAdmin,Household,Organisation,Business Owner")]
+        [HttpPost]
         public IActionResult GetLocationTypes(Request request) 
         {
             MasterDataResponse responseData = new MasterDataResponse();
@@ -41,7 +43,7 @@ namespace NikaScrapApplication.API.Controllers
 
         }
 
-        [HttpPost, Authorize(Roles = "Admin,SubAdmin,Household,Organisation,Business Owner")]
+        [HttpPost]
         public IActionResult GetRateList(NikaScrapApp.Core.Models.Request.RateList rateListRequest) 
         {
             RateListResponse responseData = new RateListResponse();
@@ -51,7 +53,7 @@ namespace NikaScrapApplication.API.Controllers
             return Ok(responseData);  
         }
 
-        [HttpGet, Authorize(Roles = "Admin,SubAdmin,Household,Organisation,Business Owner")] 
+        [HttpGet] 
         public IActionResult GetPincodeDetails(string pincode)
         {
             PincodeDetailsResponse responseData = new PincodeDetailsResponse();

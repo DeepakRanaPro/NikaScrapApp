@@ -18,7 +18,7 @@ namespace NikaScrapApplication.API.Controllers
             _pickupBoyService = pickupBoyService; 
         }
 
-        [HttpPost, Authorize(Roles = "Admin,SubAdmin,Household,Organisation,Business Owner")]
+        [HttpPost]
         public IActionResult ScrapPickup(ScrapPickupByWastePicker scrapPickupByWastePicker) 
         {
             ResponseData responseData = new ResponseData();

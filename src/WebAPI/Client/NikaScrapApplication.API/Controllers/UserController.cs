@@ -18,7 +18,7 @@ namespace NikaScrapApplication.API.Controllers
             _userService = userService;
         }
 
-        [HttpPost, Authorize(Roles = "Admin,SubAdmin,Household,Organisation,Business Owner")]
+        [HttpPost]
         public IActionResult SetRole(SetUserRoleRequest setUserRoleRequest)
         {
             ResponseData responseData = new ResponseData();
@@ -36,7 +36,7 @@ namespace NikaScrapApplication.API.Controllers
             return Ok(result);
         }
 
-        [HttpPost, Authorize(Roles = "Admin,SubAdmin,Household,Organisation,Business Owner")]
+        [HttpPost]
         public IActionResult AddAddress(NikaScrapApp.Core.Models.Request.UserAddress addUesrAddress,[FromQuery] int languageId)
         {
             UserAddressResponse result = new UserAddressResponse();
@@ -45,7 +45,7 @@ namespace NikaScrapApplication.API.Controllers
 
             return Ok(result);
         }
-        [HttpGet, Authorize(Roles = "Admin,SubAdmin,Household,Organisation,Business Owner")]
+        [HttpGet]
         public IActionResult GetAddress([FromQuery] int userId, [FromQuery] int languageId)
         {
             UserAddressResponse result = new UserAddressResponse();
@@ -55,7 +55,7 @@ namespace NikaScrapApplication.API.Controllers
         }
 
 
-        [HttpGet, Authorize(Roles = "Admin,SubAdmin,Household,Organisation,Business Owner")]
+        [HttpGet]
         public IActionResult DeleteAddress([FromQuery] int addressId)
         {
             UserAddressResponse result = new UserAddressResponse();
@@ -71,7 +71,7 @@ namespace NikaScrapApplication.API.Controllers
 
             return Ok(result);
         }
-        [HttpPost, Authorize(Roles = "Admin,SubAdmin,Household,Organisation,Business Owner")]
+        [HttpPost]
         public IActionResult UpdateUserAddress(NikaScrapApp.Core.Models.Request.UserAddress userAddress)
         {
             UserAddressResponse result = new UserAddressResponse();

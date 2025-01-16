@@ -55,19 +55,19 @@ namespace NikaScrapApp.Infrastructure.Repositories
             }
         }
 
-        public List<PickupHistory> PickupHistory(int PickupId, List<PickupProducts> products) 
-        { 
-                List<PickupHistory> result;
+        //public List<PickupHistory> PickupHistory(int PickupId, List<PickupProducts> products) 
+        //{ 
+        //        List<PickupHistory> result;
 
-                string sqlQuery = $"Select Id,Name from [dbo].LocationTypeDetails Where LanguageId=";
+        //        string sqlQuery = $"Select Id,Name from [dbo].LocationTypeDetails Where LanguageId=";
 
-                using (var sqlConnection = new SqlConnection(_connectionString))
-                {
-                    var parameters = new DynamicParameters();
-                    // result = con.Query<PickupHistory, UserAddress, PickupHistory>(sqlQuery, commandType: CommandType.Text).ToList();
-                    result = sqlConnection.Query<PickupHistory, NikaScrapApp.Core.Models.Response.UserAddress>(sqlQuery, (pickup, address) => { pickup.UserAddressDetails = address; return pickup; }, splitOn: "UserAddressId", param: parameters, commandType: CommandType.Text).ToList();
-                }
-                return result; 
-        }
+        //        using (var sqlConnection = new SqlConnection(_connectionString))
+        //        {
+        //            var parameters = new DynamicParameters();
+        //            // result = con.Query<PickupHistory, UserAddress, PickupHistory>(sqlQuery, commandType: CommandType.Text).ToList();
+        //            result = sqlConnection.Query<PickupHistory, NikaScrapApp.Core.Models.Response.UserAddress>(sqlQuery, (pickup, address) => { pickup.UserAddressDetails = address; return pickup; }, splitOn: "UserAddressId", param: parameters, commandType: CommandType.Text).ToList();
+        //        }
+        //        return result; 
+        //}
     }
 }
