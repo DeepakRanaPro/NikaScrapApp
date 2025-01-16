@@ -10,6 +10,5 @@ namespace DigitalKabadiApp.Infrastructure.Repositories
         //List<Core.Models.Response.ScrapPickerPaymentAccounts> PickerPaymentAccounts(int ScrapPickerId);
         List<Core.Models.Response.TbScrapPickerPaymentTransaction> ScrapPickerPaymentTransaction(int id);
 
-
     }
 }

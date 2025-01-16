@@ -1,0 +1,111 @@
+﻿@model IEnumerable<DigitalKabadiApp.Core.Models.Response.TbScrapPickerPaymentTransaction>
+
+@{
+    ViewData["Title"] = "TrsansctionHistory";
+}
+
+ 
+<div class="container-fluid">
+
+    <div class="row">
+        <div class="col-12">
+            <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                <h4 class="mb-sm-0">PickupBoy Payment History</h4>
+
+                <div class="page-title-right">
+                    <ol class="breadcrumb m-0">
+                        <li class="breadcrumb-item"><a href="javascript: void(0);">Home</a></li>
+                        <li class="breadcrumb-item active">PickupBoy Payment History</li>
+                    </ol>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <div class="card">
+            <div class="card-body">
+                <table id="example" class="display">
+                    <thead>
+                        <tr>
+           
+                            <th>
+                                @Html.DisplayNameFor(model => model.TransactionType)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.PaymentMode)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.TransactionCode)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.PreviousBalance)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.PaymentAmount)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.CurrentBalance)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.PaymentOn)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.PaymentBy)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Remarks)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.PickupCode)
+                            </th>
+                         
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                           
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.TransactionType)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.PaymentMode)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.TransactionCode)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.PreviousBalance)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.PaymentAmount)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.CurrentBalance)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.PaymentOn)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.PaymentBy)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Remarks)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.PickupCode)
+                                </td>
+                        
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+     </div>
+     </div>
+     </div>
+
+
+</div>

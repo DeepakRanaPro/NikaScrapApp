@@ -7,6 +7,8 @@ using NikaScrapApp.Web.Utility;
 using NikaScrapApp.Web.Utility.CustomFilters;
 using NLog;
 using NLog.Web;
+ 
+
 namespace NikaScrapApp.Web
 {
     public class Program

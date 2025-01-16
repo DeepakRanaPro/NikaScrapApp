@@ -5,6 +5,7 @@ using System.Transactions;
 
 namespace NikaScrapApp.Web.Models.View
 {
+
     public class PickupBoyPaymentAccount 
     {
         public int PickupBoyId { get; set; }

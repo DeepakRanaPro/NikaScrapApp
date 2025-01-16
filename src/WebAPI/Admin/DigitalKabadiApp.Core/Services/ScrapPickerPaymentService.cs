@@ -6,6 +6,7 @@ namespace DigitalKabadiApp.Core.Services
 {
     public class ScrapPickerPaymentService : IScrapPickerPaymentService
     {
+
         private readonly IScrapPickerPaymentRepository _scrapPickerPaymentRepository;
         public ScrapPickerPaymentService(IScrapPickerPaymentRepository scrapPickerPaymentRepository)
         {

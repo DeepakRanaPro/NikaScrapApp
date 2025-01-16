@@ -30,6 +30,7 @@ namespace DigitalKabadiApp.Infrastructure.Repositories
                 return result;
             }
         }
+
         //public List<Core.Models.Request.PickerPaymentTransaction> PickerPaymentTransactions(int ScrapPickerId, int PickupId)
         //{
         //    List<Core.Models.Request.PickerPaymentTransaction> result = new List<Core.Models.Request.PickerPaymentTransaction>();
@@ -73,20 +74,22 @@ namespace DigitalKabadiApp.Infrastructure.Repositories
                 using (var sqlconnection = new SqlConnection(_connectionString))
 
                 {
-                string query =
-                               $" Select  PaymentTransactions.Id , PreviousBalance,PaymentTransactions.PaymentAmount,CurrentBalance,PaymentOn,PaymentTransactions.Remarks,MstTransactionType.Name as TransactionType,TbPickups.PickupCode as PickupCode , PayMentMode.Name    " +
+                string query = $" Select  PaymentTransactions.Id , PreviousBalance,PaymentTransactions.PaymentAmount,CurrentBalance,PaymentOn,PaymentTransactions.Remarks,MstTransactionType.Name as TransactionType,TbPickups.PickupCode as PickupCode , MstPaymentMode.Name as PaymentMode   " +
                                $" From TbScrapPickerPaymentTransactions as PaymentTransactions  " +
                                $" join MstTransactionType on PaymentTransactions.TransactionTypeId=MstTransactionType.Id  " +
                                $" left join TbPickups on PaymentTransactions.PickupId=TbPickups.Id " +
                                $" join MstPaymentMode on MstPaymentMode.Id= PaymentTransactions.PaymentModeId  Where (@ScrapPickerId=0 or ScrapPickerId=@ScrapPickerId)  ";
 
 
-                var Parameter = new DynamicParameters(sqlconnection);
+                var Parameters = new DynamicParameters(sqlconnection);
                     {
-                        result = sqlconnection.Query<Core.Models.Response.TbScrapPickerPaymentTransaction>($"{query}", commandType: CommandType.Text).ToList();
+                       Parameters.Add("@ScrapPickerId", id);
+                        result = sqlconnection.Query<Core.Models.Response.TbScrapPickerPaymentTransaction>($"{query}",param: Parameters, commandType: CommandType.Text).ToList();
                     }
                     return result;
                 }
             }
+
+            
     }
 }

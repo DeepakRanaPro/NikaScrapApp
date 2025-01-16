@@ -76,13 +76,14 @@
                                     @Html.DisplayFor(modelItem => item.CurrentBalance)
                                 </td>
                                 <td>
+
                                     <button type="button" class="btn btn-primary PayBtn" PickupBoyId="@item.ScrapPickerId" CurrentBalance="@item.CurrentBalance">
                                       Pay
                                     </button>
 
-                                    @* <button type="button" class="btn btn-danger" asp-action="" asp-controller="" asp-route="" >
+                                    <a  class="btn btn-danger" asp-action="TrsansctionHistory" asp-route-pickupboyid="@item.ScrapPickerId">
                                         Payment History
-                                    </button> *@
+                                    </a>
                                 </td> 
                             </tr>
                         }

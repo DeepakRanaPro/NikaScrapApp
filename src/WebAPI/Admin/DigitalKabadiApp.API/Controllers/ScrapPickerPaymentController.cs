@@ -1,7 +1,5 @@
 ﻿using DigitalKabadiApp.Core.Interfaces.Service;
-using DigitalKabadiApp.Core.Models.Request;
 using DigitalKabadiApp.Core.Models.Response;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DigitalKabadiApp.API.Controllers
@@ -37,12 +35,12 @@ namespace DigitalKabadiApp.API.Controllers
         //    result = _scrapPickerPaymentService.ScrapPickerPaymentAccounts(ScrapPickerId);
         //    return Ok(result);
         //}
-        [HttpGet]
-        public ActionResult ScrapPickerPaymentTransaction(int id)
-        {
-            Core.Models.Response.TbScrapPickerPaymentTransactions result = new Core.Models.Response.TbScrapPickerPaymentTransactions();
-            result = _scrapPickerPaymentService.ScrapPickerPaymentTransaction(id);
-            return Ok(result);
-        }
+        //[HttpGet]
+        //public ActionResult ScrapPickerPaymentTransaction(int id)
+        //{
+        //    Core.Models.Response.TbScrapPickerPaymentTransactions result = new Core.Models.Response.TbScrapPickerPaymentTransactions();
+        //    result = _scrapPickerPaymentService.ScrapPickerPaymentTransaction(id);
+        //    return Ok(result);
+        //}
     }
 }

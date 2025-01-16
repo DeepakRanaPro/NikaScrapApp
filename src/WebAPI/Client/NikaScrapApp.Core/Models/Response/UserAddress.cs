@@ -5,7 +5,7 @@ namespace NikaScrapApp.Core.Models.Response
     {
         public List<UserAddress> Data { get; set; } = new List<UserAddress>(); 
     }
-
+    //Id, PinCode ,LocationType, Landmark, FullAddress, IsDefault, AlternateMobileNumber, LocationTypeId, State, City
     public class UserAddress
     {
         public int  Id { get; set; } 
@@ -18,7 +18,6 @@ namespace NikaScrapApp.Core.Models.Response
         public string AlternateMobileNumber { get; set; } = string.Empty;
         public int LocationTypeId { get; set; } 
         public string State { get; set; } = string.Empty;
-        public string City { get; set; } = string.Empty;
- 
+        public string City { get; set; } = string.Empty; 
     }
 }
