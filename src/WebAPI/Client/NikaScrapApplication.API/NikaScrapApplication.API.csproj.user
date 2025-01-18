@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Controller_SelectedScaffolderID>ApiControllerEmptyScaffolder</Controller_SelectedScaffolderID>
     <Controller_SelectedScaffolderCategoryPath>root/Common/Api</Controller_SelectedScaffolderCategoryPath>
-    <NameOfLastUsedPublishProfile>D:\Next-Level-2024\Parttime-Project\Scrap\Application\NikaScrapAppFinal\src\WebAPI\Client\NikaScrapApplication.API\Properties\PublishProfiles\FolderProfile.pubxml</NameOfLastUsedPublishProfile>
+    <NameOfLastUsedPublishProfile>D:\Next-Level-2024\Parttime-Project\Scrap\Application\NikaScrapAppFinalWithDesign\NikaScrapAppFinal\src\WebAPI\Client\NikaScrapApplication.API\Properties\PublishProfiles\FolderProfile2.pubxml</NameOfLastUsedPublishProfile>
     <ActiveDebugProfile>NikaScrapApplication.API</ActiveDebugProfile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
