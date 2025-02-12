@@ -1,0 +1,80 @@
+﻿@model NikaScrapApp.Web.Models.Response.ExchangeProductAccount
+@{
+    ViewData["Title"] = "Index";
+
+   
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                <h4 class="mb-sm-0">PickupBoy Account </h4>
+
+                <div class="page-title-right">
+                    <ol class="breadcrumb m-0">
+                        <li class="breadcrumb-item"><a href="javascript: void(0);">Home</a></li>
+                        <li class="breadcrumb-item active">PickupBoy Account </li>
+                    </ol>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+<div class="container-fluid">
+    <div class="card">
+        <div class="card-body">
+            <table id="example" class="display">
+                <thead>
+                    <tr>
+                        <th>
+                                PickupBoyId
+                        </th>
+                        <th>
+                                PickupBoyName
+                        </th>
+                        <th>
+                                TotalProducts
+                        </th>
+
+                        <th>
+
+                        </th>
+                    </tr>
+                </thead>
+                <tbody style="font-size:14px;">
+                        @foreach (var item in Model.ExchangeProductDetails)
+                    {
+                      
+                        <tr>
+                            
+                            <td>
+                                    @Html.DisplayFor(modelItem => item.PickupBoyName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.TotalProducts)
+                            </td>
+                            <td>
+
+                                    <button type="button" class="btn btn-primary btn-sm  m-15 " asp-action="Index" PickupBoyId="@item." PickupBoyName="@item" TotalProducts="@item">
+                                        ScrapPicker Detail
+                                    </button> 
+
+                                    <a class="btn btn-danger btn-sm " asp-route-pickupboyid="@item">
+                                    History
+                                    </a> 
+                                    
+                                    <a class="btn btn-danger btn-sm " asp-route-pickupboyid="@item">
+                                        pickerName
+                                    </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</div>
+

@@ -10,35 +10,33 @@ namespace DigitalKabadiApp.Core.Models.Response
     {
         public List<Pickup> Data { get; set; }
     }
-        public class Pickup
+    public class Pickup
     {
-         
-        public int id { get; set; }
+        public int Id { get; set; }
         public string PickupCode { get; set; }
-        public string pickUpDate { get; set; }
-        public string timeSlot { get; set; }
-        public string status { get; set; }
-        public string fullAddress { get; set; }
-        public string estimatedWeigh { get; set; }
-        public int userAddressId { get; set; }
-        public string locationType { get; set; }
+        public string PickUpDate { get; set; }
+        public string TimeSlot { get; set; }
+        public string Status { get; set; }
+        public string FullAddress { get; set; }
+        public string EstimatedWeigh { get; set; }
+        public int UserAddressId { get; set; }
+        public string LocationType { get; set; }
         public string landmark { get; set; } 
-        public bool isDefault { get; set; }
-        public string alternateMobileNumber { get; set; }
-        public int locationTypeId { get; set; }
-        public string state { get; set; }
+        public bool IsDefault { get; set; }
+        public string AlternateMobileNumber { get; set; }
+        public int LocationTypeId { get; set; }
+        public string State { get; set; }
     }
 
     public class Address
     {
-        public string locationType { get; set; }
-        public string landmark { get; set; }
-        public string fullAddress { get; set; }
-        public bool isDefault { get; set; }
-        public string alternateMobileNumber { get; set; }
-        public int locationTypeId { get; set; }
-        public string state { get; set; }
-        public string city { get; set; }
+        public string LocationType { get; set; }
+        public string Landmark { get; set; }
+        public string FullAddress { get; set; }
+        public bool IsDefault { get; set; }
+        public string AlternateMobileNumber { get; set; }
+        public int LocationTypeId { get; set; }
+        public string State { get; set; }
+        public string City { get; set; }
     }
-    
 }

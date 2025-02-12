@@ -41,6 +41,13 @@ namespace NikaScrapApplication.API.Controllers
             return Ok(jwtTokenDetails);
         }
 
+        [HttpPost, AllowAnonymous]
+        public IActionResult RefreshToken(UserCredential userCredential)
+        {
+            JWTTokenDetailResponse jwtTokenDetails = _authenticateService.RefreshToken(userCredential);
+            return Ok(jwtTokenDetails);
+        }
+
         [HttpPost]
         public IActionResult Login(Login loginRequest)
         { 

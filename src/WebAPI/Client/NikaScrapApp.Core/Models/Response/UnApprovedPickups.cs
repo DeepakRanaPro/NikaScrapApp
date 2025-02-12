@@ -29,7 +29,7 @@ namespace NikaScrapApp.Core.Models.Response
             public int PickupProductId { get; set; }
             public int ProductId { get; set; }
             public string ProductName { get; set; }
-            public string UnitName { get; set; }
+            public string Unit { get; set; } 
             public decimal Price { get; set; }
             public decimal Quantity { get; set; } = 0;
             public decimal ApprovedQuantity { get; set; }

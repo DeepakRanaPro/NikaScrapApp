@@ -31,9 +31,9 @@ namespace DigitalKabadiApp.Infrastructure.Repositories
             return result;
         }
 
-        public List<Core.Models.Response.ExchangeProduct> GetRecords() 
+        public List<Core.Models.Response.PickerboysProduct> GetRecords() 
         {
-            List<Core.Models.Response.ExchangeProduct> result = new List<Core.Models.Response.ExchangeProduct>();
+            List<Core.Models.Response.PickerboysProduct> result = new List<Core.Models.Response.PickerboysProduct>();
             using (var sqlconnection = new SqlConnection(_connectionString))
 
             {
@@ -41,14 +41,14 @@ namespace DigitalKabadiApp.Infrastructure.Repositories
                     $"Join MstUnit on MstUnit.Id=ExchangeProduct.UnitId " + 
                     $"Where ExchangeProduct.IsDeleted=0"; 
 
-                result = sqlconnection.Query<Core.Models.Response.ExchangeProduct>($"{query}", commandType: CommandType.Text).ToList();
+                result = sqlconnection.Query<Core.Models.Response.PickerboysProduct>($"{query}", commandType: CommandType.Text).ToList();
             }
             return result;
         }
 
-        public List<Core.Models.Response.ExchangeProduct> GetRecord(int id)
+        public List<Core.Models.Response.PickerboysProduct> GetRecord(int id)
         {
-            List<Core.Models.Response.ExchangeProduct> result = new List<Core.Models.Response.ExchangeProduct>();
+            List<Core.Models.Response.PickerboysProduct> result = new List<Core.Models.Response.PickerboysProduct>();
             using (var sqlconnection = new SqlConnection(_connectionString))
 
             {
@@ -59,7 +59,7 @@ namespace DigitalKabadiApp.Infrastructure.Repositories
                 var parameters = new DynamicParameters();
                 parameters.Add("@Id", id);
 
-                result = sqlconnection.Query<Core.Models.Response.ExchangeProduct>($"{query}", param: parameters, commandType: CommandType.Text).ToList();
+                result = sqlconnection.Query<Core.Models.Response.PickerboysProduct>($"{query}", param: parameters, commandType: CommandType.Text).ToList();
             }
             return result;
         }

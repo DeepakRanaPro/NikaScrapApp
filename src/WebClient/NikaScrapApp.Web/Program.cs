@@ -74,6 +74,7 @@ namespace NikaScrapApp.Web
 
                 builder.Services.AddTransient<IScrapPickerPaymentRepository>(provider => new ScrapPickerPaymentRepository(connectionString));
                 builder.Services.AddScoped<IScrapPickerPaymentService, ScrapPickerPaymentService>();
+                builder.Services.AddTransient<IExchangeProductsRepository>(provider => new ExchangeProductsRepository(connectionString));
 
                 //
 

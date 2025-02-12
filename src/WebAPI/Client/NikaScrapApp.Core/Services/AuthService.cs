@@ -37,7 +37,32 @@ namespace NikaScrapApp.Core.Services
                 {
                     AccessToken = jwtHandler.WriteToken(token),
                     TokenType = "bearer",
-                    ExpiresIn = 780,
+                    ExpiresIn = 16800,
+                },
+                IsSuccess = true,
+                Message = "Success"
+            };
+        }
+        public JWTTokenDetailResponse RefreshToken(UserCredential userCredential) 
+        {
+            var jwtTokenDetail = new JWTTokenDetailResponse() { IsSuccess = false, Message = "Invalid Credentials!", ResponseCode = 401 };
+            var userInfo = _authRepository.UserDetailById(userCredential);
+
+            if (userCredential == null || userInfo == null)
+            {
+                return jwtTokenDetail;
+            }
+
+            JwtSecurityTokenHandler jwtHandler;
+            SecurityToken token;
+            _GenrateToken(userInfo, out jwtHandler, out token);
+            return new JWTTokenDetailResponse
+            {
+                Data = new JWTTokenDetails()
+                {
+                    AccessToken = jwtHandler.WriteToken(token),
+                    TokenType = "bearer",
+                    ExpiresIn = 16800,
                 },
                 IsSuccess = true,
                 Message = "Success"

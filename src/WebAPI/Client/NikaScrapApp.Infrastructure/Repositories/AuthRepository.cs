@@ -25,6 +25,18 @@ namespace NikaScrapApp.Infrastructure.Repositories
             }
             return result;
         }
+
+        public UserCredential UserDetailById(UserCredential userCredential) 
+        {
+            UserCredential result = new UserCredential();
+
+            using (var con = new SqlConnection(_connectionString))
+            {
+                result = con.Query<UserCredential>($"Select TbUser.Id,TbUser.Name as UserName,MobileNumber as MobileNo,MstRole.Name as Roles  From TbUser  Join MstRole on MstRole.Id = TbUser.RoleId Where TbUser.Id='{userCredential.Id}'", commandType: CommandType.Text).FirstOrDefault();
+            }
+            return result;
+        }
+
         public string Login(Login login)
         {
             string result = null;

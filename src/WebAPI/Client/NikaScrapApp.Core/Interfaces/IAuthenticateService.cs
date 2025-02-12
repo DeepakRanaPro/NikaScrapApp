@@ -6,6 +6,7 @@ namespace NikaScrapApp.Core.Interfaces
 {
     public interface IAuthenticateService
     {
+        public JWTTokenDetailResponse RefreshToken(UserCredential userCredential);
         JWTTokenDetailResponse GenrateToken(UserCredential userCredential);
         ClaimsIdentity GenrateClaims(UserCredential userCredential);
         ResponseResult Login(Login login);

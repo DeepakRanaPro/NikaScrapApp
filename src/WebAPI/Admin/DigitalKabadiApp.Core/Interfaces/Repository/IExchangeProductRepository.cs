@@ -5,8 +5,8 @@ namespace DigitalKabadiApp.Core.Interfaces.Repository
     public interface IExchangeProductRepository
     {
         bool InsertRecord(ExchangeProduct exchangeProduct);
-        List<Core.Models.Response.ExchangeProduct> GetRecords();
-        List<Core.Models.Response.ExchangeProduct> GetRecord(int id);
+        List<Core.Models.Response.PickerboysProduct> GetRecords();
+        List<Core.Models.Response.PickerboysProduct> GetRecord(int id);
         bool Edit(Core.Models.Request.ExchangeProduct exchangeProduct);
     }
 }

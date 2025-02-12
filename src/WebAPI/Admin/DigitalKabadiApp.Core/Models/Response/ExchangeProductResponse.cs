@@ -4,10 +4,10 @@ namespace DigitalKabadiApp.Core.Models.Response
 {
     public class ExchangeProductResponse : Response
     { 
-            public List<ExchangeProduct> Data { get; set; }
+            public List<PickerboysProduct> Data { get; set; }
     }
 
-    public class ExchangeProduct
+    public class PickerboysProduct
     { 
         public int Id { get; set; }
         public string Name { get; set; }

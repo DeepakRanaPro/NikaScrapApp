@@ -19,6 +19,7 @@ namespace NikaScrapApp.Core.Models.Response
         public string ProductName { get; set; } = string.Empty;
         public string UnitName { get; set; } = string.Empty;
         public string Price { get; set; } = string.Empty;
+        public string Quantity { get; set; } = string.Empty; 
         public string AppIcon { get; set; } = string.Empty;
         public string WebAppIcon { get; set; } = string.Empty;
     }
