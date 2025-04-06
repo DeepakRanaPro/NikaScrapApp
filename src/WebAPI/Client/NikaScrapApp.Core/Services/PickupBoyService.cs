@@ -65,5 +65,55 @@ namespace NikaScrapApp.Core.Services
             }
             return responseData;
         }
+
+        public PickupHistoryList PickupHistory(int userId)
+        {
+            PickupHistoryList responseData = new PickupHistoryList();
+
+            try
+            {
+                responseData.Data = _pickupBoyRepository.PickupHistory(userId);
+
+                if (!responseData.Data.Any())
+                {
+                    responseData.IsSuccess = false;
+                    responseData.Message = "Fail";
+                    responseData.ResponseCode = 900;
+                }
+            }
+            catch (Exception ex)
+            {
+                responseData.IsSuccess = false;
+                responseData.Message = $"Exception: {ex.Message}";
+                responseData.ResponseCode = 999;
+            }
+            return responseData;
+        }
+
+
+        public PickupDetail PickupDetail(int pickupId)
+        {
+            PickupDetail responseData = new PickupDetail();
+
+            try
+            {
+                responseData.Data = _pickupBoyRepository.PickupDetail(pickupId);
+
+                if (responseData.Data == null)
+                {
+                    responseData.IsSuccess = false;
+                    responseData.Message = "Fail";
+                    responseData.ResponseCode = 900;
+                }
+            }
+            catch (Exception ex)
+            {
+                responseData.IsSuccess = false;
+                responseData.Message = $"Exception: {ex.Message}";
+                responseData.ResponseCode = 999;
+            }
+            return responseData;
+        }
+
     }
 }

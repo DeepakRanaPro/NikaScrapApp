@@ -107,6 +107,30 @@ namespace NikaScrapApp.Core.Services
                 responseData.ResponseCode = 999;
             }
             return responseData;
-        } 
+        }
+
+        public ExchangeProductsResponse ExchangeProducts(int ExchangeProductId)
+        {
+            ExchangeProductsResponse responseData = new ExchangeProductsResponse();
+
+            try
+            {
+                responseData.Data = _masterDataRepository.ExchangeProducts(ExchangeProductId);
+
+                if (!responseData.Data.Any())
+                {
+                    responseData.IsSuccess = false;
+                    responseData.Message = "Fail";
+                    responseData.ResponseCode = 900;
+                }
+            }
+            catch (Exception ex)
+            {
+                responseData.IsSuccess = false;
+                responseData.Message = $"Exception: {ex.Message}";
+                responseData.ResponseCode = 999;
+            }
+            return responseData;
+        }
     }
 }

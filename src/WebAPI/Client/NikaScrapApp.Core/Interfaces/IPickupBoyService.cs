@@ -7,5 +7,8 @@ namespace NikaScrapApp.Core.Interfaces
     {
         ResponseData InsertPickupProduct(int PickupId, List<PickupProducts> products);
         ResponseData UpdateScrapPickup(ScrapPickupByWastePicker scrapPickupByWastePicker);
+        PickupHistoryList PickupHistory(int userId);
+
+        PickupDetail PickupDetail(int pickupId);
     }
 }

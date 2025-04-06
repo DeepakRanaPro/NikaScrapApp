@@ -1,4 +1,5 @@
 ﻿using NikaScrapApp.Core.Models.Request;
+using NikaScrapApp.Core.Models.Response;
 
 namespace NikaScrapApp.Infrastructure.Repositories
 {
@@ -6,5 +7,7 @@ namespace NikaScrapApp.Infrastructure.Repositories
     {
         bool InsertPickupProduct(int PickupId, List<PickupProducts> products);
         bool UpdateScrapPickup(ScrapPickupByWastePicker scrapPickupByWastePicker);
+        List<PickupHistory> PickupHistory(int userId);
+        PickupInfo PickupDetail(int pickupId);
     }
 }

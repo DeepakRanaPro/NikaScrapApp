@@ -83,5 +83,22 @@ namespace NikaScrapApp.Infrastructure.Repositories
             }
             return result;
         }
+
+        public List<ExchangeProducts> ExchangeProducts(int ExchangeProductId)
+        {
+            List<ExchangeProducts> result = new List<ExchangeProducts>();
+
+            string sqlQuery = $" Select TbExchangeProducts.ExchangeProductId,TbExchangeProducts.Name as ProductName,Price,MstUnit.Name as UnitName from TbExchangeProducts join MstUnit on MstUnit.Id=TbExchangeProducts.UnitId WHERE TbExchangeProducts.ExchangeProductId = @Id";
+
+
+            using (var sqlConnection = new SqlConnection(_connectionString))
+            {
+                var parameters = new DynamicParameters();
+                parameters.Add("@Id", ExchangeProductId);
+
+                result = sqlConnection.Query<ExchangeProducts>(sqlQuery, parameters, commandType: CommandType.Text).ToList();
+            }
+            return result;
+        }
     }
 }

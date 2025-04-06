@@ -9,5 +9,6 @@ namespace NikaScrapApp.Core.Interfaces
         MasterDataResponse GetRoles(Request request);
         MasterDataResponse GetLocationTypes(Request request); 
         PincodeDetailsResponse GetPincodeDetails(string pincode);
+        ExchangeProductsResponse ExchangeProducts(int ExchangeProductId);
     }
 }

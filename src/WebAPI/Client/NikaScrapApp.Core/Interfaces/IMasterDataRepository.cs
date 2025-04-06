@@ -9,5 +9,7 @@ namespace NikaScrapApp.Infrastructure.Repositories
         List<MasterData> GetRoles(Request request);
         List<MasterData> GetLocationTypes(Request request);
         List<PincodeDetails> GetPincodeDetails(string pincode);
+
+        List<ExchangeProducts> ExchangeProducts(int ExchangeProductId);
     }
 }

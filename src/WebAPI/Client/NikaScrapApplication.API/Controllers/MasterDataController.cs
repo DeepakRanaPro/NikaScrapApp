@@ -63,5 +63,13 @@ namespace NikaScrapApplication.API.Controllers
             return Ok(responseData);
 
         }
+
+        [HttpGet]
+        public IActionResult ExchangeProducts(int id)
+        {
+            ExchangeProductsResponse result = new ExchangeProductsResponse();
+            result = _masterDataService.ExchangeProducts(id);
+            return Ok(result);
+        }
     }
 }

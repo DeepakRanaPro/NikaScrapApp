@@ -22,12 +22,13 @@ namespace NikaScrapApp.Core.Models.Response
         public string Remarks { get; set; } = string.Empty;
     }
 
-    public class Product
-    {
-        public int Id { get; set; }
-        public string Name { get; set; } = string.Empty;
-        public int UnitId { get; set; }
-        public decimal Price { get; set; }
-        public decimal Quantity { get; set; }
-    }
+    //public class Product
+    //{
+    //    public int ProductTypeId { get; set; }
+    //    public int Id { get; set; }
+    //    public string Name { get; set; } = string.Empty;
+    //    public int UnitId { get; set; }
+    //    public decimal Price { get; set; }
+    //    public decimal Quantity { get; set; }
+    //}
 }

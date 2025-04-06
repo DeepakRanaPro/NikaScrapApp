@@ -172,6 +172,19 @@
                         </li>
 
                         <li class="nav-item">
+                            <a class="nav-link menu-link" href="#sidebarPages" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarPages">
+                                <i class="bi bi-journal-medical"></i> <span data-key="t-pages">Payment </span>
+                            </a>
+                            <div class="collapse menu-dropdown" id="sidebarPages">
+                                <ul class="nav nav-sm flex-column">
+                                    <li class="nav-item">
+                                        <a asp-controller="Payment" asp-action="Index" class="nav-link" data-key="t-starter"> PickupBoy Account </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+
+                        <li class="nav-item">
                             <a class="nav-link menu-link" href="#sidebarAuth" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarAuth">
                                 <i class="bi bi-person-circle"></i> <span data-key="t-authentication">Manage Users</span>
                             </a>
